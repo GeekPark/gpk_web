@@ -1,0 +1,202 @@
+$color-bg = black
+$color-white = white
+$color-blue = #1da8f2
+$color-light-blue = #01a6f5
+$color-gray = #b3b3b4
+$color-black = black
+$color-border-gray = #ececec
+$color-text-gray = #949494
+// scrollbar color
+$color-scrollbar-track = #efefef
+$color-scrollbar-thumb = #b8b8b8
+$color-video-btn-hover = #2196f3
+$color-default-tag = #dd9300
+// cover gradient bgcolor
+$color-gradient-cover = linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7))
+$color-header-bg = #1b1b1b
+// $color-header-bg: #212018;
+// global translate duration
+$trans-dura = 0.2s
+// global margin
+$global-margin = 15px
+// breakding-news && topic list preview img ratio
+$image-ratio = 61%
+$video-ratio = 56.25%
+// ad in article list
+$ad-ratio-list = 10%
+// ad in sidebar
+$ad-ratio-sidebar = 84%
+// search && collection page header
+$subtopic-header-ratio = 16.8%
+$countdown-height = 70px
+$media = 'only screen and (max-width: 750px)'
+$media-min = 'only screen and (max-width: 350px)'
+
+
+.w50p
+  width: 50%
+.hidden
+  display: none !important
+.block
+  display: block
+.mt-global
+  margin-top: $global-margin
+.mb-global
+  margin-bottom: $global-margin
+.static
+  position: static
+.relative
+  position: relative
+.absolute
+  position: absolute
+.no-padding
+  padding: 0
+.tac
+  text-align: center
+.tal
+  text-align: left
+.tar
+  text-align: right
+.dib
+  display: inline-block
+img.js-lazy
+  visibility: hidden
+  &.loaded
+    visibility: visible
+dib-middle()
+  display: inline-block
+  vertical-align: middle
+.dib-middle
+  dib-middle()
+.dib-top
+  display: inline-block
+  vertical-align: top
+trs()
+  transition: all $trans-dura
+bgs($w, $h, $zoom = 1)
+  background-size: $w / $zoom $h / $zoom
+a-vertial-center()
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+centerTransform($trs)
+  transform: translate(-50%, -50%) $trs
+  transform: translate3d(-50%, -50%, 0) $trs
+a-center()
+  a-vertial-center()
+  left: 50%
+  transform: translate(-50%, -50%)
+  // fallback none 3d support
+  transform: translate3d(-50%, -50%, 0)
+.a-center
+  a-center()
+scrollbar()
+  &::-webkit-scrollbar
+    width: 5px
+  &::-webkit-scrollbar-track
+    background-color: transparent
+  &::-webkit-scrollbar-thumb
+    background-color: $color-scrollbar-track
+    border-radius: 5px
+hover-filter()
+  transition: all $trans-dura
+  &:hover
+    filter: brightness(102%) contrast(115%)
+loading($size = 40px)
+  square($size)
+  a-center()
+  content: ''
+  background: url("/static/imgs/icons/loading.gif") center center no-repeat;
+  background-size: 100% 100%
+  .svg &
+    background-image: url("/static/imgs/icons/loading.svg")
+responsive-img($ratio = $image-ratio)
+  .responsive-img
+    overflow: hidden
+    height: 0
+    padding-bottom: $ratio
+    position: relative
+    background-color: #f3f3f3
+    backface-visibility: hidden
+    .img-cover
+      a-center()
+      height: 100%
+      width: auto
+      min-width: 100%
+    &.hover.img-cover
+      hover-filter()
+    &.show-loading::before
+      loading()
+      opacity: 0.6
+responsive-img()
+border-bottom($showLast = false)
+  border-bottom: 1px solid $color-border-gray
+  if $showLast == false
+    &:last-child
+      border: 0
+      margin-bottom: 0
+      padding-bottom: 0
+mutileLineEllipsis($line, $lh)
+  // fallback for non-webkit
+  display: block
+  display: -webkit-box
+  line-height: $lh
+  max-height: ($lh * $line)
+  overflow: hidden
+  text-overflow: ellipsis
+  -webkit-line-clamp: $line
+  -webkit-box-orient: vertical
+category-tag()
+  display: inline-block
+  padding: 3px 12px
+  background-color: $color-default-tag
+  color: #fff
+  font-size: 1.2rem
+mediaMax($w)
+  @media screen and (max-width: $w)
+    {block}
+mediaMin($w)
+  @media screen and (min-width: $w)
+    {block}
+mobile()
+  @media screen and (max-width: $screen-xs-max)
+    {block}
+notMobile()
+  @media screen and (min-width: $screen-xs-max)
+    {block}
+tablet()
+  @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+    {block}
+desktop()
+  @media screen and (min-width: $screen-md-min)
+    {block}
+triangleDown($color = white)
+  &::after
+    position: absolute
+    left: 50%
+    transform: translate(-50%, 100%)
+    bottom: 0
+    display: block
+    content: ''
+    border-left: 10px solid transparent
+    border-right: 10px solid transparent
+    border-top: 10px solid $color
+.triangle-down
+  triangleDown()
+.hidden-ipad
+  mediaMax(1024px)
+.player-btn
+  display: inline-block
+  width: 42px
+  height: 42px
+  line-height: 40px
+  color: #fff
+  transition: all 0.4s ease
+  border: 1px solid rgba(255, 255, 255, 1)
+  border-radius: 3px
+  background-color: rgba(0, 0, 0, 0.5)
+  text-align: center
+  font-size: 1.2rem
+  .icon-player
+    font-size: 1.4rem
+notMobile()
