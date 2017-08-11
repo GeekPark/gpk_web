@@ -10,7 +10,7 @@
           .info-cover
             h3
               span {{item.title}}
-            p(v-if="index == 0") 柯洁输了，不过人机大战的噱头也终于快过去了。柯洁输了，不过人机大战的噱头也终于快过去了
+            p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
   .swiper-container#breakding-news-slider.breakding-news-slider(v-else)
     .swiper-wrapper
       .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')

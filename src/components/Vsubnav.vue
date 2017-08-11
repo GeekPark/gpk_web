@@ -1,13 +1,13 @@
 <template lang="jade">
 .sub-nav
   .container
-    a(href="/column/81" target="_blank") 极客之选
-    a(href="/column/85" target="_blank") 产品观察
-    a(href="/column/250" target="_blank") 极客出行
-    a(href="/column/170" target="_blank") 挖App
-    a(href="/column/251" target="_blank") 图赏
-    a(href="/column/91" target="_blank") 极客指南
-    a(href="/column/217" target="_blank") 极客制造
+    a(href="/column/81") 极客之选
+    a(href="/column/85") 产品观察
+    a(href="/column/250") 极客出行
+    a(href="/column/170") 挖App
+    a(href="/column/251") 图赏
+    a(href="/column/91") 极客指南
+    a(href="/column/217") 极客制造
 </template>
 
 <script>

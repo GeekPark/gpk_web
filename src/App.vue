@@ -30,7 +30,7 @@ html, body
   padding 0
   overflow-x hidden
   font-size 14px
-  font-family 'Helvetica Neue', 'Helvetica','Hiragino Sans GB', 'PingHei', 'PingFang SC', 'STHeitiSC-Light', 'Microsoft YaHei','Lantinghei SC', 'Arial', sans-serif
+  font-family Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Source Han Sans CN",Roboto,"Microsoft Yahei",sans-serif
 #app
   color #000
   background transparent

@@ -27,7 +27,7 @@
                   a(href="https://account.geekpark.net")
                     i.fa.fa-cog
                     | 用户设置
-                li(v-if="userInfo.roles.indexOf('admin') > -1")
+                li(v-if="userInfo.roles && userInfo.roles.indexOf('admin') > -1")
                   a(href="http://admin.geekpark.net")
                     i.fa.fa-unlock
                     | 公园后台

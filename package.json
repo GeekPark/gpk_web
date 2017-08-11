@@ -19,6 +19,7 @@
     "mdetect": "^1.2.3",
     "moment": "^2.18.1",
     "node-sass": "^4.5.3",
+    "qrious": "^4.0.2",
     "sass-loader": "^6.0.6",
     "swiper": "^3.4.2",
     "vue": "^2.1.10",

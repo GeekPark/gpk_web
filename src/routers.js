@@ -7,6 +7,7 @@ import News            from 'views/News.vue'
 import Column          from 'views/Column.vue'
 import Tag             from 'views/Tag.vue'
 import Author          from 'views/Author.vue'
+import Comment         from 'views/Comment.vue'
 
 import About           from 'views/About.vue'
 import Report          from 'views/Report.vue'
@@ -45,12 +46,17 @@ const router = new VueRouter({
     { path: '/about',
       name: 'about',
       component: About,
-      meta: {title: 'About'}
+      meta: {title: '关于极客公园'}
     },
     { path: '/report',
       name: 'report',
       component: Report,
-      meta: {title: 'Report'}
+      meta: {title: '求报道'}
+    },
+    { path: '/comment',
+      name: 'comment',
+      component: Comment,
+      meta: {title: '评论'}
     },
     { path: '*',
       component: Errors,

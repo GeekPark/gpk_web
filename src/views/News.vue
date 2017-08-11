@@ -25,6 +25,7 @@
         section.tags
           a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
         .share-wrap
+          share(:title="postsData.title")
     aside.article-sidebar
       .ad-index
       hotnews
@@ -34,9 +35,10 @@
 import api from 'stores/api'
 import moment from 'moment'
 import Hotnews from './posts/Hotnews.vue'
+import Share from '../components/Share.vue'
 
 export default {
-  components: { Hotnews },
+  components: { Hotnews, Share },
 
   data () {
     return {
@@ -126,7 +128,7 @@ export default {
     display inline-block
     background-color #ededed
     color #848484
-    margin-right 10px
+    margin 5px 10px 5px 0
     line-height 30px
     padding 0 15px
     transition all 0.3s
