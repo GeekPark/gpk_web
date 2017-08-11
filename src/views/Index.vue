@@ -58,7 +58,7 @@ export default {
   },
   data () {
     return {
-      page: 5,
+      page: 0,
       loading: true,
       homepage_posts: [],
       slider: {
