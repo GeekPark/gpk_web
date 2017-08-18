@@ -15,6 +15,12 @@ Vue.use(Element)
 Vue.component(Vheader.name,      Vheader)
 Vue.component(Vfooter.name,      Vfooter)
 
+// Vue.directive('title', {
+//   inserted: function (el, binding) {
+//     document.title = el.dataset.title
+//   }
+// })
+
 new Vue({
   el: '#app',
   store,

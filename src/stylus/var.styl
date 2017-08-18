@@ -56,6 +56,12 @@ $screen-md-max = ($screen-lg-min - 1);
   width: 50%
 .hidden
   display: none !important
+.hidden-xs
+  @media screen and (max-width: $screen-xs-max)
+    display: none !important
+.hidden-notxs
+  @media screen and (min-width: $screen-sm-min)
+    display: none !important
 .block
   display: block
 .mt-global

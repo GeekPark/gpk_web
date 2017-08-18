@@ -19,7 +19,7 @@
 
 <script>
 import api from 'stores/api'
-import QRious from 'QRious'
+import QRious from 'qrious'
 
 export default {
     name: 'share',

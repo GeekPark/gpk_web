@@ -1,12 +1,13 @@
 <template lang="jade">
 article.article-item
-  a(class="dib-top img-cover-wrap" v-bind:href="`/news/${post.id}`" target="_blank")
+  a(class="dib-top img-cover-wrap" v-bind:href="`/news/${post.id}`")
     .img-cover
       img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
   .article-info
     a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
     .article-time {{post.published_at | fromNow}}
-    h3.multiline-text-overflow {{post.title}}
+    a(v-bind:href="`/news/${post.id}`")
+      h3.multiline-text-overflow {{post.title}}
     p.multiline-text-overflow {{post.abstract}}
     .article-source
       .source-left(v-if="post.authors")

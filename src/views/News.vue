@@ -1,5 +1,6 @@
 <template lang="jade">
 #post
+  v-title {{postsData.title}}
   section.container
     .main-wrap
       article
@@ -11,9 +12,9 @@
             .article-time {{postsData.reading_time}}min read
           h1 {{postsData.title}}
           .user-info(v-if="postsData.authors")
-            a.author(:href="`/author/${postsData.authors.id}`")
-              img(:src="postsData.authors.avatar_url")
-              | {{postsData.authors.nickname}}
+            a.author(:href="`/users/${postsData.authors[0].id}`")
+              img(:src="postsData.authors[0].avatar_url")
+              | {{postsData.authors[0].nickname}}
             span.release-date {{postsData.published_at | formatDate}}
         .topic-cover
           img(:src="postsData.cover_url")
@@ -26,6 +27,10 @@
           a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
         .share-wrap
           share(:title="postsData.title")
+      .likebox(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
+        i.fa.fa-heart
+      comment(:postid="$route.params.id")
+      
     aside.article-sidebar
       .ad-index
       hotnews
@@ -36,9 +41,11 @@ import api from 'stores/api'
 import moment from 'moment'
 import Hotnews from './posts/Hotnews.vue'
 import Share from '../components/Share.vue'
+import VTitle from '../components/VTitle.vue'
+import Comment from './Comment.vue'
 
 export default {
-  components: { Hotnews, Share },
+  components: { Hotnews, Share, VTitle, Comment },
 
   data () {
     return {
@@ -66,7 +73,22 @@ export default {
         console.log(err);
         this.$message.error(err.toString())
       })
-    }
+    },
+
+    toggleLike: function(id) {
+      if (!this.$store.state.userInfo) {
+        if (confirm('喜欢需要登录喔，点击确定去登录')) window.location.href = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`;
+        return;
+      }
+      let like = this.postsData.liked ? 'unlike' : 'like'
+      api.post(`posts/${id}/${like}?access_key=${this.$store.state.access_key}`).then((res) => {
+        console.log('res', res);
+        this.postsData.liked = !this.postsData.liked;
+      }).catch((err) => {
+        console.log(err);
+        this.$message.error(err.toString())
+      })
+    },
   },
   filters: {
     formatDate: function (value) {
@@ -138,7 +160,21 @@ export default {
     width 692px
     display inline-block
     padding-bottom 120px
-
+  .likebox
+    cursor pointer
+    width 60px
+    height 60px
+    margin 20px auto 50px
+    border 1px solid #ccc
+    border-radius 50%
+    line-height 60px
+    font-size 22px
+    text-align center
+    color #999
+    transition .2s
+    &.liked
+      font-size 24px
+      color #F94C8D
   .article-content
     word-wrap break-word
     font-size 1.6rem

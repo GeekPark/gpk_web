@@ -7,7 +7,7 @@ import News            from 'views/News.vue'
 import Column          from 'views/Column.vue'
 import Tag             from 'views/Tag.vue'
 import Author          from 'views/Author.vue'
-import Comment         from 'views/Comment.vue'
+import Liked           from 'views/Liked.vue'
 
 import About           from 'views/About.vue'
 import Report          from 'views/Report.vue'
@@ -33,15 +33,20 @@ const router = new VueRouter({
       component: Column,
       meta: {title: '栏目页'}
     },
-    { path: '/tag/:tag',
-      name: 'tag',
+    { path: '/tags/:tag',
+      name: 'tags',
       component: Tag,
       meta: {title: '标签页'}
     },
-    { path: '/author/:id',
+    { path: '/users/:id',
       name: 'author',
       component: Author,
-      meta: {title: '作者页'}
+      meta: {title: '作者主页'}
+    },
+    { path: '/liked',
+      name: 'liked',
+      component: Liked,
+      meta: {title: '我的喜欢'}
     },
     { path: '/about',
       name: 'about',

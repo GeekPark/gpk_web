@@ -7,8 +7,60 @@
 </template>
 
 <script>
+import { isWechat, isMobileUA } from 'mdetect';
+import api from 'stores/api'
+
 export default {
   name: 'app',
+  mounted() {
+    if (isWechat()) {
+      // 配置
+      var url = window.location.href;
+      // let imgUrl = document.querySelector('article').querySelector('.banner').src || '7f.png';
+      var imgUrl = '';
+      var desc = '';
+      var title = '';
+      var meta = document.getElementsByTagName('meta');
+      Array.prototype.forEach.call(meta, function(item) {
+        if (item.name === 'description') {
+          desc = item.content;
+        }
+        if (item.name === 'promote_title') {
+          title = item.content;
+        }
+        if (item.name === 'promote_image') {
+          imgUrl = item.content;
+        }
+      });
+      
+      api.get(`wechat/js_config?request_url=${url}`).then(function(res) {
+        wx.config({
+          debug: false,
+          appId: res.data.appId,
+          timestamp: res.data.timestamp,
+          nonceStr: res.data.nonceStr,
+          signature: res.data.signature,
+          jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+        });
+        wx.ready(function() {
+          wx.onMenuShareTimeline({ // 分享朋友圈
+            title: title, // 分享标题
+            link: url, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+          });
+          wx.onMenuShareAppMessage({ // 分享给好友
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            link: url, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+          });
+        })
+      }).catch((err) => {
+        console.log(err);
+        this.$message.error(err.toString())
+      });
+    }
+  },
   computed: {
     isLoading () {
       return this.$store.state.isLoading;
@@ -229,4 +281,8 @@ html
 a
   text-decoration none
   cursor pointer
+
+body.modal-open
+  overflow: hidden
+  height 100vh
 </style>

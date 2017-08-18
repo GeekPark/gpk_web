@@ -1,5 +1,8 @@
 <template lang="jade">
 #index
+  .header-banner
+    h3 {{column.title}}
+    .desc {{column.description}}
   .main-content
     .container
       .article-list
@@ -51,6 +54,21 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="stylus">
+.header-banner
+  background url('../assets/imgs/column_bg.jpg') center center no-repeat;
+  background-size cover
+  color #fff
+  text-align center
+  padding 20px 0
+  height 180px
+  h3
+    margin 50px 0 40px
+    font-size 50px
+    font-weight 300
+    letter-spacing .5em
+  .desc
+    font-size 14px
+    font-weight 300
+    letter-spacing .5em
 </style>

@@ -1,71 +1,60 @@
 <template lang="jade">
-#vheader
-  header.header(v-if="!isMobileUA")
-    .container.relative.tac
+#header
+  header.header(class="hidden-xs")
+    .container.relative
       .logo
         router-link(to="/")
           img.logo-img(src="../assets/imgs/copyright.png")
         //- = render 'shared/v2/doodle'
-      .right-col
-        nav.nav.dib-middle(data-track-category="nav.global" data-track-item="a.nav-link")
-          a.nav-link.active(href="/") 资讯
-          a.nav-link(href="//events.geekpark.net" target="_blank") 活动
-          a.nav-link(href="http://f.geekpark.net" target="_blank") 前沿社
-        .header-right
-          //- .search.dib-middle#top-search(data-action=search_path data-track-category="site.search")
-          //-   a.search-btn.search-icon-anim(href="javascript:;")
-          //-     i.iconfont.icon-search
-          .account-action.dib-middle
-            .username.dib-top#user-avatar(v-if="userInfo", @click="dropmenu")
-              img(:src="userInfo.avatar_url")
-              ul#user_actions.subpanel.usermenu
-                li
-                  a(href="/user/like")
-                    i.fa.fa-user
-                    | 我喜欢的
-                li
-                  a(href="https://account.geekpark.net")
-                    i.fa.fa-cog
-                    | 用户设置
-                li(v-if="userInfo.roles && userInfo.roles.indexOf('admin') > -1")
-                  a(href="http://admin.geekpark.net")
-                    i.fa.fa-unlock
-                    | 公园后台
-                li
-                  a.logout(@click="logout")
-                    i.fa.fa-sign-out
-                    | 退出登录
-            a.signin(v-else, @click="login") 登录
-  
-      //- - if current_user
-      //-   - notification_collection = current_user.notifications.includes(:content).order(id: :desc).limit(10)
-      //-   .message.js-message.dib-top href="javascript:;" class="#{current_user.notifications.unread.present? ? 'high' : ''}"
-      //-     i.iconfont.icon-message.did-top
-      //-     .subpanel.msg-content.js-msg-content
-      //-       - if notification_collection.empty?
-      //-         .no-message 您还没有消息呢，快去留言互动吧！
-      //-       - else
-      //-         .msg-header
-      //-           .title 通知
-      //-           - if current_user.notifications.unread.present?
-      //-             a.btn.read-all.js-read-all href="javascript:;" 标记为已读
-      //-         .msg-menu.js-msg-menu
-      //-           ul.msg-list
-      //-             = render partial: 'notifications/notification', collection: notification_collection
-      //-           a.btn.load-more.js-load-more href="javascript:;" 加载更多
-      //-           span.hidden 没有更多消息了..
-  header.m-header(v-else)
-    a.sidebar-button.open#open(@click="showmenu = !showmenu")
+      nav.nav
+        a.active(href="/") 资讯
+        a(href="//events.geekpark.net" target="_blank") 活动
+        a(href="http://f.geekpark.net" target="_blank") 前沿社
+      a#search-btn.search-btn(href="javascript:;", :class="showsearch ? 'is-open' : ''", @click="showsearch = !showsearch")
+        i.iconfont.icon-search(v-if="!showsearch")
+        i.iconfont.icon-close(v-else)
+      template(v-if="userInfo")
+        //- .message.dib.js-message(href="javascript:;" class="high")
+        //-   i.fa.fa-bell-o
+        //-   .subpanel.msg-content.js-msg-content
+        //-     .no-message(v-if="true") 您还没有消息呢，快去留言互动吧！
+        //-     .msg-header
+        //-       .title 通知
+        //-       a.btn.read-all.js-read-all(v-if="true", href="javascript:;") 标记为已读
+        //-     .msg-menu.js-msg-menu
+        //-       ul.msg-list
+        //-         li 通知标题
+        //-       a.btn.load-more.js-load-more(href="javascript:;") 加载更多
+        //-       span.hidden 没有更多消息了..
+        .username.dib#user-avatar(@click="dropmenu")
+          img(:src="userInfo.avatar_url")
+          ul#user_actions.subpanel.usermenu
+            li
+              a(href="/liked")
+                | 我喜欢的
+            li
+              a(href="https://account.geekpark.net")
+                | 用户设置
+            li(v-if="userInfo.roles && userInfo.roles.indexOf('admin') > -1")
+              a(href="http://admin.geekpark.net")
+                | 公园后台
+            li
+              a.logout(@click="logout")
+                | 退出登录
+      a.signin(v-else, @click="login") 登录
+
+  header.m-header(class="hidden-notxs")
+    a.m-button.sidebar-button.open#open(:class="showmenu ? 'opened' : ''", @click="showmenu = !showmenu")
       i.fa.fa-bars(v-if="!showmenu")
-      i.iconfont.icon-close(v-else)
+      i.fa.fa-close(v-else)
     .logo
       router-link(to="/")
         img.logo-img(src="../assets/imgs/copyright.png")
     Vmenu(v-if="showmenu", :logout="logout", :login="login")
-    //- div.search-btn-wrapper#top-search(href="javascript:;" data-track-category="site.search")
-    //-   a.search-btn.search-icon-anim(href="javascript:;")
-    //-     i.iconfont.icon-search
-
+    a.m-button.search-btn.search-icon-anim(:class="showsearch ? 'opened' : ''", @click="showsearch = !showsearch")
+      i.fa.fa-search(v-if="!showsearch")
+      i.fa.fa-close(v-else)
+  search(v-if="showsearch")
 </template>
 
 <script>
@@ -74,10 +63,11 @@ import $   from 'jquery'
 import clickAtOutside           from 'click-at-outside'
 import { isWechat, isMobileUA } from 'mdetect';
 import Vmenu from './Vmenu.vue'
+import Search from './Search.vue'
 
 export default {
   name: 'vheader',
-  components: { Vmenu },
+  components: { Vmenu, Search },
   computed: {
     userInfo () {
       return this.$store.state.userInfo
@@ -90,9 +80,8 @@ export default {
   data () {
     return {
       showmenu: false,
+      showsearch: false,
       activeIndex: "1",
-      routes: [
-      ]
     }
   },
   mounted() {
@@ -100,43 +89,43 @@ export default {
   },
   methods: {
     dropmenu() {
-      const $dom = $('#user-avatar');
-      $dom.addClass('expand');
-      $('body').css('cursor', 'pointer');
+      const $dom = $('#user-avatar')
+      $dom.addClass('expand')
+      $('body').css('cursor', 'pointer')
 
       const cancle = clickAtOutside(
         $dom.get(0),
         () => {
-          $dom.removeClass('expand');
-          cancle();
+          $dom.removeClass('expand')
+          cancle()
         }
-      );
+      )
     },
     getToken() {
       api.account.get('/my/access_key').then((result) => {
         if (result.status === 200 && result.data.access_key) {
-          this.$store.state.access_key = result.data.access_key;
-          this.getUser();
+          this.$store.state.access_key = result.data.access_key
+          this.getUser()
         } else {
-          this.cleanUser();
+          this.cleanUser()
         }
       }).catch((err) => {
-        console.log(err);
+        console.log(err)
       });
     },
 
     cleanUser() {
-      localStorage.removeItem('userInfo');
-      this.$store.state.access_key = null;
-      this.$store.state.userInfo = null;
+      localStorage.removeItem('userInfo')
+      this.$store.state.access_key = null
+      this.$store.state.userInfo = null
     },
 
     getUser() {
       api.get(`admin/info?access_key=${this.$store.state.access_key}`).then((result) => {
-        this.$store.state.userInfo = result.data;
-        localStorage.setItem('userInfo', JSON.stringify(result.data));
+        this.$store.state.userInfo = result.data
+        localStorage.setItem('userInfo', JSON.stringify(result.data))
       }).catch((err) => {
-        console.log(err);
+        console.log(err)
       })
     },
 
@@ -145,16 +134,16 @@ export default {
         api.account.delete(`http://192.168.2.5:81/logout`)
       }
       finally {
-        this.cleanUser();
+        this.cleanUser()
       }
       // const url = `${api.account.defaults.baseURL}logout?referrer=${encodeURIComponent(location.href)}&access_token=${this.$store.state.access_key}`;
       // window.location.href = url;
     },
 
     login() {
-      const url = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`;
-      window.location.href = url;
-    }
+      const url = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`
+      window.location.href = url
+    },
   },
   beforeMount () {
     // this.userInfo = localStorage.getItem('userInfo')
@@ -163,13 +152,11 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 @import "../stylus/var.styl";
-
-$headerHeight = 80px
+$headerHeight = 60px
 $msg-w = 390px
-$color-header-bg = #F6F6F6
-$colorBlue = #0185F2;
+$colorBlue = #0185F2
 
 scrollbar()
   &::-webkit-scrollbar
@@ -193,90 +180,142 @@ triangleDown($color = #fff)
     border-left 10px solid transparent
     border-right 10px solid transparent
     border-top 10px solid $color
-
-dib-middle()
-  display inline-block
-  vertical-align middle
-
+    
+.subpanel
+  padding: 5px 0
+  opacity: 0
+  visibility: hidden
+  line-height: 35px
+  background-color: #fff
+  list-style-type: none
+  padding-left: 0
+  position: absolute
+  top: 100%
+  right: 0
+  margin: 0
+  z-index: 40
+  width: 120px
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3)
+  transform: translateY(10px)
+  transition: all 0.3s ease
+  triangleDown()
+  &::after
+    left: auto
+    right: 8px
+    bottom: auto
+    top: -7px
+    transform: rotate(180deg)
 
 .header
-  background-color: $color-header-bg
-  height: $headerHeight
-  position: relative
-  z-index: 200
+  line-height $headerHeight
+  // border-bottom 1px solid #F6F6F6;
+  box-shadow 0 1px 2px rgba(0,0,0,.08)
+  position relative
+  z-index 200
+  text-align right
   .logo
-    position: absolute
-    top: 0
-    left: 0
+    position absolute
+    top 0
+    left 0
     .logo-img
-      margin: (($headerHeight - 40px) / 2) 0
-      height: 40px
-  .right-col
-    float right
-    margin-top 27px
+      margin (($headerHeight - 27px) / 2) 0
+      height 27px
+      display block
   .nav
-    position: relative
-    z-index: 2
-    .nav-link
+    display inline-block
+    vertical-align middle
+    a
       font-size 1.6rem
-      line-height 30px
+      display inline-block
       font-weight bold
       color #000
-      padding 20px
+      padding 0 10px
+      margin 0 10px
       position relative
-      transition: $trans-dura
-      text-decoration: none
+      transition $trans-dura
+      text-decoration none
       &::after
-        position: absolute
-        content: ''
-        bottom: 0
-        left: 0
-        width: 100%
-        height: 4px
-        background-color: $colorBlue
-        transform: scaleY(0)
-        transform-origin: bottom
+        position absolute
+        content ''
+        bottom 0
+        left 0
+        width 100%
+        height 4px
+        background-color $colorBlue
+        transform scaleY(0)
+        transform-origin bottom
       &:hover,
       &.active
-        color: $colorBlue
+        color $colorBlue
         &::after
-          transform: scaleY(1)
-    .nav-link.gif-link
-      color: #ffcd02
-      font-size: 1.8rem
+          transform scaleY(1)
+  .username
+    cursor pointer
+    position relative
+    img
+      vertical-align middle
+      display inline-block
+      border-radius 100%
+      width 50px
+      height 50px
+    .usermenu
+      margin-top 2px
+      padding 10px 20px
+      width 70px
       &::after
-        background-color: #ffcd02
-  .header-right
-    display: inline-block
-    color: #000
+        right 15px
+      a
+        color #000
+      a:hover
+        color $colorBlue
+      li
+        border-bottom 1px solid rgba(0,0,0,.1)
+        &:last-child
+          border none
+    &.expand
+      .subpanel
+        opacity 1
+        visibility visible
+        transform translateY(0)
+        transition all 0.3s ease
+  .signin
+    background #000
+    display inline-block
+    color #fff
+    padding 0 1em
     line-height 30px
+    margin-left 1em
+    &:hover
+      color #fff
+
 
 
   .message
-    position: relative
-    display: inline-block
-    margin-right: 12px
-    cursor: pointer
-    color: #fff
+    position relative
+    display inline-block
+    margin-right 12px
+    cursor pointer
+    i
+      font-size 1.2em
     .subpanel.active
-      opacity: 1
-      visibility: visible
-      transform: translateY(0)
-      transition: all 0.3s ease
+      opacity 1
+      visibility visible
+      transform translateY(0)
+      transition all 0.3s ease
     .icon-message
-      position: relative
-      top: -1px
-      font-size: 1.8rem
-      margin: 0 12px
+      position relative
+      top -1px
+      font-size 1.8rem
+      margin 0 12px
     .count
-      font-size: 1.5rem
+      font-size 1.5rem
     .msg-content
-      width: $msg-w
-      padding: 0
-      color: #000
-      cursor: default
+      width $msg-w
+      padding 0
+      color #000
+      cursor default
       &::after
-        right: 15px
+        right 15px
   .message.high
     .icon-message::after
       content: ''
@@ -328,10 +367,10 @@ dib-middle()
       padding-bottom: 8px
       margin-bottom: 8px
     .avatar
-      width: 35px
-      position: absolute
-      top: 0
-      left: 0
+      width 35px
+      position absolute
+      top 0
+      left 0
     img
       width: 100%
       border-radius: 8px
@@ -355,151 +394,56 @@ dib-middle()
     .load-more
       line-height: 1.7
   ul
-    list-style-type: none
-    padding: 0
-    margin: 0
+    list-style-type none
+    padding 0
+    margin 0
   .msg-content::before
-    content: ''
-    position: absolute
-    left: 0
-    bottom: 0
-    width: 100%
-    height: 20px
-    background: linear-gradient(rgba(255, 255, 255, 0), white)
-    z-index: 10
-  .account-action
-    margin-left 1em
-  .signin
-    background #000
-    display inline-block
-    height 100%
-    color #fff
-    padding 0 1em
-    &:hover
-      color #fff
-
-  .subpanel
-    padding: 5px 0
-    opacity: 0
-    visibility: hidden
-    line-height: 35px
-    background-color: #fff
-    list-style-type: none
-    padding-left: 0
-    position: absolute
-    top: 100%
-    right: 0
-    margin: 0
-    z-index: 40
-    width: 120px
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3)
-    transform: translateY(10px)
-    transition: all 0.3s ease
-    triangleDown()
-    &::after
-      left: auto
-      right: 8px
-      bottom: auto
-      top: -7px
-      transform: rotate(180deg)
-
-
-  .username
-    cursor: pointer
-    position: relative
-    img
-      border-radius: 100%
-      width: 35px
-      height: 35px
-    .usermenu
-      padding 10px 20px
-      width 70px
-      &::after
-        right: 8px
-      a
-        color: #000
-      a:hover
-        color: $colorBlue
-      li
-        border-bottom 1px solid rgba(0,0,0,.1)
-        &:last-child
-          border none
-    &.expand
-      .subpanel
-        opacity: 1
-        visibility: visible
-        transform: translateY(0)
-        transition: all 0.3s ease
-
+    content ''
+    position absolute
+    left 0
+    bottom 0
+    width 100%
+    height 20px
+    background linear-gradient(rgba(255, 255, 255, 0), white)
+    z-index 10
 
   // search btn
   .search-btn
-    position: relative
-    width: 32px
-    height: 32px
-    display: inline-block
-    vertical-align: middle
-    text-align: center
-    line-height: 32px
-    cursor: pointer
-    padding: 0 12px
-    &,
-    &:hover,
-    &:focus
-      color: #000
-    .icon-search
-      font-size: 2rem
-    .iconfont
-      position: absolute
-      right: 20%
-    .icon-close::before
-      position: relative
-      right: 3px
-      top: 1px
-  .search-icon-anim
-    .iconfont
-      transition: all $trans-dura
-      transform: scale(0) rotate(180deg)
-  .search-btn.is-open .icon-close,
-  .search-btn:not(.is-open) .icon-search
-    transform: scale(1) rotate(0)
-</style>
+    position relative
+    text-align center
+    cursor pointer
+    padding 0 1em
+    i
+      font-size 1.2em
+      transition all $trans-dura
+    &.opened
+      i
+        transform scale(1) rotate(180deg)
 
-<style lang="stylus" scoped>
-@import "../stylus/var.styl";
-$header-h = 45px
 .m-header
-  border 1px solid rgba(0,0,0,0.1)
+  box-shadow 0 1px 2px rgba(0,0,0,.08)
   position fixed
   top 0
-  z-index: 101
-  width: 100%
-  will-change: transform
-  transition: transform 0.4s
-  background-color: #fff
-  transform: translate3d(0, 0, 0)
-  height: $header-h
-  display: flex
-  justify-content: center
-  align-items: center
-  color #000
-  .logo
-    display: inline-block
-    z-index: 1
+  z-index 101
+  width 100%
+  line-height 45px
+  text-align center
+  font-size 18px
   .logo-img
-    height: 25px
-  a
-    color: #000
-  .iconfont
-    font-size: 2rem
-
-.sidebar-button
-  position: absolute
-  line-height: $header-h
-  transform: scale(1) rotate(180deg)
-  transition: all $trans-dura
-  width: 30px
-  left: 0
-  z-index: 2
-
+    height 25px
+    display inline-block
+    vertical-align middle
+  .m-button
+    position absolute
+    line-height $header-h
+    width 50px
+    text-align center
+    transition all $trans-dura
+    &.opened
+      transform scale(1) rotate(180deg)
+  .sidebar-button
+    left 0
+  .search-btn
+    top 0
+    right 0
 </style>

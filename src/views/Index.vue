@@ -152,8 +152,7 @@ function toM(){
 
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="stylus">
 .breaking-news
   .info-cover
     position absolute
@@ -184,8 +183,7 @@ function toM(){
       span
         background #000
         display inline
-        line-height 1.5
-        padding 0px 10px
+        padding .3em 10px
         box-decoration-break clone
     
     &:hover
@@ -224,7 +222,7 @@ function toM(){
     text-align left
     z-index 2
     h3
-      font-size 16px
+      font-size 116px
       color #fff
       line-height 1.8
       margin 0
@@ -233,18 +231,18 @@ function toM(){
         background #000
         display inline
         line-height 1.5
-        padding 0px 10px
+        padding 14px 10px
         box-decoration-break clone
   .swiper-pagination
-    bottom: 0
+    bottom 0
   .swiper-pagination-bullet
-    margin: 0
-    height: 4px
-    border-radius: 0
-    width: 20%
-    vertical-align: bottom
-    background-color: #000
-    transition: all 0.3s
+    margin 0
+    height 4px
+    border-radius 0
+    width 20%
+    vertical-align bottom
+    background-color #000
+    transition all 0.3s
   .swiper-pagination-bullet-active
-    background-color: $color-blue
+    background-color $color-blue
 </style>

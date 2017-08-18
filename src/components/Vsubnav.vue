@@ -29,11 +29,11 @@ export default {
 <style lang="stylus" scoped>
 @import "../stylus/var.styl";
 .sub-nav
-  border-bottom 1px solid #F6F6F6;
+  background #F6F6F6
   a
     display inline-block
-    margin-right 1em
-    line-height 60px
+    margin-right 1.5em
+    line-height 48px
     font-size 18px
 </style>
 
