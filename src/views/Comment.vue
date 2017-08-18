@@ -10,7 +10,7 @@
         .c-header
           .avatar-box
             img(:src="item.commenter_info[0].avatar_url", width="40")
-            {{item.commenter_info[0].nickname}}
+            | {{item.commenter_info[0].nickname}}
           .like-box(@click="toggleLike(item, itemIndex)")
             i.like-icon
             span.like-nums 赞 {{item.like_count}}

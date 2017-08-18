@@ -5,8 +5,7 @@
     .container.relative
       .avatar
         img(:src="users.avatar_url")
-      .bio
-        {{users.bio}}
+      .bio {{users.bio}}
       .user-info
         h4 {{users.nickname}}
         p

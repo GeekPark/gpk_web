@@ -48,7 +48,7 @@ export default {
     },
   },
 
-  beforeMount () {
+  mounted () {
     this.fetch()
   }
 }

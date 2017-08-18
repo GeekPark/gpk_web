@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     fetch () {
-      api.get(`posts/${this.$route.params.id}`).then(result => {
+      api.get(`posts/${this.$route.params.id}?access_key=${this.$store.state.access_key}`).then(result => {
         console.log(result);
         this.postsData = result.data.post
       }).catch((err) => {
@@ -108,7 +108,6 @@ export default {
 #play-room
   height 480px
 #post
-  max-width 1080px
   margin 40px auto 0 auto
   .category-tag
     display inline-block

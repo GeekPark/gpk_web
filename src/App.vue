@@ -88,7 +88,7 @@ html, body
   background transparent
   width 100%
 .container
-  max-width 1200px
+  max-width 1130px
   margin 0 auto
 
 a
@@ -102,7 +102,7 @@ a
 .main-content
   margin 40px 0
   .article-list
-    width 838px
+    width 815px
     display inline-block
     .time
       border 1px solid rgba(0,0,0,0.1)
@@ -111,9 +111,8 @@ a
       line-height 40px
 .article-sidebar
   float right
-  width 285px
+  width 275px
   .ad-index
-    width 285px
     height 250px
     background #D8D8D8
     margin-bottom 50px

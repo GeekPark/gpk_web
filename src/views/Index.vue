@@ -160,8 +160,8 @@ function toM(){
     padding 0 8% 4% 4%
     text-align left
   .item
-    height 245px
-    width 340px
+    height 195px
+    width 275px
     background #ccc
     margin 0 0 10px 10px
     display inline-block
@@ -175,7 +175,7 @@ function toM(){
       margin 0 -100%
       transition transform 0.5s ease
     h3
-      font-size 16px
+      font-size 18px
       color #fff
       line-height 2
       margin 0
@@ -190,8 +190,8 @@ function toM(){
       img
         transform scale3d(1.05, 1.05, 1)
     &:first-child
-      width 500px
-      height 500px
+      width 560px
+      height 400px
       background #eee
       margin 0 0 10px 0
       float left
