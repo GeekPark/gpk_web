@@ -18,7 +18,9 @@
             span.release-date {{postsData.published_at | formatDate}}
         .topic-cover
           img(:src="postsData.cover_url")
-          //- .tips 文章引言
+          .tips
+            img(src="../assets/imgs/icons/yy.svg")
+            | 文章引言
           p {{postsData.abstract}}
         .article-content(v-html="postsData.content")
           p {{postsData.abstract}}
@@ -145,6 +147,12 @@ export default {
       line-height 1.5
       font-size 16px
       padding 20px
+    .tips
+      margin-top 40px
+      img
+        width 16px
+        vertical-align middle
+        margin-right 6px
   .tags a
     display inline-block
     background-color #ededed
@@ -176,16 +184,11 @@ export default {
       color #F94C8D
   .article-content
     word-wrap break-word
-    font-size 1.6rem
-    line-height 1.8
-    letter-spacing 0.5px
+    font-size 16px
+    line-height 1.625
     h2
       position relative
-      font-size 2.3rem
-      color #333
-      padding-left 15px
-      line-height 1.2
-      border-left 8px solid #13ac67
+      font-size 18px
     img
       display block
       max-width 100%
@@ -196,9 +199,7 @@ export default {
     img.loading
       cursor wait
     blockquote
-      color #666
-      border-left 4px solid #ddd
-      padding-left 1.5rem
+      color rgba(0, 0, 0, .6)
       margin 0
     iframe
       width 100%
@@ -215,14 +216,18 @@ export default {
         left 0
         top 0
     p
-      margin 30px 0
-    b,
-    strong
-      color #444
-    a
-      color #444
+      margin 15px 0
+      color rgba(0, 0, 0, .8)
+      img + i
+        color rgba(0, 0, 0, .6)
+        font-size 12px
+        font-style normal
+    a, a:visited
+      color rgba(0, 0, 0, .8)
       text-decoration none
-      border-bottom 1px dashed #444
+      border-bottom 1px solid #F84B8D
+  .tags
+    margin-top 30px
   @media $media
     .main-wrap
       width 100%

@@ -6,7 +6,7 @@
         input(v-model="keyword" id="search-input" placeholder="搜索文章")
       .result-wrap
         .info
-          span(v-if="count > 0") 共找到{{count}}篇文章
+          span(v-if="count > 0") 搜索结果 {{count}}
           span(v-else-if="count === 0 && keyword.length !== 0 && !isLoading") 抱歉，没有找到 {{keyword}} 相关的文章
         #result-wrap.results
           article.article-item(v-for="post in posts")
@@ -161,8 +161,7 @@ body.modal-open
     margin-top: 15px
     height: 100%
     .info
-      text-align: right
-      font-size: 1.4rem
+      font-size 1.4rem
     .results
       margin-top: 10px
       // 100px = .input-wrap + .info
@@ -175,6 +174,9 @@ body.modal-open
       font-style: normal
     p
       color: #5f5f5f
+    .article-item
+      margin 30px 0
+      line-height 1.8
   .item-title
     font-size: 1.8rem
     color: #444

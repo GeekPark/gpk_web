@@ -131,15 +131,7 @@ export default {
 
     logout() {
       try {
-        api.account.delete(`logout`).then(result => {
-          console.log(result)
-          location.href = api.account.defaults.baseURL
-        }).catch(err => {
-          console.log(err)
-          const url = `${api.account.defaults.baseURL}logout?referrer=${encodeURIComponent(location.href)}&access_token=${this.$store.state.access_key}`;
-          location.href = url
-        })
-        // api.account.delete(`http://192.168.2.5:81/logout`)
+        api.account.delete(`logout`)
       }
       finally {
         this.cleanUser()

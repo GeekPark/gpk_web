@@ -1,6 +1,6 @@
 <template lang="jade">
 #comment
-  textarea(placeholder="你有什么看法..." name="textarea-io" v-model="message" @focus="commentFocusHandler")
+  textarea(placeholder="你有什么看法..." name="textarea-io" v-model.trim="message" @focus="commentFocusHandler")
   .input-box
     input(type="button" class="submit-comment" value="发表评论" @click="submitComment")
   .comment-wrap
@@ -17,13 +17,17 @@
         .c-body {{item.content}}
         .c-rp
           .time {{item.created_at | formatDate}}
-          span(@click="toggleReplyForm(item.id)") 回复
+          span(@click="toggleReplyForm(item.id)")
+            img.icon-svg(src="../assets/imgs/icons/comment.svg")
+            | 回复
         template(v-for="reply in item.childrens")
           .comment-item.sub-comment(:id="'comment-' + reply.id", v-if="reply.commenter_info && reply.commenter_info.length > 0")
             .c-body {{reply.commenter_info[0].nickname}}: {{reply.content}}
             .c-rp
               .time {{reply.created_at | formatDate}}
-              span(@click="toggleReplyForm(item.id, reply.id)") 回复
+              span(@click="toggleReplyForm(item.id, reply.id)")
+                img.icon-svg(src="../assets/imgs/icons/comment.svg")
+                | 回复
         form.reply-form(@submit.prevent="submitReply($event, itemIndex)", style="display:none", :id="'replyForm-' + item.id")
           .textarea-wrap
             textarea(name="comment")
@@ -232,27 +236,36 @@ export default {
       transition background-color .3s
       cursor pointer
       line-height 1.5
+      padding 5px 15px
 
+  .icon-svg
+    display inline-block
+    vertical-align middle
+    width 1em
+    color currentColor
+    margin 0 .3em
   .comment-wrap
     clear both
     h3
-      padding 15px 0
+      padding 10px 0
   .comment-item
-    border-bottom 3px solid #000
-    margin 30px 0 30px 60px
+    margin 20px 0 20px 50px
     padding 20px 0
+    &:not(:last-child)
+      border-bottom 1px solid #ccc
     &.sub-comment
       border none
       margin-left 0px
       background #EBEBEB
-      padding 0 15px 15px
+      padding 0 15px 1px
 
   .avatar-box
-    margin-left -60px
+    margin-left -50px
     img
       display inline
-      margin-right .5em
+      margin-right 10px
       vertical-align middle
+      border-radius 50%
   .like-box
     float right
     margin-top -30px
@@ -265,12 +278,13 @@ export default {
       background-size auto 100%
       margin-right 3px
   .c-body
-    padding 20px 0px
+    padding 10px 0 15px
     font-weight 700
     word-break break-all
     line-height 1.5
   .c-rp
     text-align right
+    margin-bottom 15px
     .time
       float left
     span
