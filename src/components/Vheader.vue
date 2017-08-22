@@ -15,7 +15,7 @@
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")
         //- .message.dib.js-message(href="javascript:;" class="high")
-        //-   i.fa.fa-bell-o
+        //-   i.iconfont.icon-notice
         //-   .subpanel.msg-content.js-msg-content
         //-     .no-message(v-if="true") 您还没有消息呢，快去留言互动吧！
         //-     .msg-header
@@ -45,15 +45,15 @@
 
   header.m-header(class="hidden-notxs")
     a.m-button.sidebar-button.open#open(:class="showmenu ? 'opened' : ''", @click="showmenu = !showmenu")
-      i.fa.fa-bars(v-if="!showmenu")
-      i.fa.fa-close(v-else)
+      i.iconfont.icon-menu(v-if="!showmenu")
+      i.iconfont.icon-close(v-else)
     .logo
       router-link(to="/")
         img.logo-img(src="../assets/imgs/copyright.png")
     Vmenu(v-if="showmenu", :logout="logout", :login="login")
     a.m-button.search-btn.search-icon-anim(:class="showsearch ? 'opened' : ''", @click="showsearch = !showsearch")
-      i.fa.fa-search(v-if="!showsearch")
-      i.fa.fa-close(v-else)
+      i.iconfont.icon-search(v-if="!showsearch")
+      i.iconfont.icon-close(v-else)
   search(v-if="showsearch")
 </template>
 
@@ -178,7 +178,6 @@ triangleDown($color = #fff)
     border-left 10px solid transparent
     border-right 10px solid transparent
     border-top 10px solid $color
-    
 .subpanel
   padding: 5px 0
   opacity: 0
@@ -228,7 +227,7 @@ triangleDown($color = #fff)
       font-weight bold
       color #000
       padding 0 10px
-      margin 0 10px
+      margin 0 18px
       position relative
       transition $trans-dura
       text-decoration none
@@ -412,7 +411,6 @@ triangleDown($color = #fff)
     cursor pointer
     padding 0 1em
     i
-      font-size 1.2em
       transition all $trans-dura
     &.opened
       i
@@ -427,6 +425,7 @@ triangleDown($color = #fff)
   line-height 45px
   text-align center
   font-size 18px
+  background #fff
   .logo-img
     height 25px
     display inline-block

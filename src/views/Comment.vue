@@ -9,16 +9,16 @@
       .comment-item(:id="'comment-' + item.id", v-if="item.commenter_info && item.commenter_info.length > 0")
         .c-header
           .avatar-box
-            img(:src="item.commenter_info[0].avatar_url", width="40")
+            img(:src="item.commenter_info[0].avatar_url")
             | {{item.commenter_info[0].nickname}}
           .like-box(@click="toggleLike(item, itemIndex)")
-            i.like-icon
-            span.like-nums 赞 {{item.like_count}}
+            i.iconfont(:class="item.liked ? 'icon-thumbs-up' : 'icon-thumbs-o-up'")
+            | {{item.like_count}}
         .c-body {{item.content}}
         .c-rp
           .time {{item.created_at | formatDate}}
           span(@click="toggleReplyForm(item.id)")
-            img.icon-svg(src="../assets/imgs/icons/comment.svg")
+            i.iconfont.icon-comment
             | 回复
         template(v-for="reply in item.childrens")
           .comment-item.sub-comment(:id="'comment-' + reply.id", v-if="reply.commenter_info && reply.commenter_info.length > 0")
@@ -26,7 +26,7 @@
             .c-rp
               .time {{reply.created_at | formatDate}}
               span(@click="toggleReplyForm(item.id, reply.id)")
-                img.icon-svg(src="../assets/imgs/icons/comment.svg")
+                i.iconfont.icon-comment
                 | 回复
         form.reply-form(@submit.prevent="submitReply($event, itemIndex)", style="display:none", :id="'replyForm-' + item.id")
           .textarea-wrap
@@ -89,6 +89,20 @@ export default {
         content: this.message
       }).then(result => {
         console.log(result);
+        var comment = {}
+        comment.id = result.id
+        comment.commenter_info = [this.$store.state.userInfo]
+        comment.like_count = 0
+        comment.childrens = []
+        comment.content = this.message
+        comment.created_at = new Date()
+        this.comments.unshift(comment);
+        // _this.$message({
+        //   message: '回复成功！',
+        //   type: 'success'
+        // });
+        // $('#replyForm-' + _this.comments[i].id).find('textarea').val('');
+        this.message = ''
       }).catch((err) => {
         console.log(err);
         this.$message.error(err.toString())
@@ -224,6 +238,7 @@ export default {
     width 100%
     max-width 100%
     min-height 60px
+    font-size 14px
   .input-box
     text-align right
     .submit-comment
@@ -238,12 +253,8 @@ export default {
       line-height 1.5
       padding 5px 15px
 
-  .icon-svg
-    display inline-block
-    vertical-align middle
-    width 1em
-    color currentColor
-    margin 0 .3em
+  .icon-thumbs-up
+    color #F84B8D
   .comment-wrap
     clear both
     h3
@@ -266,6 +277,8 @@ export default {
       margin-right 10px
       vertical-align middle
       border-radius 50%
+      width 40px
+      height 40px
   .like-box
     float right
     margin-top -30px
@@ -290,6 +303,7 @@ export default {
     span
       cursor pointer
   @media $media
+    padding 10px
     .comment-wrap
       width 100%
 </style>

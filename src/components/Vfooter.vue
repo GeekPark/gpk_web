@@ -80,23 +80,24 @@ export default {
 
 .page-footer
   position relative
-  z-index 13
+  clear both
 .footer-wrap
   background-color #1e1e1e
   padding 60px 0 40px
-  color #5B5B5B
+  color #fff
   line-height 1.7
   section
     display inline-block
     vertical-align top
     margin-right 100px
+    font-size 14px
   .contact
     width 350px
   h4
     font-size 18px
     font-weight normal
   a
-    color #5B5B5B
+    color #fff
   a:hover
     color #fff
   ul
@@ -139,7 +140,7 @@ export default {
       opacity: 1
       transform: translate(-50%, -100%) scale(1)
 .footer-copyright
-  color: #666
+  color: #5B5B5B
   background-color: #000
   line-height: 55px
   overflow hidden

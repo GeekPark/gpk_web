@@ -19,8 +19,8 @@
         .topic-cover
           img(:src="postsData.cover_url")
           .tips
-            img(src="../assets/imgs/icons/yy.svg")
-            | 文章引言
+            i.iconfont.icon-quotes
+            | 摘要
           p {{postsData.abstract}}
         .article-content(v-html="postsData.content")
           p {{postsData.abstract}}
@@ -29,8 +29,11 @@
           a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
         .share-wrap
           share(:title="postsData.title")
-      .likebox(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
-        i.fa.fa-heart
+
+      .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
+        span.like-icon
+          .heart-animation-1
+          .heart-animation-2
       comment(:postid="$route.params.id")
       
     aside.article-sidebar
@@ -107,6 +110,10 @@ export default {
 
 <style lang="stylus">
 @import "../stylus/var.styl";
+$gray = #c7c7c7
+$pink = #f94c8d
+$bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
+
 #play-room
   height 480px
 #post
@@ -124,7 +131,8 @@ export default {
   .article-time
     display inline-block
     font-size 14px
-
+  h1
+    line-height 1.5
   .user-info
     border-bottom 1px solid #ddd
     padding-bottom 10px
@@ -164,24 +172,10 @@ export default {
   
 
   .main-wrap
-    width 692px
+    max-width 692px
+    width 100%
     display inline-block
     padding-bottom 120px
-  .likebox
-    cursor pointer
-    width 60px
-    height 60px
-    margin 20px auto 50px
-    border 1px solid #ccc
-    border-radius 50%
-    line-height 60px
-    font-size 22px
-    text-align center
-    color #999
-    transition .2s
-    &.liked
-      font-size 24px
-      color #F94C8D
   .article-content
     word-wrap break-word
     font-size 16px
@@ -228,6 +222,132 @@ export default {
       border-bottom 1px solid #F84B8D
   .tags
     margin-top 30px
+    
+.like-button
+  border: 1px solid $gray
+  border-radius: 50%
+  color: darken($gray, 25%)
+  transition: all 0.25s $bezier
+  filter: grayscale(100%)
+  user-select none
+  width 60px
+  height 60px
+  margin 20px auto 50px
+  cursor pointer
+  &.liked
+    color: $pink
+    filter: grayscale(0)
+  &:hover
+    border-color: currentColor
+.like-icon
+  width: 60px
+  height: 60px
+  display: inline-block
+  position: relative
+  background: url("../assets/imgs/icons/heart.svg") no-repeat center
+  background-size: 50%
+  animation: heartUnlike 0.25s $bezier both
+.liked .like-icon
+  animation: heartPulse 0.25s $bezier both
+  [class^="heart-animation-"]
+    background: url("../assets/imgs/icons/heart.svg") no-repeat center
+    background-size: 100%
+    display: block
+    position: absolute
+    top: 0
+    left: 20px
+    width: 16px
+    height: 14px
+    opacity: 0
+    &::before, &::after
+      content: ''
+      background: inherit
+      background-size: 100%
+      width: inherit
+      height: inherit
+      display: inherit
+      position: relative
+      top: inherit
+      left: inherit
+      opacity: 0
+  .heart-animation-1
+    animation: heartFloatMain-1 1s $bezier both
+    &::before, &::after
+      width: 12px
+      height: 10px
+      visibility: hidden
+    &::before
+      opacity: .6
+      animation: heartFloatSub-1 1s 0.25s $bezier both
+    &::after
+      animation: heartFloatSub-2 1s 0.15s $bezier both
+      opacity: .75
+  .heart-animation-2
+    animation: heartFloatMain-2 1s 0.1s $bezier both
+    &::before, &::after
+      width: 10px
+      height: 8px
+      visibility: hidden
+    &::before
+      animation: heartFloatSub-3 1s 0.25s $bezier both
+      opacity: .25
+    &::after
+      animation: heartFloatSub-4 1s 0.15s $bezier both
+      opacity: .4
+  // Animations
+  @keyframes heartPulse
+    0%
+      transform: scale(1)
+    50%
+      transform: scale(1.5)
+  @keyframes heartUnlike
+    50%
+      transform: scale(0.75)
+  @keyframes heartFloatMain-1
+    0%
+      opacity: 0
+      transform: translate(0) rotate(0)
+    50%
+      opacity: 1
+      transform: translate(0, -25px) rotate(-20deg)
+  @keyframes heartFloatMain-2
+    0%
+      opacity: 0
+      transform: translate(0) rotate(0) scale(0)
+    50%
+      opacity: .9
+      transform: translate(-10px, -38px) rotate(25deg) scale(1)
+  @keyframes heartFloatSub-1
+    0%
+      visibility: hidden
+      transform: translate(0) rotate(0)
+    50%
+      visibility: visible
+      transform: translate(13px, -13px) rotate(30deg)
+  @keyframes heartFloatSub-2
+    0%
+      visibility: hidden
+      transform: translate(0) rotate(0)
+    50%
+      visibility: visible
+      transform: translate(18px, -10px) rotate(55deg)
+  @keyframes heartFloatSub-3
+    0%
+      visibility: hidden
+      transform: translate(0) rotate(0)
+    50%
+      visibility: visible
+      transform: translate(-10px, -10px) rotate(-40deg)
+    100%
+      transform: translate(-50px, 0)
+  @keyframes heartFloatSub-4
+    0%
+      visibility: hidden
+      transform: translate(0) rotate(0)
+    50%
+      visibility: visible
+      transform: translate(2px, -18px) rotate(-25deg)
+
   @media $media
     .main-wrap
       width 100%

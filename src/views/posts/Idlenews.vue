@@ -42,7 +42,8 @@ export default {
   padding 20px
   margin 25px 0
   h3
-    font-size 22px
+    font-size 20px
+    font-weight 500
     margin 0
   .news-item
     margin 20px 0

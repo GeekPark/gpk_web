@@ -8,7 +8,7 @@ function printLog(title, info) {
 }
 
 export default {
-  moment: (obj, format = 'YYYY-MM-DD HH:mm:ss') => {
+  moment: (obj, format = 'YYYY/MM/DD HH:mm:ss') => {
     return moment(obj).format(format)
   },
   editor: function (vm) {

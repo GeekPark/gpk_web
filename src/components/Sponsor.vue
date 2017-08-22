@@ -11,7 +11,7 @@
       a(v-bind:href="ad.url" target="_blank" v-bind:title="ad.title" data-track-category="ad" v-bind:data-track-label="[name, ad.title, ad.url].join(' ')")
         img(v-bind:src="ad.cover" data-vw=vw v-bind:alt="ad.title")
     i.icon-ad
-    i.icon-close.js-ad-close(data-track-category="ads[0].close" v-bind:data-track-label="[name, ads[0].title]" v-on:click="closeAd")
+    i.icon-ad-close.js-ad-close(data-track-category="ads[0].close" v-bind:data-track-label="[name, ads[0].title]" v-on:click="closeAd")
 </template>
 
 <script>
@@ -78,7 +78,7 @@ export default {
       vertical-align: top
   i.icon-ad
     background-position: 0 -25px
-  i.icon-close
+  i.icon-ad-close
     transform: scale(0)
     cursor: pointer
   img
@@ -87,7 +87,7 @@ export default {
     width: 100%
     height: 100%
   &:hover
-    i.icon-close
+    i.icon-ad-close
       transform: scale(1)
     i.icon-ad
       transform: scale(0)

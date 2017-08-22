@@ -8,7 +8,7 @@
         a(class="link", :href="`/news/${item.id}`", target="_blank")
           img(:alt="item.title", class="img-cover loaded", :src="item.cover_url")
           .info-cover
-            h3
+            h3.multiline-text-overflow
               span {{item.title}}
             p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
   .swiper-container#breakding-news-slider.breakding-news-slider(v-else)
@@ -17,14 +17,17 @@
         a.link(:href="`/news/${item.id}`")
           img.img-cover(:src="item.cover_url")
           .info-cover
-            h3
+            h3.multiline-text-overflow
               span {{item.title}}
   .main-content
     .container
       .article-list
         template(v-for="posts in homepage_posts")
-          .time {{posts.date | formatDate}}
-          item(v-for="post in posts.data", :key="post.post.id", :post="post.post")
+          .time
+            i.iconfont.icon-arrow-left
+            | {{posts.date | formatDate}}
+            i.iconfont.icon-arrow-right
+          item(v-for="item in posts.data", :key="item.post.id", :post="item.post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
             .loading-article
@@ -38,7 +41,6 @@
 
 <script>
 require('swiper/dist/css/swiper.min.css');
-
 import Subnav from '../components/Vsubnav.vue'
 import Sponsor from '../components/Sponsor.vue'
 import Item from './posts/Item.vue'
@@ -114,20 +116,19 @@ export default {
         })
       }
     },
-    
   },
   filters: {
     formatDate: function (value) {
       if (!value) return ''
       let str;
       const time = moment.unix(value);
-      str = time.format(" /\ ddd");
+      str = time.format(`ddd.`);
       return time.calendar(null, {
         sameDay: '今天',
         lastDay: '昨天',
-        lastWeek: '上周 dddd',
+        lastWeek: '上周',
         sameElse: 'MM.DD'
-      }) + str
+      }) + ' \\ ' + str
     }
   },
   beforeMount () {
@@ -154,6 +155,7 @@ function toM(){
 
 <style lang="stylus">
 .breaking-news
+  margin-bottom -10px
   .info-cover
     position absolute
     bottom 0
@@ -163,6 +165,8 @@ function toM(){
     height 195px
     width 275px
     background #ccc
+    border 1px solid #F0F0F0
+    box-sizing border-box
     margin 0 0 10px 10px
     display inline-block
     vertical-align top
@@ -179,13 +183,12 @@ function toM(){
       color #fff
       line-height 2
       margin 0
-      font-weight normal
+      font-weight 500
       span
         background #000
         display inline
         padding .3em 10px
         box-decoration-break clone
-    
     &:hover
       img
         transform scale3d(1.05, 1.05, 1)
@@ -196,17 +199,17 @@ function toM(){
       margin 0 0 10px 0
       float left
       h3
-        font-size 22px
+        font-size 20px
       p
         background rgba(0, 0, 0, .5)
         color #fff
+        font-weight 400
         font-size 14px
-        line-height 24px
-        padding 0 10px
+        line-height 1.5
+        padding 6px 10px
         margin 10px 0 0 0
 .breakding-news-slider
   height 180px
-  // padding-bottom: 61.8%
   overflow: hidden
   position relative
   .swiper-slide
@@ -222,7 +225,7 @@ function toM(){
     text-align left
     z-index 2
     h3
-      font-size 116px
+      font-size 16px
       color #fff
       line-height 1.8
       margin 0
@@ -231,7 +234,7 @@ function toM(){
         background #000
         display inline
         line-height 1.5
-        padding 14px 10px
+        padding 4px 10px
         box-decoration-break clone
   .swiper-pagination
     bottom 0

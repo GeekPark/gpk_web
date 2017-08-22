@@ -6,7 +6,7 @@
       .news-cover
         span {{index + 1}}
         img(alt="", :src="post.cover_url")
-      p.multiline-text-overflow {{post.abstract}}
+      p.multiline-text-overflow {{post.title}}
 </template>
 
 <script>

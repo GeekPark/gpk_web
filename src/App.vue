@@ -70,12 +70,14 @@ export default {
 </script>
 
 <style lang="stylus">
-@import "stylus/pc-icon.styl";
-@import "stylus/var.styl";
+@import "assets/fonts/iconfont.css"
+@import "stylus/var.styl"
 $siderrWidth = 200px
 $headerHeight = 80px
-
-
+.iconfont
+  font-size inherit
+  margin 0 .25em
+  outline none
 html, body
   width 100%
   margin 0
@@ -83,6 +85,11 @@ html, body
   overflow-x hidden
   font-size 14px
   font-family Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Source Han Sans CN",Roboto,"Microsoft Yahei",sans-serif
+div, a, img
+  -webkit-tap-highlight-color transparent
+  -webkit-touch-callout none
+  -webkit-user-select none
+  user-select none
 #app
   color #000
   background transparent
@@ -90,7 +97,9 @@ html, body
 .container
   max-width 1130px
   margin 0 auto
-
+h3
+  font-size 20px
+  font-weight 500
 a
   color #000
 .multiline-text-overflow
@@ -100,7 +109,7 @@ a
   -webkit-line-clamp 2
   -webkit-box-orient vertical
 .main-content
-  margin 40px 0
+  margin 50px 0
   .article-list
     width 815px
     display inline-block
@@ -151,7 +160,6 @@ a
   &.no-more
     display none
 @media $media
-  @import "stylus/mobile-icon.styl";
   #app
     padding-top 45px
   .sub-nav
