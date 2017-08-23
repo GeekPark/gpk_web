@@ -183,10 +183,9 @@ function toM(){
       color #fff
       line-height 2
       margin 0
-      font-weight 500
+      font-weight 400
       span
         background #000
-        display inline
         padding .3em 10px
         box-decoration-break clone
     &:hover
@@ -200,10 +199,12 @@ function toM(){
       float left
       h3
         font-size 20px
+        // linear-gradient (transparent, transparent 0.1em, #000 0px, #000 1.85em, transparent 0)
+        background linear-gradient(to bottom, transparent 0.1em, black 0.1em, black 1.85em, transparent 1.85em)
       p
         background rgba(0, 0, 0, .5)
         color #fff
-        font-weight 400
+        font-weight 300
         font-size 14px
         line-height 1.5
         padding 6px 10px

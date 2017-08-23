@@ -1,6 +1,6 @@
 <template lang="jade">
 article.article-item
-  template(v-if="post.column.id === 251")
+  template(v-if="(columnId || post.column.id) === 251")
     a(class="dib-top img-cover-wrap tushang" v-bind:href="`/news/${post.id}`")
       .img-cover
         img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
@@ -15,7 +15,7 @@ article.article-item
       a(v-bind:href="`/news/${post.id}`")
         h3.multiline-text-overflow {{post.title}}
 
-  //- template(v-else-if="post.column.id === 74")
+  //- template(v-else-if="(columnId || post.column.id) === 74")
   //-   .zaozhidao
   //-     .article-info
   //-       .article-zaozhidao

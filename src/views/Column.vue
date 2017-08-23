@@ -56,7 +56,7 @@ export default {
 
 <style lang="stylus">
 .header-banner
-  background url('../assets/imgs/column_bg.jpg') center center no-repeat;
+  background url('../assets/imgs/column_bg.jpg') center center no-repeat
   background-size cover
   color #fff
   text-align center

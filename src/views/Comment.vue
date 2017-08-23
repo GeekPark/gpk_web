@@ -3,15 +3,17 @@
   textarea(placeholder="你有什么看法..." name="textarea-io" v-model.trim="message")
   .input-box
     input(type="button" class="submit-comment" value="发表评论" @click="submitComment")
-  .comment-wrap
-    h3 热门评论
+  .comment-wrap(v-if="comments.length")
+    h3
+      i.iconfont.icon-double-slash
+      | 热门评论
     template(v-for="(item, itemIndex) in comments")
       .comment-item(:id="'comment-' + item.id", v-if="item.commenter_info && item.commenter_info.length > 0")
         .c-header
           .avatar-box
             img(:src="item.commenter_info[0].avatar_url")
             | {{item.commenter_info[0].nickname}}
-          .like-box(@click="toggleLike(item, itemIndex)", :class="{'liked': item.liked}")
+          .like-box(@click="toggleLike(item, itemIndex)", :class="{'liked animated bounceIn': item.liked}")
             i.iconfont(:class="item.liked ? 'icon-thumbs-up' : 'icon-thumbs-o-up'")
             | {{item.like_count}}
         .c-body {{item.content}}
@@ -41,6 +43,7 @@ import api from 'stores/api'
 import moment from 'moment'
 
 let loginURL
+const access_key = localStorage.getItem('access_key')
 
 export default {
   props: ['postid'],
@@ -57,7 +60,7 @@ export default {
   },
   methods: {
     fetch () {
-      api.get(`posts/${this.postid}/comments`).then(result => {
+      api.get(`posts/${this.postid}/comments?access_key=${access_key}`).then(result => {
         console.log(result, location.hash);
         this.comments = result.data.comments
         this.commentLoaded = true;
@@ -85,7 +88,7 @@ export default {
         this.$message.error('请填写评论内容')
         return
       }
-      api.post(`posts/${this.postid}/comments?access_key=${this.$store.state.access_key}`, {
+      api.post(`posts/${this.postid}/comments?access_key=${access_key}`, {
         content: this.message
       }).then(result => {
         console.log(result);
@@ -147,7 +150,7 @@ export default {
       //   target: e.target,
       // });
       var _this = this;
-      api.post(`posts/${this.postid}/comments?access_key=${this.$store.state.access_key}`, {
+      api.post(`posts/${this.postid}/comments?access_key=${access_key}`, {
         content: commentContent,
         parent_id: commentId
       }).then(function(res) {
@@ -171,7 +174,7 @@ export default {
       }
       let like = item.liked ? 'unlike' : 'like'
       console.log(item, index);
-      api.post(`posts/${this.postid}/comments/${item.id}/${like}?access_key=${this.$store.state.access_key}`).then((res) => {
+      api.post(`posts/${this.postid}/comments/${item.id}/${like}?access_key=${access_key}`).then((res) => {
         console.log('res', res);
         if (item.liked) {
           item.liked = false;
@@ -223,7 +226,9 @@ export default {
 </script>
 
 <style lang="stylus">
-@import "../stylus/var.styl";
+@import "../stylus/var.styl"
+
+
 #comment
   box-sizing border-box
   background #F6F6F6
@@ -307,8 +312,11 @@ export default {
       float left
     span
       cursor pointer
-  @media $media
-    padding 10px
+  .reply-form
+    margin-right -15px
+  @media screen and (max-width: $screen-xs-max)
+    // padding 10px
     .comment-wrap
       width 100%
+
 </style>

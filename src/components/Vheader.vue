@@ -105,6 +105,7 @@ export default {
       api.account.get('/my/access_key').then((result) => {
         if (result.status === 200 && result.data.access_key) {
           this.$store.state.access_key = result.data.access_key
+          localStorage.setItem('access_key', result.data.access_key)
           this.getUser()
         } else {
           this.cleanUser()
@@ -115,13 +116,14 @@ export default {
     },
 
     cleanUser() {
+      localStorage.removeItem('access_key')
       localStorage.removeItem('userInfo')
       this.$store.state.access_key = null
       this.$store.state.userInfo = null
     },
 
     getUser() {
-      api.get(`admin/info?access_key=${this.$store.state.access_key}`).then((result) => {
+      api.get(`admin/info?access_key=${localStorage.getItem("access_key")}`).then((result) => {
         this.$store.state.userInfo = result.data
         localStorage.setItem('userInfo', JSON.stringify(result.data))
       }).catch((err) => {
@@ -266,6 +268,7 @@ triangleDown($color = #fff)
         color $colorBlue
       li
         border-bottom 1px solid rgba(0,0,0,.1)
+        text-align center
         &:last-child
           border none
     &.expand

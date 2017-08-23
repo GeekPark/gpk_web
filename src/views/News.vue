@@ -4,10 +4,9 @@
   section.container
     .main-wrap
       article
-        header
-          .video-player-area(v-if="postsData.post_type == 'video'")
-            #play-room(v-if="postsData.extra.video_provider == 'cc'")
-          .label.article-info(v-else)
+        #play-room(:class="{'video-player': postsData.post_type == 'video'}")
+        header.post-header(:class="{'video': postsData.post_type == 'video'}")
+          .label.article-info(v-if="postsData.post_type !== 'video'")
             a.category-tag(:href="`/column/${postsData.column && postsData.column.id}`" target="_blank")  {{postsData.column && postsData.column.title}}
             .article-time {{postsData.reading_time}}min read
           h1 {{postsData.title}}
@@ -34,6 +33,7 @@
         span.like-icon
           .heart-animation-1
           .heart-animation-2
+      //- {{postsData.like_count}}
       comment(:postid="$route.params.id")
       
     aside.article-sidebar
@@ -48,6 +48,7 @@ import Hotnews from './posts/Hotnews.vue'
 import Share from '../components/Share.vue'
 import VTitle from '../components/VTitle.vue'
 import Comment from './Comment.vue'
+const access_key = localStorage.getItem('access_key')
 
 export default {
   components: { Hotnews, Share, VTitle, Comment },
@@ -57,21 +58,22 @@ export default {
       postsData: {}
     }
   },
-  mounted() {
-    setTimeout(() => {
-      const el = document.getElementById('play-room');
-      console.log('video', el);
-      if (el) {
+  watch: {
+    'postsData.post_type': function (val, oldVal) {
+      console.log('watch video', val);
+      if (val === 'video') {
+        const el = document.getElementById('play-room');
         let videoScript = document.createElement('script');
         videoScript.src = `//union.bokecc.com/player?vid=${this.postsData.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
         videoScript.type ='text/javascript';
         el.innerHTML = '';
         el.appendChild(videoScript);
-      }}, 1500)
+      }
+    }
   },
   methods: {
     fetch () {
-      api.get(`posts/${this.$route.params.id}?access_key=${this.$store.state.access_key}`).then(result => {
+      api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
         console.log(result);
         this.postsData = result.data.post
       }).catch((err) => {
@@ -86,7 +88,7 @@ export default {
         return;
       }
       let like = this.postsData.liked ? 'unlike' : 'like'
-      api.post(`posts/${id}/${like}?access_key=${this.$store.state.access_key}`).then((res) => {
+      api.post(`posts/${id}/${like}?access_key=${access_key}`).then((res) => {
         console.log('res', res);
         this.postsData.liked = !this.postsData.liked;
       }).catch((err) => {
@@ -115,7 +117,20 @@ $pink = #f94c8d
 $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
 
 #play-room
-  height 480px
+  &.video-player
+    position relative
+    padding-bottom 56.288%
+    overflow hidden
+    height 0px
+    & > div
+      position absolute !important
+      left 0
+      top 0
+      bottom 0
+      right 0
+    @media screen and (max-width: 767px)
+      margin 0 -20px
+      padding-bottom 63%
 #post
   margin 40px auto 0 auto
   .category-tag
@@ -127,16 +142,17 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     margin-right 1em
     font-weight bold
     color #000
-
+  .post-header
+    margin-bottom 30px
+    border-bottom 1px solid #ddd
   .article-time
     display inline-block
     font-size 14px
   h1
     line-height 1.5
+    font-size 26px
   .user-info
-    border-bottom 1px solid #ddd
-    padding-bottom 10px
-    margin-bottom 30px
+    padding-bottom 15px
     img
       width 40px
       height 40px
@@ -188,7 +204,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     h2
       position relative
       font-size 18px
-      margin 60px 0 15px
+      margin 30px 0 15px
     img
       display block
       max-width 100%
@@ -228,6 +244,21 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       border-bottom 1px solid #F84B8D
   .tags
     margin-top 30px
+  @media screen and (max-width: 767px)
+    margin 0
+    .post-header
+      padding 20px 20px 10px 15px
+      margin 0 -20px 20px
+      border-left 5px solid #DCD900
+      &.video
+        border-left-color #F84B8D
+    .main-wrap
+      width 100%
+    h1
+      font-size 22px
+    .article-content
+      iframe
+        height 51vw
     
 .like-button
   border: 1px solid $gray
@@ -300,61 +331,58 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     &::after
       animation: heartFloatSub-4 1s 0.15s $bezier both
       opacity: .4
-  // Animations
-  @keyframes heartPulse
-    0%
-      transform: scale(1)
-    50%
-      transform: scale(1.5)
-  @keyframes heartUnlike
-    50%
-      transform: scale(0.75)
-  @keyframes heartFloatMain-1
-    0%
-      opacity: 0
-      transform: translate(0) rotate(0)
-    50%
-      opacity: 1
-      transform: translate(0, -25px) rotate(-20deg)
-  @keyframes heartFloatMain-2
-    0%
-      opacity: 0
-      transform: translate(0) rotate(0) scale(0)
-    50%
-      opacity: .9
-      transform: translate(-10px, -38px) rotate(25deg) scale(1)
-  @keyframes heartFloatSub-1
-    0%
-      visibility: hidden
-      transform: translate(0) rotate(0)
-    50%
-      visibility: visible
-      transform: translate(13px, -13px) rotate(30deg)
-  @keyframes heartFloatSub-2
-    0%
-      visibility: hidden
-      transform: translate(0) rotate(0)
-    50%
-      visibility: visible
-      transform: translate(18px, -10px) rotate(55deg)
-  @keyframes heartFloatSub-3
-    0%
-      visibility: hidden
-      transform: translate(0) rotate(0)
-    50%
-      visibility: visible
-      transform: translate(-10px, -10px) rotate(-40deg)
-    100%
-      transform: translate(-50px, 0)
-  @keyframes heartFloatSub-4
-    0%
-      visibility: hidden
-      transform: translate(0) rotate(0)
-    50%
-      visibility: visible
-      transform: translate(2px, -18px) rotate(-25deg)
-
-  @media $media
-    .main-wrap
-      width 100%
+  
+// Animations
+@keyframes heartPulse
+  0%
+    transform: scale(1)
+  50%
+    transform: scale(1.5)
+@keyframes heartUnlike
+  50%
+    transform: scale(0.75)
+@keyframes heartFloatMain-1
+  0%
+    opacity: 0
+    transform: translate(0) rotate(0)
+  50%
+    opacity: 1
+    transform: translate(0, -25px) rotate(-20deg)
+@keyframes heartFloatMain-2
+  0%
+    opacity: 0
+    transform: translate(0) rotate(0) scale(0)
+  50%
+    opacity: .9
+    transform: translate(-10px, -38px) rotate(25deg) scale(1)
+@keyframes heartFloatSub-1
+  0%
+    visibility: hidden
+    transform: translate(0) rotate(0)
+  50%
+    visibility: visible
+    transform: translate(13px, -13px) rotate(30deg)
+@keyframes heartFloatSub-2
+  0%
+    visibility: hidden
+    transform: translate(0) rotate(0)
+  50%
+    visibility: visible
+    transform: translate(18px, -10px) rotate(55deg)
+@keyframes heartFloatSub-3
+  0%
+    visibility: hidden
+    transform: translate(0) rotate(0)
+  50%
+    visibility: visible
+    transform: translate(-10px, -10px) rotate(-40deg)
+  100%
+    transform: translate(-50px, 0)
+@keyframes heartFloatSub-4
+  0%
+    visibility: hidden
+    transform: translate(0) rotate(0)
+  50%
+    visibility: visible
+    transform: translate(2px, -18px) rotate(-25deg)
 </style>

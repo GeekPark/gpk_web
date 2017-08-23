@@ -9,33 +9,21 @@
           span(v-if="count > 0") 共找到 {{count}} 篇文章
           span(v-else-if="count === 0 && keyword.length !== 0 && !isLoading") 抱歉，没有找到 {{keyword}} 相关的文章
         #result-wrap.results
-          article.article-item(v-for="post in posts")
+          article.article-items(v-for="post in posts")
             .article-info
               a(v-bind:href="`/news/${post.id}`")
-                h3.multiline-text-overflow {{post.title}}
-              p.multiline-text-overflow {{post.abstract}}
+                h3.multiline-text-overflow(v-html="highlights(post.title, keyword)")
+              p.multiline-text-overflow(v-html="highlights(post.abstract, keyword)")
           span(v-if="isOver") 没有更多内容了~
 </template>
 
 <script>
 import api from 'stores/api'
 import $   from 'jquery'
-import { isWechat, isMobileUA } from 'mdetect'
-import Item from '../views/posts/Item.vue'
-
 let page = 1
 
 
 export default {
-  components: { Item },
-  computed: {
-    userInfo () {
-      return this.$store.state.userInfo
-    },
-    isMobileUA () {
-      return isMobileUA()
-    }
-  },
   data () {
     return {
       keyword: '',
@@ -87,6 +75,11 @@ export default {
         this.isOver = false
         this.loadMore()
       }
+    },
+    highlights(value, keyword) {
+      if (!value || !keyword) return value
+      let re =new RegExp(keyword, "gim");
+      return value.replace(re, `<em>${keyword}</em>`);
     }
   },
   beforeMount () {
@@ -174,7 +167,7 @@ body.modal-open
       font-style: normal
     p
       color: #5f5f5f
-    .article-item
+    .article-items
       margin 30px 0
       line-height 1.8
   .item-title
