@@ -7,8 +7,12 @@ footer.page-footer#footer
         p 联系电话：8610-84599761
         p 联系邮箱：
           a.normal-link(href="mailto:contact@geekpark.net") contact@geekpark.net
-        p 公司地址：北京市朝阳区酒仙桥路4号751 D·Park 正东集团院内 C8座105室 极客公园
-        p 关注我们
+        p
+          | 公司地址：北京市朝阳区酒仙桥路4号751 D·Park
+          br
+          | 　　　　　正东集团院内 C8座105室 极客公园
+        p
+          span(style="color: #DCD900") 关注我们
           a.weibo.share-btn(href="//weibo.com/geekpark" target="_blank" data-track-label="weibo")
             .iconfont.icon-weibo
           a.twitter.share-btn(href="//twitter.com/geekparknet" target="_blank" data-track-label="twitter")
@@ -86,11 +90,14 @@ export default {
   padding 60px 0 40px
   color #fff
   line-height 1.7
+  font-weight 300
   section
     display inline-block
     vertical-align top
     margin-right 100px
     font-size 14px
+    .normal-link
+      color #0185F2
   .contact
     width 350px
   h4
@@ -129,12 +136,14 @@ export default {
   .wechat-qr
     position absolute
     opacity: 0
-    top: -5px
+    top: -10px
     left: 50%
     transform: translate(-50%, -90%) scale(0)
     transform-origin: bottom
     transition: all 0.2s
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)
+    img
+      vertical-align bottom
   .wechat.share-btn:hover
     .wechat-qr
       opacity: 1

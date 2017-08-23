@@ -163,11 +163,12 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
         margin-right 6px
   .tags a
     display inline-block
-    background-color #ededed
-    color #848484
+    background-color #5B5B5B
+    color #fff
     margin 5px 10px 5px 0
-    line-height 30px
-    padding 0 15px
+    line-height 24px
+    padding 0 1em
+    font-size 12px
     transition all 0.3s
   
 
@@ -180,9 +181,14 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     word-wrap break-word
     font-size 16px
     line-height 1.625
+    b
+      color #fff
+      font-weight normal
+      background #000
     h2
       position relative
       font-size 18px
+      margin 60px 0 15px
     img
       display block
       max-width 100%

@@ -220,7 +220,6 @@ triangleDown($color = #fff)
       display block
   .nav
     display inline-block
-    vertical-align middle
     a
       font-size 1.6rem
       display inline-block
@@ -406,10 +405,9 @@ triangleDown($color = #fff)
 
   // search btn
   .search-btn
-    position relative
-    text-align center
     cursor pointer
-    padding 0 1em
+    font-size 1.5em
+    margin-right 28px
     i
       transition all $trans-dura
     &.opened

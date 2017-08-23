@@ -52,58 +52,9 @@ $screen-xs-max = ($screen-sm-min - 1);
 $screen-sm-max = ($screen-md-min - 1);
 $screen-md-max = ($screen-lg-min - 1);
 
-.w50p
-  width: 50%
-.hidden
-  display: none !important
-.hidden-xs
-  @media screen and (max-width: $screen-xs-max)
-    display: none !important
-.hidden-notxs
-  @media screen and (min-width: $screen-sm-min)
-    display: none !important
-.block
-  display: block
-.mt-global
-  margin-top: $global-margin
-.mb-global
-  margin-bottom: $global-margin
-.static
-  position: static
-.relative
-  position: relative
-.absolute
-  position: absolute
-.no-padding
-  padding: 0
-.tac
-  text-align: center
-.tal
-  text-align: left
-.tar
-  text-align: right
-.dib
-  display: inline-block
-img.js-lazy
-  visibility: hidden
-  &.loaded
-    visibility: visible
 dib-middle()
   display: inline-block
   vertical-align: middle
-.dib-middle
-  dib-middle()
-.dib-top
-  display: inline-block
-  vertical-align: top
-trs()
-  transition: all $trans-dura
-bgs($w, $h, $zoom = 1)
-  background-size: $w / $zoom $h / $zoom
-a-vertial-center()
-  position: absolute
-  top: 50%
-  transform: translateY(-50%)
 centerTransform($trs)
   transform: translate(-50%, -50%) $trs
   transform: translate3d(-50%, -50%, 0) $trs
@@ -113,8 +64,6 @@ a-center()
   transform: translate(-50%, -50%)
   // fallback none 3d support
   transform: translate3d(-50%, -50%, 0)
-.a-center
-  a-center()
 scrollbar()
   &::-webkit-scrollbar
     width: 5px
@@ -206,21 +155,11 @@ triangleDown($color = white)
     border-left: 10px solid transparent
     border-right: 10px solid transparent
     border-top: 10px solid $color
-.triangle-down
-  triangleDown()
-.hidden-ipad
-  mediaMax(1024px)
-.player-btn
-  display: inline-block
-  width: 42px
-  height: 42px
-  line-height: 40px
-  color: #fff
-  transition: all 0.4s ease
-  border: 1px solid rgba(255, 255, 255, 1)
-  border-radius: 3px
-  background-color: rgba(0, 0, 0, 0.5)
-  text-align: center
-  font-size: 1.2rem
-  .icon-player
-    font-size: 1.4rem
+trs()
+  transition: all $trans-dura
+bgs($w, $h, $zoom = 1)
+  background-size: $w / $zoom $h / $zoom
+a-vertial-center()
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)

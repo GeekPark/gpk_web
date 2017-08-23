@@ -1,6 +1,6 @@
 <template lang="jade">
 #comment
-  textarea(placeholder="你有什么看法..." name="textarea-io" v-model.trim="message" @focus="commentFocusHandler")
+  textarea(placeholder="你有什么看法..." name="textarea-io" v-model.trim="message")
   .input-box
     input(type="button" class="submit-comment" value="发表评论" @click="submitComment")
   .comment-wrap
@@ -11,7 +11,7 @@
           .avatar-box
             img(:src="item.commenter_info[0].avatar_url")
             | {{item.commenter_info[0].nickname}}
-          .like-box(@click="toggleLike(item, itemIndex)")
+          .like-box(@click="toggleLike(item, itemIndex)", :class="{'liked': item.liked}")
             i.iconfont(:class="item.liked ? 'icon-thumbs-up' : 'icon-thumbs-o-up'")
             | {{item.like_count}}
         .c-body {{item.content}}
@@ -269,7 +269,7 @@ export default {
       margin-left 0px
       background #EBEBEB
       padding 0 15px 1px
-
+      margin-right -15px
   .avatar-box
     margin-left -50px
     img
@@ -283,6 +283,9 @@ export default {
     float right
     margin-top -30px
     cursor pointer
+    color rgba(0,0,0,.4)
+    &.liked
+      color #000
     .like-icon
       display inline-block
       vertical-align middle
@@ -292,12 +295,14 @@ export default {
       margin-right 3px
   .c-body
     padding 10px 0 15px
-    font-weight 700
+    font-size 16px
+    font-weight 400
     word-break break-all
     line-height 1.5
   .c-rp
     text-align right
     margin-bottom 15px
+    font-size 10px
     .time
       float left
     span

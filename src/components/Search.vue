@@ -6,7 +6,7 @@
         input(v-model="keyword" id="search-input" placeholder="搜索文章")
       .result-wrap
         .info
-          span(v-if="count > 0") 搜索结果 {{count}}
+          span(v-if="count > 0") 共找到 {{count}} 篇文章
           span(v-else-if="count === 0 && keyword.length !== 0 && !isLoading") 抱歉，没有找到 {{keyword}} 相关的文章
         #result-wrap.results
           article.article-item(v-for="post in posts")
@@ -14,7 +14,7 @@
               a(v-bind:href="`/news/${post.id}`")
                 h3.multiline-text-overflow {{post.title}}
               p.multiline-text-overflow {{post.abstract}}
-          span(v-if="isOver") :( 没有更多内容了
+          span(v-if="isOver") 没有更多内容了~
 </template>
 
 <script>

@@ -90,6 +90,8 @@ div, a, img
   -webkit-touch-callout none
   -webkit-user-select none
   user-select none
+input, textarea
+  outline none
 #app
   color #000
   background transparent
@@ -118,6 +120,10 @@ a
       border-width 1px 0
       text-align center
       line-height 40px
+      margin 25px 0
+      color rgba(0,0,0,0.6)
+      i
+        color #000
 .article-sidebar
   float right
   width 275px
@@ -292,4 +298,69 @@ a
 body.modal-open
   overflow: hidden
   height 100vh
+
+
+.triangle-down
+  triangleDown()
+.hidden-ipad
+  mediaMax(1024px)
+.player-btn
+  display: inline-block
+  width: 42px
+  height: 42px
+  line-height: 40px
+  color: #fff
+  transition: all 0.4s ease
+  border: 1px solid rgba(255, 255, 255, 1)
+  border-radius: 3px
+  background-color: rgba(0, 0, 0, 0.5)
+  text-align: center
+  font-size: 1.2rem
+  .icon-player
+    font-size: 1.4rem
+
+.w50p
+  width: 50%
+.hidden
+  display: none !important
+.hidden-xs
+  @media screen and (max-width: $screen-xs-max)
+    display: none !important
+.hidden-notxs
+  @media screen and (min-width: $screen-sm-min)
+    display: none !important
+.block
+  display: block
+.mt-global
+  margin-top: $global-margin
+.mb-global
+  margin-bottom: $global-margin
+.static
+  position: static
+.relative
+  position: relative
+.absolute
+  position: absolute
+.no-padding
+  padding: 0
+.tac
+  text-align: center
+.tal
+  text-align: left
+.tar
+  text-align: right
+.dib
+  display: inline-block
+img.js-lazy
+  visibility: hidden
+  &.loaded
+    visibility: visible
+.dib-middle
+  dib-middle()
+.dib-top
+  display: inline-block
+  vertical-align: top
+
+.a-center
+  a-center()
 </style>

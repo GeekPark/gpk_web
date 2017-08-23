@@ -21,7 +21,7 @@ const router = new VueRouter({
     { path: '/',
       name: 'index',
       component: Index,
-      meta: {title: '首页'}
+      meta: {title: '极客公园-只为商业新变量'}
     },
     { path: '/news/:id',
       name: 'news',
