@@ -5,13 +5,13 @@
       .js-ads-container.ads-container
         .swiper-wrapper
           .swiper-slide(v-for="ad in ads")
-            a(v-bind:href="ad.url" target="_blank" v-bind:title="ad.title" data-track-category="ad" v-bind:data-track-label="[name, ad.title, ad.url].join(' ')")
-              img(v-bind:src="ad.cover" data-vw=vw v-bind:alt="ad.title")
+            a(v-bind:href="ad.ad.link" target="_blank" v-bind:title="ad.ad.title" data-track-category="ad" v-bind:data-track-label="[name, ad.ad.title, ad.ad.link].join(' ')")
+              img(v-bind:src="ad.ad.cover_url" data-vw=vw v-bind:alt="ad.ad.title")
     template(v-else v-for="ad in ads")
-      a(v-bind:href="ad.url" target="_blank" v-bind:title="ad.title" data-track-category="ad" v-bind:data-track-label="[name, ad.title, ad.url].join(' ')")
-        img(v-bind:src="ad.cover" data-vw=vw v-bind:alt="ad.title")
+      a(v-bind:href="ad.ad.link" target="_blank" v-bind:title="ad.ad.title" data-track-category="ad" v-bind:data-track-label="[name, ad.ad.title, ad.ad.link].join(' ')")
+        img(v-bind:src="ad.ad.cover_url" data-vw=vw v-bind:alt="ad.ad.title")
     i.icon-ad
-    i.icon-ad-close.js-ad-close(data-track-category="ads[0].close" v-bind:data-track-label="[name, ads[0].title]" v-on:click="closeAd")
+    i.icon-ad-close.js-ad-close(data-track-category="ads[0].ad.close" v-bind:data-track-label="[name, ads[0].ad.title]" v-on:click="closeAd")
 </template>
 
 <script>
@@ -23,13 +23,21 @@ export default {
     return {
       adShow: true,
       name: "时间线上方",
-      ads: [
-        {
-          title: "A3：Rebuild2017",
-          cover: "https://ocpk3ohd2.qnssl.com/uploads/ad/cover/6c/08/6c080948020ea4a798a77f5553e0cf05.jpeg",
-          url: "http://rebuild.geekpark.net/#ticket"
+      ads: [{
+        ad: {
+          "id": 8,
+          "title": "topbanner",
+          "position": "top_banner",
+          "link": "http://www.geekpark.net/",
+          "cover_url": "http://main_test.geekpark.net/uploads/image/file/88/e1/88e174406880ad97dd13450fb583f5cd.png",
+          "active_at": "2017-08-24T11:38:33.593+08:00",
+          "active_through": "2017-08-25T15:38:34.000+08:00",
+          "is_active": true,
+          "video_link": "",
+          "ad_type": "ad",
+          "views": 0
         }
-      ]
+      }]
     }
   },
   computed () {
@@ -39,11 +47,20 @@ export default {
     });
   },
   methods: {
+    fetch () {
+      api.get(`ads`).then((result) => {
+        console.log(result);
+        this.ads = result.data.topbanner
+      }).catch((err) => {
+        this.$message.error(err.toString())
+      })
+    },
     closeAd: function () {
       this.adShow = false;
     }
   },
   beforeMount () {
+    this.fetch()
   }
 }
 </script>

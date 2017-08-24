@@ -17,6 +17,7 @@
     "font-awesome": "^4.7.0",
     "highlight.js": "^9.9.0",
     "mdetect": "^1.2.3",
+    "medium-zoom": "^0.1.7",
     "moment": "^2.18.1",
     "node-sass": "^4.5.3",
     "qrious": "^4.0.2",

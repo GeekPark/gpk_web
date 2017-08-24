@@ -126,7 +126,7 @@ export default {
       return time.calendar(null, {
         sameDay: '今天',
         lastDay: '昨天',
-        lastWeek: '上周',
+        lastWeek: 'MM.DD',
         sameElse: 'MM.DD'
       }) + ' \\ ' + str
     }
@@ -164,7 +164,7 @@ function toM(){
   .item
     height 195px
     width 275px
-    background #ccc
+    background #E4E4E4
     border 1px solid #F0F0F0
     box-sizing border-box
     margin 0 0 10px 10px

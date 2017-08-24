@@ -50,9 +50,10 @@ footer.page-footer#footer
       
       section.down
         h4 APP下载
-        p
+        p(style="text-align:center")
           img(height="100" src='../assets/imgs/qrcode_app.jpg')
-
+          br
+          | iOS & Android
   .footer-copyright
     .container
       .info-icp

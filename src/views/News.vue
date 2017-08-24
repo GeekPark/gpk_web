@@ -10,18 +10,18 @@
             a.category-tag(:href="`/column/${postsData.column && postsData.column.id}`" target="_blank")  {{postsData.column && postsData.column.title}}
             .article-time {{postsData.reading_time}}min read
           h1 {{postsData.title}}
-          .user-info(v-if="postsData.authors")
-            a.author(:href="`/users/${postsData.authors[0].id}`")
-              img(:src="postsData.authors[0].avatar_url")
-              | {{postsData.authors[0].nickname}}
+          .user-info
+            a.author(v-for="author in postsData.authors", :href="`/users/${author.id}`")
+              img(:src="author.avatar_url")
+              | {{author.nickname}}
             span.release-date {{postsData.published_at | formatDate}}
-        .topic-cover
-          img(:src="postsData.cover_url")
+        .topic-cover(v-if="postsData.post_type !== 'video'")
+          img#topic-cover(:src="postsData.cover_url")
           .tips
             i.iconfont.icon-quotes
-            | 摘要
+            span 摘要
           p {{postsData.abstract}}
-        .article-content(v-html="postsData.content")
+        #article-body.article-content(v-html="postsData.content")
           p {{postsData.abstract}}
         .article-source
         section.tags
@@ -48,6 +48,9 @@ import Hotnews from './posts/Hotnews.vue'
 import Share from '../components/Share.vue'
 import VTitle from '../components/VTitle.vue'
 import Comment from './Comment.vue'
+import mediumZoom from 'medium-zoom'
+import { isWechat, isMobileUA } from 'mdetect'
+
 const access_key = localStorage.getItem('access_key')
 
 export default {
@@ -61,6 +64,33 @@ export default {
   watch: {
     'postsData.post_type': function (val, oldVal) {
       console.log('watch video', val);
+
+      if (!isMobileUA()) {
+        setTimeout(()=>{
+          mediumZoom([
+            document.querySelector("#topic-cover"),
+            ...document.querySelectorAll(".article-content img")
+          ])
+          console.log(document.querySelectorAll(".article-content img").length, 'zoom')
+        },100)
+      } else if (isWechat()) {
+        const imgs = [];
+        imgs.push($('#topic-cover').attr('src'));
+        $('#article-body img').each(function () {
+          imgs.push($(this).attr('src'));
+        });
+
+        $('#post').on('click', 'img', function () {
+          const src = $(this).attr('src');
+          if (imgs.indexOf(src) === -1) return;
+          // window.ga('send', 'event', 'M.article.pic.zoom', 'zoom', src);
+          wx.previewImage({
+            current: src,
+            urls: imgs,
+          });
+        });
+      }
+
       if (val === 'video') {
         const el = document.getElementById('play-room');
         let videoScript = document.createElement('script');
@@ -173,10 +203,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       padding 20px
     .tips
       margin-top 40px
-      img
-        width 16px
-        vertical-align middle
-        margin-right 6px
+      span
+        color rgba(0,0,0,.6)
   .tags a
     display inline-block
     background-color #5B5B5B

@@ -2715,6 +2715,10 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "http://registry.npm.taobao.org/media-typer/download/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
+medium-zoom@^0.1.7:
+  version "0.1.7"
+  resolved "http://registry.npm.taobao.org/medium-zoom/download/medium-zoom-0.1.7.tgz#46b4eab589f7bc88911db709ac931f329da731cf"
+
 memory-fs@^0.2.0:
   version "0.2.0"
   resolved "http://registry.npm.taobao.org/memory-fs/download/memory-fs-0.2.0.tgz#f2bb25368bc121e391c2520de92969caee0a0290"

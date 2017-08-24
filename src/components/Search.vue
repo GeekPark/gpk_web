@@ -126,53 +126,53 @@ body.modal-open
     transform: translate(-50%, -50%)
     max-width: 800px
   input
-    border: 0
-    outline: none
-    width: 100%
-    line-height: 1.5
-    font-size: 3.5rem
-    color: #2ea5de
-    background: transparent
+    border 0
+    outline none
+    width 100%
+    line-height 1.5
+    font-size 3.5rem
+    color $color-blue
+    background transparent
   .input-wrap
-    position: relative
-    border-bottom: 2px solid #e8e8e8
+    position relative
+    border-bottom 2px solid #e8e8e8
   &.loading
     .input-wrap
-      border-color: #a7e1fd
+      border-color $color-blue
     .input-wrap::after
-      content: ''
-      position: absolute
-      display: block
-      bottom: -2px
-      background-color: #0499e0
-      width: 100%
-      height: 2px
-      animation: searching 1.5s
-      animation-iteration-count: infinite
-      transform-origin: left
+      content ''
+      position absolute
+      display block
+      bottom -2px
+      background-color #0499e0
+      width 100%
+      height 2px
+      animation searching 1.5s
+      animation-iteration-count infinite
+      transform-origin left
   .result-wrap
-    margin-top: 15px
-    height: 100%
+    margin-top 15px
+    height 100%
     .info
       font-size 1.4rem
     .results
-      margin-top: 10px
+      margin-top 10px
       // 100px = .input-wrap + .info
-      height: calc(100% - 100px)
-      overflow-y: auto
-      -webkit-overflow-scrolling: touch
+      height calc(100% - 100px)
+      overflow-y auto
+      -webkit-overflow-scrolling touch
       scrollbar()
     em
-      color: $color-blue
-      font-style: normal
+      color $color-blue
+      font-style normal
     p
-      color: #5f5f5f
+      color #5f5f5f
     .article-items
       margin 30px 0
       line-height 1.8
   .item-title
-    font-size: 1.8rem
-    color: #444
+    font-size 1.8rem
+    color #444
     margin: 0
     &:hover
       text-decoration: underline

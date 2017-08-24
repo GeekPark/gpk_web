@@ -76,7 +76,7 @@ export default {
     {'&.bg-' + $num}
       background-image url('../assets/imgs/author_bg_' + $num + '.jpg')
 .users-content
-  border-bottom 1px solid #ccc
+  border-bottom 1px solid #DADADA
   padding 50px 0 10px
   .avatar
     position absolute

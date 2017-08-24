@@ -1,9 +1,10 @@
 <template lang="jade">
 article.article-item
   template(v-if="(columnId || post.column.id) === 251")
-    a(class="dib-top img-cover-wrap tushang" v-bind:href="`/news/${post.id}`")
+    .dib-top.img-cover-wrap.tushang
       .img-cover
         img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
+      a.post-link(:href="`/news/${post.id}`")
     .ts-list
       .ts-item(v-for="img in post.img_list.slice(0, 2)")
         img(:src="img")
@@ -28,9 +29,10 @@ article.article-item
   //-       .article-time {{post.published_at | fromNow}}
   
   template(v-else)
-    a.dib-top.img-cover-wrap(:class="{ 'video': post.post_type=='video' }" v-bind:href="`/news/${post.id}`")
+    .dib-top.img-cover-wrap(:class="{ 'video': post.post_type=='video' }")
       .img-cover
         img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
+      a.post-link(:href="`/news/${post.id}`")
     .article-info
       a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
       .article-time {{post.published_at | fromNow}}
@@ -41,15 +43,15 @@ article.article-item
   .article-meta.hidden-xs
     a.article-author(v-for="author in post.authors", :href="`/author/${author.id}`") {{author.nickname}}
     .source-right
-      template(v-if="post.comments_count > 0")
+      a.btn-comment(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`")
         i.iconfont.icon-comment
         | {{post.comments_count}}
-      a.btn-comment(v-if="post.like_count > 0", :href="`/news/${post.id}#comment`")
+      template(v-if="post.like_count > 0")
         i.iconfont.icon-like
         | {{post.like_count}}
   .article-meta.hidden-notxs
-    a(v-if="post.like_count > 0", :href="`/news/${post.id}#comment`")
-      | {{post.like_count}}条评论
+    a(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`")
+      | {{post.comments_count}}条评论
   .clear
 </template>
 
@@ -114,8 +116,9 @@ export default {
     font-size 16px
     color rgba(0,0,0,.5)
   .article-time
-    display: inline-block;
+    display inline-block
     font-size 14px
+    color rgba(0,0,0,.5)
   .article-meta
     position absolute
     bottom 25px
@@ -132,8 +135,36 @@ export default {
       float right
       vertical-align middle
   .img-cover-wrap
+    position: relative;
     float left
     margin-right 20px
+    .post-link
+      display block
+      position absolute
+      left 0
+      top 0
+      bottom 0
+      right 0
+      z-index 1
+    &.video
+      .img-cover
+        &::before
+          position absolute
+          display block
+          content '►'
+          left 50%
+          top 50%
+          width 70px
+          height 70px
+          background rgba(255,255,255,.9)
+          box-shadow 0 0 13px 1px rgba(0,0,0,0.20)
+          color rgba(0,0,0,.9)
+          border-radius 50%
+          font-size 25px
+          text-indent .25em
+          line-height 70px
+          text-align center
+          transform translate(-50%, -50%)
   .img-cover
     width: 285px;
     height: 214px;
@@ -167,6 +198,7 @@ export default {
       img
         width 100%
         height 138px
+        vertical-align bottom
     .img-count
       background rgba(0,0,0,.3)
       position absolute

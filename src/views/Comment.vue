@@ -92,18 +92,17 @@ export default {
         content: this.message
       }).then(result => {
         console.log(result);
-        var comment = {}
-        comment.id = result.id
+        var comment = result.data
         comment.commenter_info = [this.$store.state.userInfo]
         comment.like_count = 0
         comment.childrens = []
         comment.content = this.message
         comment.created_at = new Date()
         this.comments.unshift(comment);
-        // _this.$message({
-        //   message: '回复成功！',
-        //   type: 'success'
-        // });
+        this.$message({
+          message: '评论成功！',
+          type: 'success'
+        });
         // $('#replyForm-' + _this.comments[i].id).find('textarea').val('');
         this.message = ''
       }).catch((err) => {
@@ -153,17 +152,17 @@ export default {
       api.post(`posts/${this.postid}/comments?access_key=${access_key}`, {
         content: commentContent,
         parent_id: commentId
-      }).then(function(res) {
-        console.log('reply return: ', res)
-        var reply = res.data
+      }).then(function(result) {
+        console.log('reply return: ', result)
+        var reply = result.data
         reply.commenter_info = [_this.$store.state.userInfo]
         reply.content = commentContent
         reply.created_at = new Date()
         _this.comments[i].childrens.push(reply);
-        // _this.$message({
-        //   message: '回复成功！',
-        //   type: 'success'
-        // });
+        _this.$message({
+          message: '回复成功！',
+          type: 'success'
+        });
         $('#replyForm-' + _this.comments[i].id).hide().find('textarea').val('');
       })
     },
@@ -174,8 +173,8 @@ export default {
       }
       let like = item.liked ? 'unlike' : 'like'
       console.log(item, index);
-      api.post(`posts/${this.postid}/comments/${item.id}/${like}?access_key=${access_key}`).then((res) => {
-        console.log('res', res);
+      api.post(`posts/${this.postid}/comments/${item.id}/${like}?access_key=${access_key}`).then((result) => {
+        console.log('result', result);
         if (item.liked) {
           item.liked = false;
           item.like_count--;
@@ -268,7 +267,7 @@ export default {
     margin 20px 0 20px 50px
     padding 20px 0
     &:not(:last-child)
-      border-bottom 1px solid #ccc
+      border-bottom 1px solid rgba(0,0,0,.1)
     &.sub-comment
       border none
       margin-left 0px

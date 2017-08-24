@@ -31,7 +31,7 @@
           ul#user_actions.subpanel.usermenu
             li
               a(href="/liked")
-                | 我喜欢的
+                | 我的喜欢
             li
               a(href="https://account.geekpark.net")
                 | 用户设置
@@ -416,6 +416,7 @@ triangleDown($color = #fff)
     &.opened
       i
         transform scale(1) rotate(180deg)
+        font-size 0.85em
 
 .m-header
   box-shadow 0 1px 2px rgba(0,0,0,.08)

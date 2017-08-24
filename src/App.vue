@@ -122,6 +122,8 @@ a
       line-height 40px
       margin 25px 0
       color rgba(0,0,0,0.6)
+      &:first-child
+        margin-top 0
       i
         color #000
 .article-sidebar
@@ -177,9 +179,6 @@ a
     padding 0 20px
   .main-content .article-list
     width 100%
-  .main-content
-    margin-top 10px
-
 
 .el-pagination
   text-align left
