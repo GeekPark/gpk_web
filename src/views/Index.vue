@@ -1,7 +1,8 @@
 <template lang="jade">
 #index
   subnav
-  sponsor
+  .container
+    sponsor(position="top_banner")
   .breaking-news(v-if="!isMobileUA")
     .container
       .item(v-for='item, index in slider.posts', :key='item.id')
@@ -33,26 +34,56 @@
             .loading-article
             span 加载更多
       .article-sidebar
-        .ad-index
+        sponsor(position="medium_up")
         hotnews
         idlenews
+        topics
+        sponsor(position="medium_below")
+  .container
+    .wr-fx
+      .fixed-tools
+        a.tools-item.tools-erweima
+          i.iconfont.icon-qrcode
+        .qr-group
+          .tabs
+            a.tab(:class="{active: qrindex == 1}", @mouseenter="qrindex=1") 公众号
+            a.tab(:class="{active: qrindex == 2}", @mouseenter="qrindex=2") iOS下载
+            a.tab(:class="{active: qrindex == 3}", @mouseenter="qrindex=3") 安卓下载
+          .panels
+            .panel(:class="{active: qrindex == 1}")
+              .img
+                img(src='../assets/imgs/qrcode_wechat.jpg', alt='极客公园微信公众平台')
+                p 关注极客公园微信号，发现产品的价值
+            .panel(:class="{active: qrindex == 2}")
+              .img
+                img(src='../assets/imgs/qrcode_app.jpg', alt='APP下载')
+                p 下载极客公园iOS应用，随时发现产品的价值
+            .panel(:class="{active: qrindex == 3}")
+              .img
+                img(src='../assets/imgs/qrcode_app.jpg', alt='APP下载')
+                p 下载极客公园安卓应用，随时发现产品的价值
+        a.tools-item.hidden
+          i.iconfont.icon-feedback
+        a.tools-item.gotop(@click="pageScroll")
+          i.iconfont.icon-gotop
 
 </template>
 
 <script>
-require('swiper/dist/css/swiper.min.css');
+require('swiper/dist/css/swiper.min.css')
 import Subnav from '../components/Vsubnav.vue'
 import Sponsor from '../components/Sponsor.vue'
 import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Idlenews from './posts/Idlenews.vue'
+import Topics from './posts/Topics.vue'
 import api from 'stores/api'
 import moment from 'moment'
-import Swiper from 'swiper';
-import { isWechat, isMobileUA } from 'mdetect';
+import Swiper from 'swiper'
+import { isWechat, isMobileUA } from 'mdetect'
 
 export default {
-  components: { Subnav, Sponsor, Item, Idlenews, Hotnews },
+  components: { Subnav, Sponsor, Item, Idlenews, Hotnews, Topics },
   computed: {
     isMobileUA () {
       return isMobileUA()
@@ -61,6 +92,7 @@ export default {
   data () {
     return {
       page: 0,
+      qrindex: 1,
       loading: true,
       homepage_posts: [],
       slider: {
@@ -68,61 +100,63 @@ export default {
       }
     }
   },
+  watch: {
+    'slider.posts': function (val, oldVal) {
+      if (isMobileUA) {
+        // console.log('toM', $('#breakding-news-slider'))
+        setTimeout(()=>{
+          new Swiper('#breakding-news-slider', {
+            // pagination: '.swiper-pagination',
+            autoplay: 5000,
+            loop: true,
+            // onInit: () => {
+            //   remount($('#breakding-news-slider'))
+            // },
+          })
+        }, 100)
+      }
+    }
+  },
+  mounted(){
+    window.addEventListener('scroll', () => {
+      var scrollTop = document.body.scrollTop
+      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight && 
+          !this.loading && this.page < 3) {
+        this.fetch()
+      }
+      if(scrollTop>200) {
+        document.querySelector(".gotop").classList.add("show")
+      } else {
+        document.querySelector(".gotop").classList.remove("show")
+      }
+    })
+  },
   methods: {
     fetch () {
-      this.loading = true;
-      this.page += 1;
+      this.loading = true
+      this.page += 1
       api.get(`?page=${this.page}`).then((result) => {
-        console.log(result);
-        this.slider = result.data.slider;
-        this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts);
-        this.loading = false;
-        setTimeout(toM, 1500);
+        console.log('homepage data: ', result)
+        this.slider = result.data.slider
+        this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
+        this.loading = false
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
-
-    get_User() {
-      setTimeout(() => {
-        api.getUser().then(({
-          data
-        }) => {
-          if (data.code == 401) {
-            console.log('token')
-            this.$router.push('/login')
-            this.$store.dispatch('UserLogout')
-            console.log(localStorage.token)
-          } else {
-            this.user = data
-          }
-        })
-      }, 100)
+    changeTab (index) {
+      this.qrindex = index
     },
-
-    logout() {
-      this.$store.dispatch('UserLogout')
-      if (!this.$store.state.token) {
-        this.$router.push('/login')
-        this.$message({
-          type: 'success',
-          message: '登出成功'
-        })
-      } else {
-        this.$message({
-          type: 'info',
-          message: '登出失败'
-        })
-      }
-    },
+    pageScroll () {
+      $("body").animate({scrollTop:0}, '500')
+    }
   },
   filters: {
     formatDate: function (value) {
       if (!value) return ''
-      let str;
-      const time = moment.unix(value);
-      str = time.format(`ddd.`);
+      let str
+      const time = moment.unix(value)
+      str = time.format(`ddd.`)
       return time.calendar(null, {
         sameDay: '今天',
         lastDay: '昨天',
@@ -135,25 +169,95 @@ export default {
     this.fetch()
   }
 }
-
-function toM(){
-  if (isMobileUA) {
-    console.log('toM');
-    new Swiper('#breakding-news-slider', {
-      // pagination: '.swiper-pagination',
-      autoplay: 5000,
-      loop: true,
-      // onInit: () => {
-      //   remount($('#breakding-news-slider'));
-      // },
-    });
-  }
-}
-
-
 </script>
 
 <style lang="stylus">
+.wr-fx
+  position absolute
+  right 0
+.fixed-tools
+  position fixed
+  right 50px
+  top 60%
+  z-index 50
+  .tools-item
+    margin 12px 0
+    color #5B5B5B
+    border 2px solid rgba(91,91,91,.6)
+    border-radius 50%
+    font-size 18px
+    display block
+    width 40px
+    height 40px
+    line-height 40px
+    text-align center
+    cursor pointer
+    transition all .3s
+    z-index 2
+    position relative
+    &:hover
+      color #333
+  .gotop
+    opacity 0
+    &.show
+      opacity 1
+  .tools-erweima:hover + .qr-group, .qr-group:hover
+    visibility visible
+    opacity 1
+    transform translate(0, 0px)
+  .qr-group
+    position absolute
+    right 45px
+    top -50%
+    background #F6F6F6
+    // box-shadow 0 1px 2px rgba(0, 1px, 11px, 0.1)
+    visibility hidden
+    opacity 0
+    z-index 0
+    transform translate(0, 20px)
+    width 300px
+    height 187px
+    transition all .5s
+    border-right 10px solid #fff
+    &::after
+      position absolute
+      top 45%
+      right -8px
+      display block
+      content ''
+      width 0px
+      border-top 10px solid transparent
+      border-bottom 10px solid transparent
+      border-left 10px solid #F6F6F6
+    .tabs
+      padding-top 5px
+      text-align center
+      .tab
+        display inline-block
+        font-size 14px
+        line-height 2
+        padding 2px 6px
+        margin 0 15px
+      .tab:hover, .tab.active
+        color #0185F2
+        border-bottom 2px solid #0185F2
+    .panel
+      display none
+      padding 20px
+      &.active
+        display block
+      img
+        width 105px
+        height 105px
+        display inline-block
+        margin-right 15px
+        vertical-align top
+      p
+        display inline-block
+        width calc(100% - 160px)
+        line-height 1.5
+        color rgba(0,0,0,.5)
+
 .breaking-news
   margin-bottom -10px
   .info-cover

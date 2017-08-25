@@ -1,10 +1,9 @@
 <template lang="jade">
-.hot-news
-  h3 七日热门
-  article.news-item(v-for='post, index in posts', :key='post.id')
+.next-news
+  h4 →下一篇
+  article.news-item
     a(:href="`/news/${post.id}`", target="_blank")
       .news-cover
-        span {{index + 1}}
         img(alt="", :src="post.cover_url")
       p.multiline-text-overflow {{post.title}}
 </template>
@@ -16,15 +15,15 @@ export default {
   data () {
     return {
       loading: true,
-      posts: [],
+      post: {},
     }
   },
   methods: {
     fetch () {
       this.loading = true;
-      api.get(`posts/hot_in_week?per=7`).then((result) => {
+      api.get(`posts/${this.$route.params.id}/next`).then((result) => {
         console.log(result);
-        this.posts = result.data.posts;
+        this.post = result.data.post;
         this.loading = false;
       }).catch((err) => {
         console.log(err);
@@ -39,15 +38,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.hot-news
-  border 1px solid #E4E4E4
+.next-news
   padding 20px
+  padding-top 0
   margin-bottom 50px
-  h3
-    font-size 22px
+  transition all .3s
+  &:hover
+    transform translateX(10px)
+  h4
+    font-size 12px
+    color #0185F2
     margin 0
+    margin-bottom 10px
   .news-item
-    margin 20px 0
     .news-cover
       border 1px solid #F1F1F1
       position relative

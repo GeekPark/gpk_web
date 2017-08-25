@@ -4,7 +4,7 @@
   .input-box
     input(type="button" class="submit-comment" value="发表评论" @click="submitComment")
   .comment-wrap(v-if="comments.length")
-    h3
+    h4
       i.iconfont.icon-double-slash
       | 热门评论
     template(v-for="(item, itemIndex) in comments")
@@ -261,8 +261,9 @@ export default {
     color #F84B8D
   .comment-wrap
     clear both
-    h3
+    h4
       padding 10px 0
+      font-size 14px
   .comment-item
     margin 20px 0 20px 50px
     padding 20px 0

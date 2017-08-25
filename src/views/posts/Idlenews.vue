@@ -40,7 +40,7 @@ export default {
 .idle-news
   border 1px solid #E4E4E4
   padding 20px
-  margin 50px 0
+  margin-bottom 50px
   h3
     font-size 20px
     font-weight 500

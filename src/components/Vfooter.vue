@@ -86,6 +86,7 @@ export default {
 .page-footer
   position relative
   clear both
+  z-index 50
 .footer-wrap
   background-color #1e1e1e
   padding 60px 0 40px

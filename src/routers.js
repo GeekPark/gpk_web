@@ -5,6 +5,7 @@ import config          from './config.js'
 import Index           from 'views/Index.vue'
 import News            from 'views/News.vue'
 import Column          from 'views/Column.vue'
+import Topics          from 'views/Topics.vue'
 import Tag             from 'views/Tag.vue'
 import Author          from 'views/Author.vue'
 import Liked           from 'views/Liked.vue'
@@ -32,6 +33,11 @@ const router = new VueRouter({
       name: 'column',
       component: Column,
       meta: {title: '栏目页'}
+    },
+    { path: '/topics/:id',
+      name: 'topics',
+      component: Topics,
+      meta: {title: '专题页'}
     },
     { path: '/tags/:tag',
       name: 'tags',

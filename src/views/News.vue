@@ -35,16 +35,23 @@
           .heart-animation-2
       //- {{postsData.like_count}}
       comment(:postid="$route.params.id")
+      related
+      newest
       
     aside.article-sidebar
-      .ad-index
+      sponsor(position="post")
       hotnews
+      nextnews
 </template>
 
 <script>
 import api from 'stores/api'
 import moment from 'moment'
+import Sponsor from '../components/Sponsor.vue'
 import Hotnews from './posts/Hotnews.vue'
+import Related from './posts/Related.vue'
+import Newest from './posts/Newest.vue'
+import Nextnews from './posts/Nextnews.vue'
 import Share from '../components/Share.vue'
 import VTitle from '../components/VTitle.vue'
 import Comment from './Comment.vue'
@@ -54,7 +61,7 @@ import { isWechat, isMobileUA } from 'mdetect'
 const access_key = localStorage.getItem('access_key')
 
 export default {
-  components: { Hotnews, Share, VTitle, Comment },
+  components: { Hotnews, Nextnews, Share, VTitle, Comment, Sponsor, Related, Newest },
 
   data () {
     return {
@@ -68,7 +75,7 @@ export default {
       if (!isMobileUA()) {
         setTimeout(()=>{
           mediumZoom([
-            document.querySelector("#topic-cover"),
+            ...document.querySelectorAll("#topic-cover"),
             ...document.querySelectorAll(".article-content img")
           ])
           console.log(document.querySelectorAll(".article-content img").length, 'zoom')
