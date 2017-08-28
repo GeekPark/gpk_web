@@ -1,6 +1,4 @@
-# [GeekPark](http://geekpark.net) Content Management System
-[![Build Status](https://travis-ci.org/GeekPark/gpk_web.svg?branch=master)](https://travis-ci.org/GeekPark/gpk_web)
-[![Code Climate](https://codeclimate.com/github/GeekPark/gpk_web/badges/gpa.svg)](https://codeclimate.com/github/GeekPark/gpk_web)
+# [GeekPark](http://geekpark.net)
 
 ### How to Start
 ```bash
@@ -20,7 +18,3 @@ npm run dev
 ```bash
 npm run build
 ```
-
-### LICENSE
-GNU General Public License v3.0
-

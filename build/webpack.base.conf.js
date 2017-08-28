@@ -65,10 +65,6 @@ module.exports = {
         loader: 'css-loader!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/'
       },
       {
-        test: /\.s[a|c]ss$/,
-        loader: 'style!css!sass'
-      },
-      {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
         query: {

@@ -59,7 +59,6 @@
 
 <script>
 import api from 'stores/api'
-import $   from 'jquery'
 import clickAtOutside           from 'click-at-outside'
 import { isWechat, isMobileUA } from 'mdetect';
 import Vmenu from './Vmenu.vue'
@@ -409,14 +408,18 @@ triangleDown($color = #fff)
   // search btn
   .search-btn
     cursor pointer
-    font-size 1.5em
+    font-size 1.3em
     margin-right 28px
+    line-height initial
+    display inline-block
+    width 1.5em
+    text-align center
     i
       transition all $trans-dura
-    &.opened
+    &.is-open
       i
         transform scale(1) rotate(180deg)
-        font-size 0.85em
+        font-size 0.9em
 
 .m-header
   box-shadow 0 1px 2px rgba(0,0,0,.08)

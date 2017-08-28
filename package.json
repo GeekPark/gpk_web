@@ -10,24 +10,19 @@
     "test": ""
   },
   "dependencies": {
-    "awe-dnd": "^0.3.0",
     "axios": "^0.15.3",
+    "chalk": "^2.1.0",
     "click-at-outside": "^1.0.3",
-    "element-ui": "^1.2.4",
-    "font-awesome": "^4.7.0",
-    "highlight.js": "^9.9.0",
+    "element-ui": "^1.4.3",
     "mdetect": "^1.2.3",
     "medium-zoom": "^0.1.7",
     "moment": "^2.18.1",
-    "node-sass": "^4.5.3",
     "qrious": "^4.0.2",
-    "sass-loader": "^6.0.6",
+    "semver": "^5.4.1",
     "swiper": "^3.4.2",
     "vue": "^2.1.10",
-    "vue-echarts-v3": "^1.0.3",
     "vue-router": "^2.4.0",
-    "vuex": "^2.0.0",
-    "wangeditor": "^2.1.22"
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

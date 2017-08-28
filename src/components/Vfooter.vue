@@ -20,7 +20,7 @@ footer.page-footer#footer
           a.wechat.relative.share-btn(href="javascript:;" data-track-label="wechat")
             .iconfont.icon-wechat
             .wechat-qr.triangle-down
-              img(src='../assets/imgs/qrcode_wechat.jpg' alt="极客公园微信公众平台" width="120" height="120")
+              img(src='../assets/imgs/qr_geekpark.jpg' alt="极客公园微信公众平台" width="120" height="120")
           a.rss.share-btn(href="/rss" target="_blank" data-track-label="rss")
             .iconfont.icon-rss
 
@@ -51,7 +51,7 @@ footer.page-footer#footer
       section.down
         h4 APP下载
         p(style="text-align:center")
-          img(height="100" src='../assets/imgs/qrcode_app.jpg')
+          img(height="100" src='../assets/imgs/qr_app.jpg')
           br
           | iOS & Android
   .footer-copyright
@@ -93,15 +93,22 @@ export default {
   color #fff
   line-height 1.7
   font-weight 300
+  text-align center
   section
     display inline-block
     vertical-align top
     margin-right 100px
     font-size 14px
+    text-align left
     .normal-link
       color #0185F2
   .contact
     width 350px
+  @media screen and (max-width: 1100px)
+    section
+      margin-right 4%
+    .contact
+      width auto
   h4
     font-size 18px
     font-weight normal
@@ -144,8 +151,6 @@ export default {
     transform-origin: bottom
     transition: all 0.2s
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)
-    img
-      vertical-align bottom
   .wechat.share-btn:hover
     .wechat-qr
       opacity: 1

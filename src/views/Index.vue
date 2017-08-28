@@ -6,6 +6,7 @@
   .breaking-news(v-if="!isMobileUA")
     .container
       .item(v-for='item, index in slider.posts', :key='item.id')
+        .responsive-imgs
         a(class="link", :href="`/news/${item.id}`", target="_blank")
           img(:alt="item.title", class="img-cover loaded", :src="item.cover_url")
           .info-cover
@@ -46,22 +47,22 @@
           i.iconfont.icon-qrcode
         .qr-group
           .tabs
-            a.tab(:class="{active: qrindex == 1}", @mouseenter="qrindex=1") 公众号
-            a.tab(:class="{active: qrindex == 2}", @mouseenter="qrindex=2") iOS下载
-            a.tab(:class="{active: qrindex == 3}", @mouseenter="qrindex=3") 安卓下载
+            a.tab(:class="{active: qrindex == 1}", @mouseenter="qrindex=1") 极客公园
+            a.tab(:class="{active: qrindex == 2}", @mouseenter="qrindex=2") 极客之选
+            a.tab(:class="{active: qrindex == 3}", @mouseenter="qrindex=3") 顶楼TopView
           .panels
             .panel(:class="{active: qrindex == 1}")
               .img
-                img(src='../assets/imgs/qrcode_wechat.jpg', alt='极客公园微信公众平台')
-                p 关注极客公园微信号，发现产品的价值
+                img(src='../assets/imgs/qr_geekpark.jpg', alt='极客公园')
+                p 用极客视角，追踪你最不可错过的科技圈。
             .panel(:class="{active: qrindex == 2}")
               .img
-                img(src='../assets/imgs/qrcode_app.jpg', alt='APP下载')
-                p 下载极客公园iOS应用，随时发现产品的价值
+                img(src='../assets/imgs/qr_geekchoice.jpg', alt='极客之选')
+                p 新鲜、有趣的硬件产品，第一时间为你呈现。
             .panel(:class="{active: qrindex == 3}")
               .img
-                img(src='../assets/imgs/qrcode_app.jpg', alt='APP下载')
-                p 下载极客公园安卓应用，随时发现产品的价值
+                img(src='../assets/imgs/qr_topview.jpg', alt='顶楼')
+                p 关注前沿科技，发表最具科技的商业洞见。
         a.tools-item.hidden
           i.iconfont.icon-feedback
         a.tools-item.gotop(@click="pageScroll")
@@ -173,11 +174,12 @@ export default {
 
 <style lang="stylus">
 .wr-fx
-  position absolute
-  right 0
+  float right
+  margin-right -15px
+  @media screen and (max-width: 1024px)
+    display none
 .fixed-tools
   position fixed
-  right 50px
   top 60%
   z-index 50
   .tools-item
@@ -185,6 +187,7 @@ export default {
     color #5B5B5B
     border 2px solid rgba(91,91,91,.6)
     border-radius 50%
+    background #fff
     font-size 18px
     display block
     width 40px
@@ -237,7 +240,7 @@ export default {
         font-size 14px
         line-height 2
         padding 2px 6px
-        margin 0 15px
+        margin 0 10px
       .tab:hover, .tab.active
         color #0185F2
         border-bottom 2px solid #0185F2
@@ -254,7 +257,7 @@ export default {
         vertical-align top
       p
         display inline-block
-        width calc(100% - 160px)
+        width calc(100% - 120px)
         line-height 1.5
         color rgba(0,0,0,.5)
 
@@ -266,24 +269,31 @@ export default {
     padding 0 8% 4% 4%
     text-align left
   .item
-    height 195px
-    width 275px
     background #E4E4E4
-    border 1px solid #F0F0F0
-    box-sizing border-box
     margin 0 0 10px 10px
     display inline-block
     vertical-align top
     position relative
     overflow hidden
     text-align center
+    .responsive-imgs
+      height 195px
+      width 275px
+      border 1px solid #F0F0F0
+      box-sizing border-box
+    .link
+      position absolute
+      top 0
+      left 0
+      right 0
+      bottom 0
     img
       height 100%
       display inline
       margin 0 -100%
       transition transform 0.5s ease
     h3
-      font-size 18px
+      font-size 16px
       color #fff
       line-height 2
       margin 0
@@ -296,11 +306,11 @@ export default {
       img
         transform scale3d(1.05, 1.05, 1)
     &:first-child
-      width 560px
-      height 400px
-      background #eee
       margin 0 0 10px 0
       float left
+      .responsive-imgs
+        width 560px
+        height 400px
       h3
         font-size 20px
         // linear-gradient (transparent, transparent 0.1em, #000 0px, #000 1.85em, transparent 0)
@@ -313,6 +323,53 @@ export default {
         line-height 1.5
         padding 6px 10px
         margin 10px 0 0 0
+  @media screen and (max-width: 1130px)
+    .item
+      width 24%
+      margin 0 0 1% 1%
+      .responsive-imgs
+        width 100%
+        height 0
+        padding-bottom 72%
+        h3
+          font-size 12px
+        p
+          font-size 12px
+      &:first-child
+        width 50%
+        margin 0
+        h3
+          font-size 16px
+        .responsive-imgs
+          width 100%
+          height 0
+          padding-bottom 71.5%
+  @media screen and (max-width: 767px)
+    .item
+      width 49.5%
+      margin 1% 0 0 1%
+      &:nth-child(even)
+        margin-left 0
+      .responsive-imgs
+        width 100%
+        height 0
+        padding-bottom 72%
+        h3
+          font-size 12px
+        p
+          font-size 12px
+      &:first-child
+        width 100%
+        margin 0
+        h3
+          font-size 16px
+        .responsive-imgs
+          width 100%
+          height 0
+          padding-bottom 71.5%
+  
+  @media screen and (max-width: 767px)
+    margin-top 20px
 .breakding-news-slider
   height 180px
   overflow: hidden

@@ -42,8 +42,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
-
 export default {
   name: 'vmenu',
   props: ['logout', 'login'],

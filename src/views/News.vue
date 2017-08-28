@@ -6,7 +6,7 @@
       article
         #play-room(:class="{'video-player': postsData.post_type == 'video'}")
         header.post-header(:class="{'video': postsData.post_type == 'video'}")
-          .label.article-info(v-if="postsData.post_type !== 'video'")
+          .label.article-info(v-if="postsData.post_type !== 'video' && postsData.column && !promotion[postsData.column.id]")
             a.category-tag(:href="`/column/${postsData.column && postsData.column.id}`" target="_blank")  {{postsData.column && postsData.column.title}}
             .article-time {{postsData.reading_time}}min read
           h1 {{postsData.title}}
@@ -35,7 +35,7 @@
           .heart-animation-2
       //- {{postsData.like_count}}
       comment(:postid="$route.params.id")
-      related
+      related(v-if="postsData.column && !promotion[postsData.column.id]")
       newest
       
     aside.article-sidebar
@@ -65,21 +65,22 @@ export default {
 
   data () {
     return {
-      postsData: {}
+      postsData: {},
+      promotion: {
+        '2': '捕风捉影',
+        '248': '业界资讯'
+      }
     }
   },
   watch: {
     'postsData.post_type': function (val, oldVal) {
-      console.log('watch video', val);
-
       if (!isMobileUA()) {
         setTimeout(()=>{
           mediumZoom([
             ...document.querySelectorAll("#topic-cover"),
             ...document.querySelectorAll(".article-content img")
           ])
-          console.log(document.querySelectorAll(".article-content img").length, 'zoom')
-        },100)
+        }, 100)
       } else if (isWechat()) {
         const imgs = [];
         imgs.push($('#topic-cover').attr('src'));
@@ -138,7 +139,7 @@ export default {
     formatDate: function (value) {
       if (!value) return ''
       return moment(value).format("YYYY/MM/DD")
-    },
+    }
   },
   beforeMount () {
     this.fetch()
@@ -228,6 +229,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     width 100%
     display inline-block
     padding-bottom 120px
+    @media screen and (max-width: 1130px)
+      max-width 100%
   .article-content
     word-wrap break-word
     font-size 16px

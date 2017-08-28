@@ -94,7 +94,6 @@
 
 <script>
 import api from 'stores/api'
-import $ from 'jquery';
 
 export default {
   data () {

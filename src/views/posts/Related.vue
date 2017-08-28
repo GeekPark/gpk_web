@@ -1,5 +1,5 @@
 <template lang="jade">
-.related-news
+.more-news
   h4
     i.iconfont.icon-double-slash
     | 你可能感兴趣
@@ -38,30 +38,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.related-news
-  margin-top 50px
-  h4
-    font-size 12px
-    margin 0
-    margin-bottom 20px
-  .news-item
-    display inline-block
-    vertical-align top
-    width 158px
-    margin-left 20px
-    &:first-of-type
-      margin-left 0
-    .news-cover
-      border 1px solid #F1F1F1
-      position relative
-      overflow hidden
-      img
-        height 100px
-        vertical-align bottom
-    p
-      margin 5px 0
-      line-height 1.5
-</style>
-

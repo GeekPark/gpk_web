@@ -258,7 +258,6 @@
 
 <script>
 import api from 'stores/api'
-import $ from 'jquery';
 import { isMobileView } from 'mdetect';
 
 export default {

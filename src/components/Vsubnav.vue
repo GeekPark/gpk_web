@@ -36,8 +36,10 @@ export default {
 <style lang="stylus">
 .sub-nav
   background #F6F6F6
-  margin-bottom 20px
+  margin-bottom 10px
   padding 16px 0
+  @media screen and (max-width: 767px)
+    display none
   a
     position relative
     display inline-block

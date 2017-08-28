@@ -19,9 +19,7 @@
 
 <script>
 import api from 'stores/api'
-import $   from 'jquery'
 let page = 1
-
 
 export default {
   data () {

@@ -66,7 +66,7 @@ export default {
       const time = moment(value);
       const diff = moment().diff(time, 'days');
       if (diff >= 1) {
-        str = time.format('YYYY/MM/DD HH:mm');
+        str = time.format('YYYY/MM/DD');
       } else {
         str = time.locale('zh-cn').fromNow();
       }
@@ -198,7 +198,6 @@ export default {
       img
         width 100%
         height 138px
-        vertical-align bottom
     .img-count
       background rgba(0,0,0,.3)
       position absolute
@@ -283,7 +282,6 @@ export default {
         img
           width 100%
           height 100%
-          vertical-align bottom
       .img-count
         top unset
         width 100%

@@ -64,7 +64,6 @@ export default {
       img
         width 100%
         height 150px
-        vertical-align bottom
     p
       margin 5px 0
       line-height 22px

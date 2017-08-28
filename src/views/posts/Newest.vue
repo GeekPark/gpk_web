@@ -1,5 +1,5 @@
 <template lang="jade">
-.related-news
+.more-news
   h4
     i.iconfont.icon-double-slash
     | 最新文章
@@ -39,8 +39,8 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.related-news
+<style lang="stylus">
+.more-news
   margin-top 50px
   h4
     font-size 12px
@@ -49,8 +49,8 @@ export default {
   .news-item
     display inline-block
     vertical-align top
-    width 158px
-    margin-left 20px
+    width 24%
+    margin-left: 1.3%;
     &:first-of-type
       margin-left 0
     .news-cover
@@ -58,10 +58,29 @@ export default {
       position relative
       overflow hidden
       img
-        height 100px
-        vertical-align bottom
+        width 100%
+        height 120px
     p
       margin 5px 0
       line-height 1.5
+  @media screen and (max-width: 767px)
+    .news-item
+      width 50%
+      margin-left 0
+      margin-top 10px
+      padding-right 15px
+      box-sizing border-box
+      .multiline-text-overflow
+        -webkit-line-clamp 3
+      .news-cover
+        float left
+        margin-right 20px
+        width 50%
+        img
+          width 100%
+  
+  @media screen and (max-width: 540px)
+    .news-item
+      width 100%
 </style>
 

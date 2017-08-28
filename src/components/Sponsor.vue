@@ -65,13 +65,15 @@ export default {
   width 100%
   background-color #ececec
   height 0px
-  padding-bottom $ad-ratio-list
+  padding-bottom 10.619469%
   overflow hidden
   position relative
   display block
   transform scale(1)
   &:hover
     filter brightness(102%) contrast(115%)
+  img
+    width 100%
   i
     position absolute
     right 0
@@ -89,14 +91,13 @@ export default {
     padding 0 .5em
     background rgba(0,133,242,.2)
   i.icon-close
-    font-family sans-serif
     background rgba(0,0,0,.2)
     cursor pointer
     margin 0
     padding 0 .5em
     top 0
   &.ads-top_banner
-    margin-bottom 20px
+    margin-bottom 10px
   &.ads-medium_up,
   &.ads-medium_below,
   &.ads-post
@@ -107,5 +108,7 @@ export default {
     top 0
     width 100%
     height 100%
+  @media screen and (max-width: 767px)
+    display none
 </style>
 

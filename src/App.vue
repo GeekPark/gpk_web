@@ -92,6 +92,8 @@ div, a, img
   user-select none
 input, textarea
   outline none
+img
+  vertical-align bottom
 #app
   color #000
   background transparent
@@ -99,6 +101,8 @@ input, textarea
 .container
   max-width 1130px
   margin 0 auto
+  @media screen and (max-width: 1130px)
+    margin 0 20px
 h3
   font-size 20px
   font-weight 500
@@ -133,6 +137,12 @@ a
     height 250px
     background #D8D8D8
     margin-bottom 50px
+@media screen and (max-width: 1130px)
+  .main-content .article-list, #post .main-wrap
+    max-width 100%
+    width 100%
+  .article-sidebar
+    display none
 .load-more
   display: inline-block;
   padding: 8px 25px;
@@ -176,7 +186,7 @@ a
   .page-footer
     display none
   .container
-    padding 0 20px
+    margin 0 20px
   .main-content .article-list
     width 100%
 
