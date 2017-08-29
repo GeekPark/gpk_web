@@ -17,7 +17,8 @@
     .swiper-wrapper
       .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')
         a.link(:href="`/news/${item.id}`")
-          img.img-cover(:src="item.cover_url")
+          .img-cover
+            img(:src="item.cover_url")
           .info-cover
             h3.multiline-text-overflow
               span {{item.title}}
@@ -40,7 +41,7 @@
         idlenews
         topics
         sponsor(position="medium_below")
-  .container
+  .container.clear
     .wr-fx
       .fixed-tools
         a.tools-item.tools-erweima
@@ -63,11 +64,24 @@
               .img
                 img(src='../assets/imgs/qr_topview.jpg', alt='顶楼')
                 p 关注前沿科技，发表最具科技的商业洞见。
-        a.tools-item.hidden
+        a.tools-item(@click="dialogFormVisible = true")
           i.iconfont.icon-feedback
         a.tools-item.gotop(@click="pageScroll")
           i.iconfont.icon-gotop
-
+  el-dialog(:title="nowPanel ? '提交成功' : '意见反馈'", :visible.sync="dialogFormVisible")
+    .feedback(v-if="nowPanel")
+      p.success-desc 感谢您提交反馈和对于极客公园的支持，我们会重视每一条用户提交的反馈意见，竭力改善极客公园的产品使用体验。
+      .dialog-footer
+        el-button(type="primary", @click="dialogFormVisible = false") 完成
+    .feedback(v-else)
+      p 通过反馈您可以向极客公园发送对我们产品的建议。我们欢迎您反馈产品使用中遇到的问题或提出您对于我们产品的功能和体验的改善创意。
+      form(@submit.prevent="submitForm")
+        textarea.form-control(rows="3", v-model.trim="fb_content")
+        p 可以选择留下您的邮箱，方便我们与您联系，针对问题详细沟通。
+        input.form-control(type="email", v-model.trim="fb_email")
+      .dialog-footer(slot="footer")
+        el-button(@click="dialogFormVisible = false") 取消
+        el-button(type="primary", @click="submitForm") 提交
 </template>
 
 <script>
@@ -96,9 +110,13 @@ export default {
       qrindex: 1,
       loading: true,
       homepage_posts: [],
+      dialogFormVisible: false,
       slider: {
         posts: [],
-      }
+      },
+      nowPanel: false,
+      fb_content: '',
+      fb_email: ''
     }
   },
   watch: {
@@ -125,10 +143,10 @@ export default {
           !this.loading && this.page < 3) {
         this.fetch()
       }
-      if(scrollTop>200) {
-        document.querySelector(".gotop").classList.add("show")
+      if(scrollTop > 800) {
+        document.querySelector(".fixed-tools").classList.add("show")
       } else {
-        document.querySelector(".gotop").classList.remove("show")
+        document.querySelector(".fixed-tools").classList.remove("show")
       }
     })
   },
@@ -150,6 +168,21 @@ export default {
     },
     pageScroll () {
       $("body").animate({scrollTop:0}, '500')
+    },
+    submitForm () {
+      if (!this.fb_content || this.loading) return;
+      const note = `path: \`${window.location.pathname},\`,email: \`${this.fb_email}\`,browser: \`${window.navigator.userAgent}\``
+      api.post('feedback/new', {
+          type: 'feedback',
+          content: this.fb_content,
+          note,
+        }).then((result) => {
+        this.nowPanel = 'success'
+        this.loading = false
+      }).catch((err) => {
+        this.loading = false
+        this.$message.error(err.toString())
+      })
     }
   },
   filters: {
@@ -173,6 +206,26 @@ export default {
 </script>
 
 <style lang="stylus">
+.feedback
+  line-height 1.5
+  .dialog-footer
+    text-align center
+  textarea, input
+    width 100%
+    margin-bottom 10px
+  .form-control
+    box-sizing border-box
+    width 100%
+    padding 6px 12px
+    font-size 14px
+    line-height 1.428571429
+    color #555555
+    background-color white
+    background-image none
+    border 1px solid #ccc
+    border-radius 4px
+    box-shadow inset 0 1px 1px rgba(0,0,0,0.075)
+    transition border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
 .wr-fx
   float right
   margin-right -15px
@@ -182,6 +235,10 @@ export default {
   position fixed
   top 60%
   z-index 50
+  // display none
+  opacity 0
+  &.show
+    opacity 1
   .tools-item
     margin 12px 0
     color #5B5B5B
@@ -200,10 +257,6 @@ export default {
     position relative
     &:hover
       color #333
-  .gotop
-    opacity 0
-    &.show
-      opacity 1
   .tools-erweima:hover + .qr-group, .qr-group:hover
     visibility visible
     opacity 1
@@ -371,15 +424,25 @@ export default {
   @media screen and (max-width: 767px)
     margin-top 20px
 .breakding-news-slider
-  height 180px
   overflow: hidden
   position relative
   .swiper-slide
     width 100%
-  img
-    width 100%
-    display inline
-    transition transform 0.5s ease
+  .img-cover
+    padding-bottom 60%
+    background-color: #c3c3c3;
+    border 1px solid #efefef
+    position: relative;
+    overflow hidden
+    text-align center
+    img
+      position absolute
+      top 50%
+      left 50%
+      transform translate3d(-50%, -50%, 0)
+      height 100%
+      width auto
+      min-width 100%
   .info-cover
     position absolute
     bottom 0

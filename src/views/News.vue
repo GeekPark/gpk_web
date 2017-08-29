@@ -150,7 +150,7 @@ export default {
 
 <style lang="stylus">
 @import "../stylus/var.styl";
-$gray = #c7c7c7
+$gray = #EBEBEB
 $pink = #f94c8d
 $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
 
@@ -171,35 +171,55 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       padding-bottom 63%
 #post
   margin 40px auto 0 auto
-  .category-tag
+  color #353535
+  .container
+    text-align center
+  .main-wrap
+    max-width 700px
+    width 100%
     display inline-block
-    padding 0 9px
-    line-height 2
-    background-color #DCDCDC
-    font-size 14px
-    margin-right 1em
-    font-weight bold
-    color #000
+    padding-bottom 120px
+    vertical-align top
+    text-align left
+    @media screen and (max-width: 1130px)
+      max-width 100%
+  .article-sidebar
+    display inline-block
+    vertical-align top
+    text-align left
+    float none
+    margin-left 60px
   .post-header
     margin-bottom 30px
     border-bottom 1px solid #ddd
-  .article-time
-    display inline-block
-    font-size 14px
-  h1
-    line-height 1.5
-    font-size 26px
-  .user-info
-    padding-bottom 15px
-    img
-      width 40px
-      height 40px
-      border-radius 50%
+    .user-info a
+      color #0185f2
+    .category-tag
       display inline-block
-      vertical-align middle
-      margin-right .5em
-    .author
+      padding 0 9px
+      line-height 2
+      background-color #DCDCDC
+      font-size 14px
       margin-right 1em
+      font-weight bold
+      color #000
+    .article-time
+      display inline-block
+      font-size 14px
+    h1
+      line-height 1.5
+      font-size 26px
+    .user-info
+      padding-bottom 15px
+      img
+        width 40px
+        height 40px
+        border-radius 50%
+        display inline-block
+        vertical-align middle
+        margin-right .5em
+      .author
+        margin-right 1em
   .topic-cover
     border-bottom 1px solid #ddd
     margin-bottom 30px
@@ -213,24 +233,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       margin-top 40px
       span
         color rgba(0,0,0,.6)
-  .tags a
-    display inline-block
-    background-color #5B5B5B
-    color #fff
-    margin 5px 10px 5px 0
-    line-height 24px
-    padding 0 1em
-    font-size 12px
-    transition all 0.3s
   
-
-  .main-wrap
-    max-width 692px
-    width 100%
-    display inline-block
-    padding-bottom 120px
-    @media screen and (max-width: 1130px)
-      max-width 100%
   .article-content
     word-wrap break-word
     font-size 16px
@@ -280,53 +283,61 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       color rgba(0, 0, 0, .8)
       text-decoration none
       border-bottom 1px solid #F84B8D
+  
   .tags
     margin-top 30px
+    a
+      display inline-block
+      background-color #5B5B5B
+      color #fff
+      margin 5px 10px 5px 0
+      line-height 24px
+      padding 0 1em
+      font-size 12px
+      transition all 0.3s
   @media screen and (max-width: 767px)
     margin 0
+    .main-wrap
+      width 100%
     .post-header
       padding 20px 20px 10px 15px
       margin 0 -20px 20px
       border-left 5px solid #DCD900
+      h1
+        font-size 22px
       &.video
         border-left-color #F84B8D
-    .main-wrap
-      width 100%
-    h1
-      font-size 22px
     .article-content
       iframe
         height 51vw
     
 .like-button
-  border: 1px solid $gray
-  border-radius: 50%
-  color: darken($gray, 25%)
-  transition: all 0.25s $bezier
-  filter: grayscale(100%)
+  background #fff
+  box-shadow 0 0 7px 2px rgba(0,0,0,0.20)
+  border-radius 50%
+  color darken($gray, 100%)
+  filter grayscale(100%)
   user-select none
-  width 60px
-  height 60px
+  width 50px
+  height 50px
   margin 20px auto 50px
   cursor pointer
-  &.liked
-    color: $pink
-    filter: grayscale(0)
-  &:hover
-    border-color: currentColor
+  &.liked, &:hover
+    color $pink
+    filter grayscale(0)
 .like-icon
-  width: 60px
-  height: 60px
-  display: inline-block
-  position: relative
-  background: url("../assets/imgs/icons/heart.svg") no-repeat center
-  background-size: 50%
-  animation: heartUnlike 0.25s $bezier both
+  width 50px
+  height 50px
+  display inline-block
+  position relative
+  background url("../assets/imgs/icons/heart.svg") no-repeat center
+  background-size 35%
 .liked .like-icon
-  animation: heartPulse 0.25s $bezier both
+  background-size 40%
+  animation heartPulse 0.25s $bezier both
   [class^="heart-animation-"]
     background: url("../assets/imgs/icons/heart.svg") no-repeat center
-    background-size: 100%
+    background-size: contain
     display: block
     position: absolute
     top: 0
@@ -337,7 +348,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     &::before, &::after
       content: ''
       background: inherit
-      background-size: 100%
+      background-size: contain
       width: inherit
       height: inherit
       display: inherit

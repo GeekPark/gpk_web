@@ -1,8 +1,8 @@
 <template lang="jade">
 #comment
-  textarea(placeholder="你有什么看法..." name="textarea-io" v-model.trim="message")
+  textarea.min-heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
   .input-box
-    input(type="button" class="submit-comment" value="发表评论" @click="submitComment")
+    input.submit-comment(type="button", value="发表评论", @click="submitComment")
   .comment-wrap(v-if="comments.length")
     h4
       i.iconfont.icon-double-slash
@@ -19,17 +19,18 @@
         .c-body {{item.content}}
         .c-rp
           .time {{item.created_at | formatDate}}
-          span(@click="toggleReplyForm(item.id)")
-            i.iconfont.icon-comment
-            | 回复
+          span(@click="toggleReplyForm(item.commenter_info[0].nickname, item.id)")
+            | {{ replyid == item.id ? '取消' : '回复'}}
         template(v-for="reply in item.childrens")
           .comment-item.sub-comment(:id="'comment-' + reply.id", v-if="reply.commenter_info && reply.commenter_info.length > 0")
-            .c-body {{reply.commenter_info[0].nickname}}: {{reply.content}}
+            .c-body
+              | {{reply.commenter_info[0].nickname}}:
+              span @{{reply.parent_commenter_info[0].nickname}}
+              | {{reply.content}}
             .c-rp
               .time {{reply.created_at | formatDate}}
-              span(@click="toggleReplyForm(item.id, reply.id)")
-                i.iconfont.icon-comment
-                | 回复
+              span(@click="toggleReplyForm(reply.commenter_info[0].nickname, item.id, reply.id)")
+                | {{ replyid == reply.id ? '取消' : '回复'}}
         form.reply-form(@submit.prevent="submitReply($event, itemIndex)", style="display:none", :id="'replyForm-' + item.id")
           .textarea-wrap
             textarea(name="comment")
@@ -51,6 +52,7 @@ export default {
     return {
       comments: [],
       message: "",
+      nickname: "",
       replyid: "",
       commentLoaded: false,
     }
@@ -110,26 +112,35 @@ export default {
         this.$message.error(err.toString())
       })
     },
-    toggleReplyForm: function(id, repId) {
+    toggleReplyForm: function(nickname, id, repId) {
+      this.nickname = nickname
       if (!this.$store.state.userInfo) {
-        if (confirm('回复需要登录喔，点击确定去登录')) window.location.href = loginURL;
-        return;
+        if (confirm('回复需要登录喔，点击确定去登录')) window.location.href = loginURL
+        return
       }
-      var replyForm = $('#replyForm-' + id);
-      replyForm.toggle();
+      var replyForm = $('#replyForm-' + id)
       if (repId !== undefined) {
-        replyForm.children('input').val(repId);
+        replyForm.children('input').val(repId)
+        this.replyid = this.replyid == repId ? '' : repId
       } else {
-        replyForm.children('input').val(id);
+        replyForm.children('input').val(id)
+        this.replyid = this.replyid == id ? '' : id
       }
+      if (this.replyid) {
+        replyForm.show()
+      } else {
+        replyForm.hide()
+      }
+      
       if (replyForm.find('textarea').is(':visible')) {
-        replyForm.find('textarea').focus();
+        replyForm.find('textarea').val(`回复${nickname}:`).focus()
       }
     },
     submitReply: function(e, i) {
-      var fd = $(e.target).serializeArray();
-      var commentId;
-      var commentContent;
+      var fd = $(e.target).serializeArray()
+      var commentId
+      var commentContent
+      let re = new RegExp(`^回复${this.nickname}:`, "im")
       fd.forEach(function(item) {
         if (item.name === 'comment_id') {
           commentId = item.value;
@@ -138,8 +149,8 @@ export default {
           commentContent = item.value;
         }
       });
-      commentContent = encodeURIComponent(commentContent).replace(/%0A/ig, '<br />');
-      commentContent = decodeURIComponent(commentContent);
+
+      commentContent = commentContent.replace(re, '')
       if (!commentContent) {
         this.$message.error('请填写评论内容')
         return
@@ -148,22 +159,22 @@ export default {
       //   fullscreen: false,
       //   target: e.target,
       // });
-      var _this = this;
       api.post(`posts/${this.postid}/comments?access_key=${access_key}`, {
         content: commentContent,
         parent_id: commentId
-      }).then(function(result) {
+      }).then(result => {
         console.log('reply return: ', result)
         var reply = result.data
-        reply.commenter_info = [_this.$store.state.userInfo]
+        reply.commenter_info = [this.$store.state.userInfo]
         reply.content = commentContent
+        reply.parent_commenter_info = [{nickname: this.nickname}]
         reply.created_at = new Date()
-        _this.comments[i].childrens.push(reply);
-        _this.$message({
+        this.comments[i].childrens.push(reply);
+        this.$message({
           message: '回复成功！',
           type: 'success'
         });
-        $('#replyForm-' + _this.comments[i].id).hide().find('textarea').val('');
+        $('#replyForm-' + this.comments[i].id).hide().find('textarea').val('');
       })
     },
     toggleLike: function(item, index) {
@@ -243,6 +254,8 @@ export default {
     max-width 100%
     min-height 60px
     font-size 14px
+    .min-heights
+      min-height 100px
   .input-box
     text-align right
     .submit-comment
@@ -304,6 +317,9 @@ export default {
     font-weight 400
     word-break break-all
     line-height 1.5
+    span
+      color #F84B8D
+      padding 0 .3em
   .c-rp
     text-align right
     margin-bottom 15px

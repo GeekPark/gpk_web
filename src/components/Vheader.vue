@@ -60,7 +60,6 @@
 <script>
 import api from 'stores/api'
 import clickAtOutside           from 'click-at-outside'
-import { isWechat, isMobileUA } from 'mdetect';
 import Vmenu from './Vmenu.vue'
 import Search from './Search.vue'
 
@@ -70,11 +69,7 @@ export default {
   computed: {
     userInfo () {
       return this.$store.state.userInfo
-    },
-    isMobileUA () {
-      return isMobileUA()
     }
-
   },
   data () {
     return {
@@ -445,6 +440,7 @@ triangleDown($color = #fff)
       transform scale(1) rotate(180deg)
   .sidebar-button
     left 0
+    font-size 14px
   .search-btn
     top 0
     right 0

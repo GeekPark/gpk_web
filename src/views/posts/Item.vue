@@ -1,14 +1,13 @@
 <template lang="jade">
-article.article-item
+article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
   template(v-if="(columnId || post.column.id) === 251")
-    .dib-top.img-cover-wrap.tushang
+    a.img-cover-wrap(:href="`/news/${post.id}`")
       .img-cover
-        img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
-      a.post-link(:href="`/news/${post.id}`")
-    .ts-list
-      .ts-item(v-for="img in post.img_list.slice(0, 2)")
+        img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
+    .ts-item(v-for="img,index in post.img_list.slice(0, 2)")
+      .img-cover
         img(:src="img")
-      .img-count {{post.img_list.length}}张图片
+      .img-count(v-if="index == 1") {{post.img_list.length}}张图片
       
     .article-info
       a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
@@ -29,10 +28,12 @@ article.article-item
   //-       .article-time {{post.published_at | fromNow}}
   
   template(v-else)
-    .dib-top.img-cover-wrap(:class="{ 'video': post.post_type=='video' }")
+    a.img-cover-wrap(:href="`/news/${post.id}`")
       .img-cover
         img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
-      a.post-link(:href="`/news/${post.id}`")
+        .play(v-if="post.post_type=='video'")
+          i.iconfont.icon-play
+          span {{post.extra && post.extra.duration}}
     .article-info
       a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
       .article-time {{post.published_at | fromNow}}
@@ -52,7 +53,7 @@ article.article-item
   .article-meta.hidden-notxs
     a(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`")
       | {{post.comments_count}}条评论
-  .clear
+  .clearfix
 </template>
 
 <script>
@@ -82,9 +83,9 @@ export default {
 
 <style lang="stylus">
 @import "../../stylus/var.styl";
-.clear
-  clear both
+.clearfix
   height 0
+  clear both
   overflow hidden
 .article-item
   padding 25px 0
@@ -115,6 +116,9 @@ export default {
   p
     font-size 16px
     color rgba(0,0,0,.5)
+    margin 10px 0
+  h3
+    margin 10px 0
   .article-time
     display inline-block
     font-size 14px
@@ -124,90 +128,84 @@ export default {
     bottom 25px
     right 0
     left 0
-    padding-left 305px
+    padding-left 37%
     line-height 2
     color rgba(0,0,0,.5)
     a
       color rgba(0,0,0,.5)
-    .btn-comment
+    .icon-like
       margin-left 20px
     .source-right
       float right
       vertical-align middle
   .img-cover-wrap
-    position: relative;
+    position relative
+    display inline-block
+    width 35%
+    margin-right 2%
     float left
-    margin-right 20px
-    .post-link
-      display block
+    .play
       position absolute
-      left 0
-      top 0
-      bottom 0
-      right 0
-      z-index 1
-    &.video
-      .img-cover
-        &::before
-          position absolute
-          display block
-          content '►'
-          left 50%
-          top 50%
-          width 70px
-          height 70px
-          background rgba(255,255,255,.9)
-          box-shadow 0 0 13px 1px rgba(0,0,0,0.20)
-          color rgba(0,0,0,.9)
-          border-radius 50%
-          font-size 25px
-          text-indent .25em
-          line-height 70px
-          text-align center
-          transform translate(-50%, -50%)
+      left 50%
+      top 50%
+      width 60px
+      height 60px
+      background rgba(255,255,255,.9)
+      box-shadow 0 0 13px 1px rgba(0,0,0,0.20)
+      color rgba(0,0,0,.9)
+      border-radius 50%
+      font-size 22px
+      text-indent .25em
+      line-height 60px
+      text-align center
+      transform translate(-50%, -50%)
+      transition transform 0.3s ease
+      &:hover
+        transform translate(-50%, -50%) scale3d(1.15, 1.15, 1)
+      span
+        display none
   .img-cover
-    width: 285px;
-    height: 214px;
+    padding-bottom 75%
     background-color: #c3c3c3;
     border 1px solid #efefef
     position: relative;
     overflow hidden
     text-align center
     img
+      position absolute
+      top 50%
+      left 50%
+      transform translate3d(-50%, -50%, 0)
       height 100%
-      display inline
-      margin 0 -100%
+      width auto
+      min-width 100%
   .article-info
     position relative
-  .img-cover-wrap.tushang
+    display inline-block
+    width 63%
+  &.tushang
     .img-cover
-      height 285px
-  .ts-list
+      padding-bottom 100%
+  .ts-item
+    box-sizing border-box
+    width 31.5%
+    display inline-block
     position relative
-    margin-left 305px
     margin-bottom 10px
-    .ts-item
-      box-sizing border-box
-      width 50%
-      display inline-block
-      float right
-      border 1px solid #efefef
-      &:first-of-type
-        float none
-        margin-left -10px
-      img
-        width 100%
-        height 138px
+    &:first-of-type
+      margin-left -1%
+      margin-right 1%
+    .img-cover
+      padding-bottom 50%
     .img-count
       background rgba(0,0,0,.3)
       position absolute
       right 0
       top 0
-      width 50%
-      box-sizing border-box
-      padding-left 10px
+      left 0
+      bottom 0
+      padding-top 18%
       text-align center
-      line-height 138px
       color #fff
       font-size 26px
   .zaozhidao ~ .hidden-notxs
@@ -227,11 +225,11 @@ export default {
       line-height 2
       font-size 18px
   .category-tag
-    display: inline-block;
-    padding: 0 9px;
+    display inline-block
+    padding 0 9px
     line-height 2
-    background-color: #DCDCDC;
-    font-size: 14px;
+    background-color #DCDCDC
+    font-size 14px
     margin-right 1em
     font-weight bold
   @media $media
@@ -243,58 +241,54 @@ export default {
         font-size 22px
     h3
       font-size 16px
-      margin 4px 0
       line-height 1.4
     .img-cover-wrap
-      margin-right 15px
-      &.video
-        margin 0 0 15px 0
-        width 100%
-        float none
-        .img-cover
-          width 100%
-          height 165px
-      &.tushang
-        width calc(50% - 3px)
-        margin-right 0px
-        float none
-        display inline-block
-        box-sizing border-box
-        .img-cover
-          width 100%
-          height 164px
-    .ts-list
-      margin 0
-      margin-left 6px
-      display inline-block
-      width calc(50% - 3px)
-      padding 0
-      margin-bottom 20px
-      .ts-item
-        box-sizing border-box
-        width 100%
-        display inline-block
-        float none
-        height 80px
-        &:first-of-type
-          margin 0px
-          margin-bottom 6px
-        img
-          width 100%
-          height 100%
-      .img-count
-        top unset
-        width 100%
-        bottom 0
-        padding-left 0px
-        line-height 80px
-        font-size 20px
+      width 30%
     .img-cover
-      width 90px
-      height 90px
+      padding-bottom 100%
     .article-info
-      margin-left 0
-      flex 1
+      width 68%
+    &.tushang, &.video
+      .article-info
+        width 100%
+        margin-top 10px
+        margin-bottom 25px
+      .article-meta
+        padding-left 0
+    &.tushang
+      .img-cover-wrap
+        width 50%
+      .ts-item
+        width 48%
+        margin 0
+        vertical-align top
+        &:first-of-type
+          margin 0 0 1.5% 0
+        .img-count
+          font-size 16px
+    &.video
+      .img-cover-wrap
+        width 100%
+      .img-cover
+        padding-bottom 50%
+        .play
+          background rgba(0,0,0,1)
+          color #fff
+          width auto
+          border-radius 0
+          font-size 12px
+          left 10px
+          bottom 10px
+          line-height 1.2
+          height auto
+          transform none
+          text-indent 0
+          top inherit
+          padding 4px .6em
+          font-weight 300
+          span
+            display inline
+            padding-left .5em
     .category-tag
       padding 0 5px
       margin-right .5em
@@ -303,6 +297,6 @@ export default {
       font-size 12px
     .article-meta
       font-size 10px
-      padding-left 105px
+      padding-left 32%
       line-height 1
 </style>

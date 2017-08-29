@@ -26,19 +26,19 @@
       a(title="加入我们" href="/zhuanti/job/") 加入我们
     dd
       a(title="友情链接" href="/about#links") 友情链接
-  .users
-    .username#user-avatar(v-if="userInfo")
-      img(:src="userInfo.avatar_url")
-      a.logout(@click="logout")
-        i.fa.fa-sign-out
-        | 退出登录
-    a.signin(v-else, @click="login") 登录
   dl
     dt 项目
     dd
       a(href="//events.geekpark.net" target="_blank") 活动
     dd
       a(href="http://f.geekpark.net" target="_blank") 前沿社
+  .users
+    .username#user-avatar(v-if="userInfo")
+      img(:src="userInfo.avatar_url")
+      a.logout(@click="logout")
+        i.fa.fa-sign-out
+        | 退出登录
+    //- a.signin(v-else, @click="login") 登录
 </template>
 
 <script>
@@ -72,7 +72,7 @@ export default {
   bottom 0
   height calc(100vh - 45px)
   display flex
-  align-items flex-start
+  align-content flex-start
   justify-content center
   flex-wrap wrap
   width 100%
@@ -93,7 +93,9 @@ export default {
       margin 10px 0
       line-height 2
   .username
-    margin 40px 0 0px 0
+    margin 10px 0 0px 0
+    text-align center
+    font-size 16px
     img
       width 48px
       height 48px

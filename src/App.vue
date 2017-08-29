@@ -103,6 +103,8 @@ img
   margin 0 auto
   @media screen and (max-width: 1130px)
     margin 0 20px
+.clear
+  clear both
 h3
   font-size 20px
   font-weight 500
@@ -189,35 +191,6 @@ a
     margin 0 20px
   .main-content .article-list
     width 100%
-
-.el-pagination
-  text-align left
-
-.el-submenu, .el-menu
-  background-color rgb(0, 188, 212)
-
-  .el-menu-item-group, .el-menu-item
-    background-color rgb(23, 183, 204)
-
-  .el-menu-item:hover
-    background-color rgb(0, 172, 193)
-
-  * {
-    color: #fff
-  }
-  .is-active {
-    color: #fff
-  }
-  .el-menu-item-group__title {
-    color: #E1E1E1
-  }
-
-.el-submenu__title:hover
-  background-color rgb(0, 172, 193)
-
-
-.el-form
-  clear both
 
 
 //  public css
