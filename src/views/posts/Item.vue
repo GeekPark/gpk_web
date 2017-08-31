@@ -42,7 +42,7 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
       p.multiline-text-overflow {{post.abstract}}
 
   .article-meta.hidden-xs
-    a.article-author(v-for="author in post.authors", :href="`/author/${author.id}`") {{author.nickname}}
+    a.article-author(v-for="author in post.authors", :href="`/users/${author.id}`") {{author.nickname}}
     .source-right
       a.btn-comment(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`")
         i.iconfont.icon-comment

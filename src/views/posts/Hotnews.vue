@@ -41,7 +41,7 @@ export default {
 <style lang="stylus" scoped>
 .hot-news
   border 1px solid #E4E4E4
-  padding 20px
+  padding 15px
   margin-bottom 50px
   h3
     font-size 22px

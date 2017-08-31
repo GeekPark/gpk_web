@@ -137,7 +137,7 @@ export default {
     opacity: 0.5
     transition: opacity 0.3s
     .iconfont
-      font-size: 2.4rem
+      font-size: 18px
       color: rgba(255, 255, 255, 1)
       line-height: 40px
     &:hover

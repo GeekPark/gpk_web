@@ -1,10 +1,12 @@
 <template lang="jade">
 .idle-news
-  h3 捕风捉影
-  article.news-item
-    ul
-      li(v-for="post, index in posts.slice(0, 5)", :key="post.id")
-        a(:href="`/news/${post.id}`", target="_blank") {{post.title}}
+  h3 行业资讯
+  article.news-item(v-for="post in posts.slice(0, 5)", :key="post.id")
+    a(:href="`/news/${post.id}`", target="_blank")
+      .img-wrapper
+        .img-cover
+          img(:src="post.cover_url")
+      p.multiline-text-overflow {{post.title}}
 </template>
 
 <script>
@@ -39,19 +41,37 @@ export default {
 <style lang="stylus" scoped>
 .idle-news
   border 1px solid #E4E4E4
-  padding 20px
+  padding 15px
   margin-bottom 50px
   h3
     font-size 20px
     font-weight 500
     margin 0
   .news-item
-    margin 20px 0
-    ul
-      padding-left 1em
-    li
-      margin 15px 0
-      line-height 22px
-      a
-        color #000
+    margin 15px 0
+    clear both
+    height 70px
+    .img-wrapper
+      width 70px
+    .img-cover
+      width 100%
+      height 0
+      padding-bottom 100%
+      background-color #c3c3c3
+      border 1px solid #efefef
+      position relative
+      overflow hidden
+      img
+        position absolute
+        top 50%
+        left 50%
+        transform translate3d(-50%, -50%, 0)
+        height 100%
+        width auto
+        min-width 100%
+    p
+      margin -70px 0 0 80px
+      line-height 1.5
+      &.multiline-text-overflow
+        -webkit-line-clamp 3
 </style>

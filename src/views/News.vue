@@ -115,8 +115,7 @@ export default {
         console.log(result);
         this.postsData = result.data.post
       }).catch((err) => {
-        console.log(err);
-        this.$message.error(err.toString())
+        this.$router.push({path: '/404'})
       })
     },
 

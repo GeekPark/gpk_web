@@ -1,6 +1,6 @@
 <template lang="jade">
 #comment
-  textarea.min-heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
+  textarea.heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
   .input-box
     input.submit-comment(type="button", value="发表评论", @click="submitComment")
   .comment-wrap(v-if="comments.length")
@@ -21,6 +21,12 @@
           .time {{item.created_at | formatDate}}
           span(@click="toggleReplyForm(item.commenter_info[0].nickname, item.id)")
             | {{ replyid == item.id ? '取消' : '回复'}}
+        form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == item.id")
+          .textarea-wrap
+            textarea(name="comment", :id="'textarea-' + item.id")
+          input(type="hidden", name="comment_id", :value="item.id")
+          .input-box
+            button(class="submit-comment") 回复
         template(v-for="reply in item.childrens")
           .comment-item.sub-comment(:id="'comment-' + reply.id", v-if="reply.commenter_info && reply.commenter_info.length > 0")
             .c-body
@@ -29,14 +35,14 @@
               | {{reply.content}}
             .c-rp
               .time {{reply.created_at | formatDate}}
-              span(@click="toggleReplyForm(reply.commenter_info[0].nickname, item.id, reply.id)")
+              span(@click="toggleReplyForm(reply.commenter_info[0].nickname, reply.id)")
                 | {{ replyid == reply.id ? '取消' : '回复'}}
-        form.reply-form(@submit.prevent="submitReply($event, itemIndex)", style="display:none", :id="'replyForm-' + item.id")
-          .textarea-wrap
-            textarea(name="comment")
-          input(type="hidden" name="comment_id")
-          .input-box
-            button(class="submit-comment") 回复
+          form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == reply.id")
+            .textarea-wrap
+              textarea(name="comment", :id="'textarea-' + reply.id")
+            input(type="hidden", name="comment_id", :value="reply.id")
+            .input-box
+              button(class="submit-comment") 回复
 </template>
 
 <script>
@@ -112,28 +118,17 @@ export default {
         this.$message.error(err.toString())
       })
     },
-    toggleReplyForm: function(nickname, id, repId) {
-      this.nickname = nickname
+    toggleReplyForm: function(nickname, repId) {
       if (!this.$store.state.userInfo) {
         if (confirm('回复需要登录喔，点击确定去登录')) window.location.href = loginURL
         return
       }
-      var replyForm = $('#replyForm-' + id)
-      if (repId !== undefined) {
-        replyForm.children('input').val(repId)
-        this.replyid = this.replyid == repId ? '' : repId
+      if (this.replyid == repId) {
+        this.replyid = ''
       } else {
-        replyForm.children('input').val(id)
-        this.replyid = this.replyid == id ? '' : id
-      }
-      if (this.replyid) {
-        replyForm.show()
-      } else {
-        replyForm.hide()
-      }
-      
-      if (replyForm.find('textarea').is(':visible')) {
-        replyForm.find('textarea').val(`回复${nickname}:`).focus()
+        this.replyid = repId
+        this.nickname = nickname
+        setTimeout(()=>{$('#textarea-' + repId).val(`回复${nickname}:`).focus()}, 100)
       }
     },
     submitReply: function(e, i) {
@@ -174,7 +169,8 @@ export default {
           message: '回复成功！',
           type: 'success'
         });
-        $('#replyForm-' + this.comments[i].id).hide().find('textarea').val('');
+        $('#textarea-' + commentId).val('');
+        this.replyid = null
       })
     },
     toggleLike: function(item, index) {
@@ -251,10 +247,10 @@ export default {
     border none
     padding 10px
     width 100%
-    max-width 100%
     min-height 60px
+    max-width 100%
     font-size 14px
-    .min-heights
+    &.heights
       min-height 100px
   .input-box
     text-align right

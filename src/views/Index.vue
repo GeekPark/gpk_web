@@ -5,7 +5,7 @@
     sponsor(position="top_banner")
   .breaking-news(v-if="!isMobileUA")
     .container
-      .item(v-for='item, index in slider.posts', :key='item.id')
+      .item(v-for='item, index in slider.posts.slice(0, 5 - ads.length)', :key='item.id')
         .responsive-imgs
         a(class="link", :href="`/news/${item.id}`", target="_blank")
           img(:alt="item.title", class="img-cover loaded", :src="item.cover_url")
@@ -13,6 +13,13 @@
             h3.multiline-text-overflow
               span {{item.title}}
             p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
+      .item(v-for='item, index in ads', :key='item.ad.id')
+        .responsive-imgs
+        a(class="link", :href="item.ad.link", target="_blank")
+          img(:alt="item.title", class="img-cover loaded", :src="item.ad.cover_url")
+          .info-cover(v-if="item.ad.title")
+            h3.multiline-text-overflow
+              span {{item.ad.title}}
   .swiper-container#breakding-news-slider.breakding-news-slider(v-else)
     .swiper-wrapper
       .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')
@@ -114,6 +121,7 @@ export default {
       slider: {
         posts: [],
       },
+      ads: [],
       nowPanel: false,
       fb_content: '',
       fb_email: ''
@@ -121,8 +129,8 @@ export default {
   },
   watch: {
     'slider.posts': function (val, oldVal) {
-      if (isMobileUA) {
-        // console.log('toM', $('#breakding-news-slider'))
+      if (isMobileUA()) {
+        console.log('toM', $('#breakding-news-slider'))
         setTimeout(()=>{
           new Swiper('#breakding-news-slider', {
             // pagination: '.swiper-pagination',
@@ -133,6 +141,14 @@ export default {
             // },
           })
         }, 100)
+      } else {
+        api.get(`ads`).then((result) => {
+          if (result.data.post_left) {
+            this.ads = result.data.post_left
+          }
+        }).catch((err) => {
+          this.$message.error(err.toString())
+        })
       }
     }
   },
