@@ -199,6 +199,7 @@ export default {
       padding-bottom 50%
     .img-count
       background rgba(0,0,0,.3)
+      border 1px solid #efefef
       position absolute
       right 0
       top 0
@@ -252,7 +253,7 @@ export default {
       .article-info
         width 100%
         margin-top 10px
-        margin-bottom 25px
+        margin-bottom 15px
       .article-meta
         padding-left 0
     &.tushang

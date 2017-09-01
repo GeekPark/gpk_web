@@ -29,11 +29,12 @@
         .share-wrap
           share(:title="postsData.title")
 
-      .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
-        span.like-icon
-          .heart-animation-1
-          .heart-animation-2
-      //- {{postsData.like_count}}
+      .like-wrap
+        .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
+          span.like-icon
+            .heart-animation-1
+            .heart-animation-2
+        p(v-if="postsData.like_count > 0") {{postsData.like_count}}
       comment(:postid="$route.params.id")
       related(v-if="postsData.column && !promotion[postsData.column.id]")
       newest
@@ -128,6 +129,7 @@ export default {
       api.post(`posts/${id}/${like}?access_key=${access_key}`).then((res) => {
         console.log('res', res);
         this.postsData.liked = !this.postsData.liked;
+        this.postsData.like_count += like === 'unlike' ? -1 : 1
       }).catch((err) => {
         console.log(err);
         this.$message.error(err.toString())
@@ -188,6 +190,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     text-align left
     float none
     margin-left 60px
+    @media screen and (max-width: 1130px)
+      display none
   .post-header
     margin-bottom 30px
     border-bottom 1px solid #ddd
@@ -309,8 +313,13 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     .article-content
       iframe
         height 51vw
-    
+.like-wrap
+  text-align center
+  margin 20px auto 50px
+  p
+    margin 8px 0
 .like-button
+  display inline-block
   background #fff
   box-shadow 0 0 7px 2px rgba(0,0,0,0.20)
   border-radius 50%
@@ -319,9 +328,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
   user-select none
   width 50px
   height 50px
-  margin 20px auto 50px
   cursor pointer
-  &.liked, &:hover
+  &.liked
     color $pink
     filter grayscale(0)
 .like-icon

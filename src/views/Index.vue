@@ -5,21 +5,14 @@
     sponsor(position="top_banner")
   .breaking-news(v-if="!isMobileUA")
     .container
-      .item(v-for='item, index in slider.posts.slice(0, 5 - ads.length)', :key='item.id')
+      .item(v-for='item, index in slider.posts', :key='item.id')
         .responsive-imgs
-        a(class="link", :href="`/news/${item.id}`", target="_blank")
-          img(:alt="item.title", class="img-cover loaded", :src="item.cover_url")
-          .info-cover
-            h3.multiline-text-overflow
-              span {{item.title}}
-            p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
-      .item(v-for='item, index in ads', :key='item.ad.id')
-        .responsive-imgs
-        a(class="link", :href="item.ad.link", target="_blank")
-          img(:alt="item.title", class="img-cover loaded", :src="item.ad.cover_url")
-          .info-cover(v-if="item.ad.title")
-            h3.multiline-text-overflow
-              span {{item.ad.title}}
+          a(class="link", :href="item.link || `/news/${item.id}`", target="_blank")
+            img(:alt="item.title", class="img-cover loaded", :src="item.cover_url")
+            .info-cover
+              h3.multiline-text-overflow
+                span {{item.title}}
+              p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
   .swiper-container#breakding-news-slider.breakding-news-slider(v-else)
     .swiper-wrapper
       .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')
@@ -130,39 +123,33 @@ export default {
   watch: {
     'slider.posts': function (val, oldVal) {
       if (isMobileUA()) {
-        console.log('toM', $('#breakding-news-slider'))
         setTimeout(()=>{
           new Swiper('#breakding-news-slider', {
-            // pagination: '.swiper-pagination',
             autoplay: 5000,
-            loop: true,
-            // onInit: () => {
-            //   remount($('#breakding-news-slider'))
-            // },
+            loop: true
           })
         }, 100)
       } else {
-        api.get(`ads`).then((result) => {
-          if (result.data.post_left) {
-            this.ads = result.data.post_left
-          }
-        }).catch((err) => {
-          this.$message.error(err.toString())
-        })
+        if (this.ads.post_left) val[3] = this.ads.post_left[0].ad
+        if (this.ads.post_right) val[4] = this.ads.post_right[0].ad
       }
     }
   },
   mounted(){
     window.addEventListener('scroll', () => {
-      var scrollTop = document.body.scrollTop
-      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight && 
-          !this.loading && this.page < 3) {
-        this.fetch()
-      }
-      if(scrollTop > 800) {
-        document.querySelector(".fixed-tools").classList.add("show")
+      let scrollTop = document.body.scrollTop
+      let totalPage
+      if (isMobileUA()) {
+        totalPage = 999999
       } else {
-        document.querySelector(".fixed-tools").classList.remove("show")
+        totalPage = 3
+        scrollTop > 800 ? 
+          document.querySelector(".fixed-tools").classList.add("show") :
+          document.querySelector(".fixed-tools").classList.remove("show")
+      }
+      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight && 
+          !this.loading && this.page < totalPage) {
+        this.fetch()
       }
     })
   },
@@ -171,10 +158,17 @@ export default {
       this.loading = true
       this.page += 1
       api.get(`?page=${this.page}`).then((result) => {
-        console.log('homepage data: ', result)
-        this.slider = result.data.slider
+        console.log('homepage data: ', this.page, result)
+        this.page < 2 ? this.slider = result.data.slider : ''
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false
+      }).catch((err) => {
+        this.$message.error(err.toString())
+      })
+    },
+    getAds () {
+      api.get(`ads`).then((result) => {
+        this.ads = result.data
       }).catch((err) => {
         this.$message.error(err.toString())
       })
@@ -216,6 +210,9 @@ export default {
     }
   },
   beforeMount () {
+    if (!isMobileUA()) {
+      this.getAds()
+    }
     this.fetch()
   }
 }
@@ -337,30 +334,36 @@ export default {
     bottom 0
     padding 0 8% 4% 4%
     text-align left
+
   .item
-    background #E4E4E4
-    margin 0 0 10px 10px
+    width 24%
+    margin 0 0 1% 1%
+    background #efefef
     display inline-block
     vertical-align top
-    position relative
-    overflow hidden
     text-align center
-    .responsive-imgs
-      height 195px
-      width 275px
-      border 1px solid #F0F0F0
-      box-sizing border-box
     .link
       position absolute
       top 0
       left 0
       right 0
       bottom 0
+    .responsive-imgs
+      width 100%
+      height 0
+      padding-bottom 72%
+      box-sizing border-box
+      overflow hidden
+      border 1px solid #efefef
+      position relative
     img
       height 100%
       display inline
       margin 0 -100%
       transition transform 0.5s ease
+    &:hover
+      img
+        transform scale3d(1.05, 1.05, 1)
     h3
       font-size 16px
       color #fff
@@ -371,15 +374,12 @@ export default {
         background #000
         padding .3em 10px
         box-decoration-break clone
-    &:hover
-      img
-        transform scale3d(1.05, 1.05, 1)
     &:first-child
-      margin 0 0 10px 0
       float left
+      width 50%
+      margin 0
       .responsive-imgs
-        width 560px
-        height 400px
+        padding-bottom 71.5%
       h3
         font-size 20px
         // linear-gradient (transparent, transparent 0.1em, #000 0px, #000 1.85em, transparent 0)
@@ -392,53 +392,27 @@ export default {
         line-height 1.5
         padding 6px 10px
         margin 10px 0 0 0
-  @media screen and (max-width: 1130px)
+  @media screen and (max-width: 1023px)
     .item
-      width 24%
-      margin 0 0 1% 1%
       .responsive-imgs
-        width 100%
-        height 0
-        padding-bottom 72%
         h3
-          font-size 12px
-        p
           font-size 12px
       &:first-child
         width 50%
         margin 0
         h3
           font-size 16px
-        .responsive-imgs
-          width 100%
-          height 0
-          padding-bottom 71.5%
+        p
+          font-size 12px
   @media screen and (max-width: 767px)
+    margin-top 20px
     .item
       width 49.5%
       margin 1% 0 0 1%
       &:nth-child(even)
         margin-left 0
-      .responsive-imgs
-        width 100%
-        height 0
-        padding-bottom 72%
-        h3
-          font-size 12px
-        p
-          font-size 12px
       &:first-child
         width 100%
-        margin 0
-        h3
-          font-size 16px
-        .responsive-imgs
-          width 100%
-          height 0
-          padding-bottom 71.5%
-  
-  @media screen and (max-width: 767px)
-    margin-top 20px
 .breakding-news-slider
   overflow: hidden
   position relative

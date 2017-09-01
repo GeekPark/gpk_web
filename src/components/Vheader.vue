@@ -175,29 +175,29 @@ triangleDown($color = #fff)
     border-right 10px solid transparent
     border-top 10px solid $color
 .subpanel
-  padding: 5px 0
-  opacity: 0
-  visibility: hidden
-  line-height: 35px
-  background-color: #fff
-  list-style-type: none
-  padding-left: 0
-  position: absolute
-  top: 100%
-  right: 0
-  margin: 0
-  z-index: 40
-  width: 120px
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3)
-  transform: translateY(10px)
-  transition: all 0.3s ease
+  padding 5px 0
+  opacity 0
+  visibility hidden
+  line-height 35px
+  background-color #fff
+  list-style-type none
+  padding-left 0
+  position absolute
+  top 100%
+  right 0
+  margin 0
+  z-index 40
+  width 120px
+  box-shadow 0 0 8px rgba(0, 0, 0, 0.3)
+  transform translateY(10px)
+  transition all 0.3s ease
   triangleDown()
   &::after
-    left: auto
-    right: 8px
-    bottom: auto
-    top: -7px
-    transform: rotate(180deg)
+    left auto
+    right 0
+    bottom auto
+    top -7px
+    transform rotate(180deg)
 
 .header
   line-height $headerHeight
@@ -248,14 +248,15 @@ triangleDown($color = #fff)
       vertical-align middle
       display inline-block
       border-radius 100%
-      width 50px
-      height 50px
+      width 40px
+      height 40px
+      border 1px solid #efefef
     .usermenu
-      margin-top 2px
+      margin-top 0px
       padding 10px 20px
       width 70px
       &::after
-        right 15px
+        right 10px
       a
         color #000
       a:hover
