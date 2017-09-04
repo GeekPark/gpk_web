@@ -63,7 +63,7 @@ export default {
   padding 20px 0
   height 180px
   h3
-    margin 50px 0 40px
+    margin 40px 0 40px
     font-size 50px
     font-weight 300
     letter-spacing .5em
@@ -71,4 +71,13 @@ export default {
     font-size 14px
     font-weight 300
     letter-spacing .5em
+    padding 0 60px
+    line-height 1.5
+  @media screen and (max-width: 767px)
+    h3
+      font-size 40px
+      letter-spacing 0
+    .desc
+      letter-spacing 0
+    
 </style>

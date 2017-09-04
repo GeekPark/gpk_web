@@ -398,14 +398,13 @@ export default {
         h3
           font-size 12px
       &:first-child
-        width 50%
-        margin 0
         h3
           font-size 16px
         p
           font-size 12px
   @media screen and (max-width: 767px)
     margin-top 20px
+    margin-bottom 0px
     .item
       width 49.5%
       margin 1% 0 0 1%

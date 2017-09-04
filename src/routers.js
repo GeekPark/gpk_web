@@ -34,7 +34,7 @@ const router = new VueRouter({
       component: Column,
       meta: {title: '栏目页'}
     },
-    { path: '/topics/:id',
+    { path: '/topic/:id',
       name: 'topics',
       component: Topics,
       meta: {title: '专题页'}

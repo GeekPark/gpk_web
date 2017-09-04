@@ -17,21 +17,21 @@ export default {
       // 配置
       var url = window.location.href;
       // let imgUrl = document.querySelector('article').querySelector('.banner').src || '7f.png';
-      var imgUrl = '';
-      var desc = '';
-      var title = '';
-      var meta = document.getElementsByTagName('meta');
-      Array.prototype.forEach.call(meta, function(item) {
-        if (item.name === 'description') {
-          desc = item.content;
-        }
-        if (item.name === 'promote_title') {
-          title = item.content;
-        }
-        if (item.name === 'promote_image') {
-          imgUrl = item.content;
-        }
-      });
+      var imgUrl = 'https://ocpk3ohd2.qnssl.com/assets/v2/icons/geekpark-icon-196-03ac430f5643fc17aba3b3f5429a287d.png';
+      var desc = '极客公园，为你带来互联网热门趋势、热点产品的深度分析，发掘产品和趋势的价值。';
+      var title = document.title;
+      // var meta = document.getElementsByTagName('meta');
+      // Array.prototype.forEach.call(meta, function(item) {
+      //   if (item.name === 'description') {
+      //     desc = item.content;
+      //   }
+      //   if (item.name === 'promote_title') {
+      //     title = item.content;
+      //   }
+      //   if (item.name === 'promote_image') {
+      //     imgUrl = item.content;
+      //   }
+      // });
       
       api.get(`wechat/js_config?request_url=${url}`).then(function(res) {
         wx.config({

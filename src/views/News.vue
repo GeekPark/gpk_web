@@ -1,8 +1,10 @@
 <template lang="jade">
 #post
   v-title {{postsData.title}}
-  section.container(v-if="postsData.post_type")
+  section.container(v-show="postsData.post_type")
     .main-wrap
+      template(v-if="!show")
+        .preview 此为文章临时预览链接，将在30分钟后失效
       article
         #play-room(:class="{'video-player': postsData.post_type == 'video'}")
         header.post-header(:class="{'video': postsData.post_type == 'video'}")
@@ -22,7 +24,6 @@
             span 摘要
           p {{postsData.abstract}}
         #article-body.article-content(v-html="postsData.content")
-          p {{postsData.abstract}}
         .article-source
         section.tags
           a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
@@ -76,7 +77,7 @@ export default {
     }
   },
   watch: {
-    'postsData.post_type': function (val, oldVal) {
+    'postsData': function (val, oldVal) {
       if (!isMobileUA()) {
         setTimeout(()=>{
           mediumZoom([
@@ -85,6 +86,20 @@ export default {
           ])
         }, 100)
       } else if (isWechat()) {
+        wx.ready(function() {
+          wx.onMenuShareTimeline({ // 分享朋友圈
+            title: val.title, // 分享标题
+            link: window.location.href, // 分享链接
+            imgUrl: val, // 分享图标
+          });
+          wx.onMenuShareAppMessage({ // 分享给好友
+            title: val.title, // 分享标题
+            desc: val.abstract, // 分享描述
+            link: window.location.href, // 分享链接
+            imgUrl: val.cover_url, // 分享图标
+          });
+        })
+
         const imgs = [];
         imgs.push($('#topic-cover').attr('src'));
         $('#article-body img').each(function () {
@@ -176,7 +191,12 @@ export default {
 $gray = #EBEBEB
 $pink = #f94c8d
 $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
-
+.preview
+  color #5b5b5b
+  background #c4dff6
+  padding 0 .5em
+  line-height 2
+  margin-bottom 1.5em
 #play-room
   &.video-player
     position relative
@@ -267,6 +287,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       color #fff
       font-weight normal
       background #000
+      padding 2px 0
     h2
       position relative
       font-size 18px
@@ -299,13 +320,13 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
         top 0
     p
       margin 15px 0
-      color rgba(0, 0, 0, .8)
+      color #333
       img + i
         color rgba(0, 0, 0, .6)
         font-size 12px
         font-style normal
     a, a:visited
-      color rgba(0, 0, 0, .8)
+      color #333
       text-decoration none
       border-bottom 1px solid #F84B8D
   

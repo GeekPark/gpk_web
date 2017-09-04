@@ -21,7 +21,7 @@ footer.page-footer#footer
             .iconfont.icon-wechat
             .wechat-qr.triangle-down
               img(src='../assets/imgs/qr_geekpark.jpg' alt="极客公园微信公众平台" width="120" height="120")
-          a.rss.share-btn(href="/rss" target="_blank" data-track-label="rss")
+          a.rss.share-btn(href="http://feed.geekpark.net" target="_blank" data-track-label="rss")
             .iconfont.icon-rss
 
       section.about

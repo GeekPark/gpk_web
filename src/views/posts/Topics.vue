@@ -2,7 +2,7 @@
 .topics
   h3 专题精选
   article.news-item
-    a.topic-card(v-for="topic, index in data.topics", :key="topic.id", :href="`/topics/${topic.id}`", target="_blank")
+    a.topic-card(v-for="topic, index in data.topics", :key="topic.id", :href="`/topic/${topic.id}`", target="_blank")
       img(:src="topic.banner_url")
       .mask
         h4.multiline-text-overflow {{topic.title}}
