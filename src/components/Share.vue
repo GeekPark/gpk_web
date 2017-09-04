@@ -95,42 +95,42 @@ var share = {
 
 .share-wrap
   span
-    line-height: 80px
+    line-height 80px
 .share-list
 .share-wrap-btn
-  display: inline-block
+  display inline-block
 .share-btn
-  display: inline-block
-  width: 35px
-  height: 35px
-  text-align: center
-  line-height: 35px
-  border-radius: 50%
-  color: #5B5B5B
-  opacity: 1
-  transition: all 0.4s
-  background-color: #F6F6F6
+  display inline-block
+  width 35px
+  height 35px
+  text-align center
+  line-height 35px
+  border-radius 50%
+  color #5B5B5B
+  opacity 1
+  transition all 0.4s
+  background-color #F6F6F6
   margin-left 1em
   &:hover .iconfont
-    opacity: 0.8
+    opacity 0.8
 .share-btn .iconfont
-  font-size: 2.2rem
+  font-size 16px
   line-height 36px
-  font-weight: normal
+  font-weight normal
 .wx-qrcode
-  position: absolute
-  width: 120px
-  height: 120px
-  left: 50%
-  top: 40px
-  margin-left: -60px
-  opacity: 0
-  transform: scale(0)
-  transform-origin: top center
-  transition: all 0.3s
+  position absolute
+  width 120px
+  height 120px
+  left 50%
+  top 40px
+  margin-left -60px
+  opacity 0
+  transform scale(0)
+  transform-origin top center
+  transition all 0.3s
 .share-list.weixin .share-btn:hover .wx-qrcode
-  opacity: 1
-  transform: scale(1)
+  opacity 1
+  transform scale(1)
 @media screen and (max-width: $screen-xs-max)
   .share-list.weixin
     display none

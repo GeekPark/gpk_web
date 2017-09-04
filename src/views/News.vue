@@ -1,7 +1,7 @@
 <template lang="jade">
 #post
   v-title {{postsData.title}}
-  section.container
+  section.container(v-if="postsData.post_type")
     .main-wrap
       article
         #play-room(:class="{'video-player': postsData.post_type == 'video'}")
@@ -28,21 +28,22 @@
           a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
         .share-wrap
           share(:title="postsData.title")
-
-      .like-wrap
-        .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
-          span.like-icon
-            .heart-animation-1
-            .heart-animation-2
-        p(v-if="postsData.like_count > 0") {{postsData.like_count}}
-      comment(:postid="$route.params.id")
-      related(v-if="postsData.column && !promotion[postsData.column.id]")
-      newest
+      template(v-if="show")
+        .like-wrap
+          .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
+            span.like-icon
+              .heart-animation-1
+              .heart-animation-2
+          p(v-if="postsData.like_count > 0") {{postsData.like_count}}
+        comment(:postid="$route.params.id")
+        related(v-if="postsData.column && !promotion[postsData.column.id]")
+        newest
       
     aside.article-sidebar
       sponsor(position="post")
       hotnews
-      nextnews
+      template(v-if="show")
+        nextnews
 </template>
 
 <script>
@@ -66,6 +67,7 @@ export default {
 
   data () {
     return {
+      show: false,
       postsData: {},
       promotion: {
         '2': '捕风捉影',
@@ -113,8 +115,23 @@ export default {
   methods: {
     fetch () {
       api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
-        console.log(result);
-        this.postsData = result.data.post
+        if (result.data.post && result.data.post.published_at) {
+          this.postsData = result.data.post
+        } else {
+          this.$router.push({path: '/404'})
+        }
+      }).catch((err) => {
+        this.$router.push({path: '/404'})
+      })
+    },
+    preview () {
+      api.get(`posts/${this.$route.params.id}/preview?key=${this.$route.query.key}`).then(result => {
+        console.log('preview data: ', result)
+        if (result.data.message) {
+          this.$message.error(result.data.message);
+        } else {
+          this.postsData = result.data.post
+        }
       }).catch((err) => {
         this.$router.push({path: '/404'})
       })
@@ -143,7 +160,12 @@ export default {
     }
   },
   beforeMount () {
-    this.fetch()
+    if (this.$route.query.key) {
+      this.preview()
+    } else {
+      this.fetch()
+      this.show = true
+    }
   }
 }
 
@@ -315,6 +337,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
         height 51vw
 .like-wrap
   text-align center
+  min-height 75px
   margin 20px auto 50px
   p
     margin 8px 0

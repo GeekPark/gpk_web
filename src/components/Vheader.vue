@@ -14,18 +14,20 @@
         i.iconfont.icon-search(v-if="!showsearch")
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")
-        //- .message.dib.js-message(href="javascript:;" class="high")
-        //-   i.iconfont.icon-notice
-        //-   .subpanel.msg-content.js-msg-content
-        //-     .no-message(v-if="true") 您还没有消息呢，快去留言互动吧！
-        //-     .msg-header
-        //-       .title 通知
-        //-       a.btn.read-all.js-read-all(v-if="true", href="javascript:;") 标记为已读
-        //-     .msg-menu.js-msg-menu
-        //-       ul.msg-list
-        //-         li 通知标题
-        //-       a.btn.load-more.js-load-more(href="javascript:;") 加载更多
-        //-       span.hidden 没有更多消息了..
+        #js-message.message.dib(@click="dropmessage")
+          i.iconfont.icon-notice
+          .subpanel.msg-content.js-msg-content
+            .no-message(v-if="message.length < 1") 您还没有消息呢，快去留言互动吧！
+            template(v-else)
+              .msg-header
+                .title 通知
+                a.btn.read-all.js-read-all.hidden(v-if="true", href="javascript:;") 标记为已读
+              .msg-menu.js-msg-menu
+                ul.msg-list
+                  li(v-for="mg in message")
+                    | {{mg.content}}
+                a.btn.load-more.js-load-more.hidden(href="javascript:;") 加载更多
+                span.hidden 没有更多消息了..
         .username.dib#user-avatar(@click="dropmenu")
           img(:src="userInfo.avatar_url")
           ul#user_actions.subpanel.usermenu
@@ -76,6 +78,7 @@ export default {
       showmenu: false,
       showsearch: false,
       activeIndex: "1",
+      message: [],
     }
   },
   mounted() {
@@ -86,7 +89,18 @@ export default {
       const $dom = $('#user-avatar')
       $dom.addClass('expand')
       $('body').css('cursor', 'pointer')
-
+      const cancle = clickAtOutside(
+        $dom.get(0),
+        () => {
+          $dom.removeClass('expand')
+          cancle()
+        }
+      )
+    },
+    dropmessage() {
+      const $dom = $('#js-message')
+      $dom.addClass('expand')
+      $('body').css('cursor', 'pointer')
       const cancle = clickAtOutside(
         $dom.get(0),
         () => {
@@ -101,6 +115,7 @@ export default {
           this.$store.state.access_key = result.data.access_key
           localStorage.setItem('access_key', result.data.access_key)
           this.getUser()
+          this.getMessage()
         } else {
           this.cleanUser()
         }
@@ -138,10 +153,110 @@ export default {
       const url = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`
       window.location.href = url
     },
+    getMessage() {
+      api.account.get(`api/v1/notifications/all?access_key=${localStorage.getItem("access_key")}`).then((result) => {
+        console.log('getMessage', result.data)
+        this.message = result.data
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    readMessage() {
+      api.account.post(`api/v1/notifications/read?access_key=${localStorage.getItem("access_key")}`).then((result) => {
+        console.log('readMessage', result.data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    readAllMessage() {
+      api.account.post(`api/v1/notifications/read_all?access_key=${localStorage.getItem("access_key")}`).then((result) => {
+        console.log('readAllMessage', result.data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
   },
   beforeMount () {
     // this.userInfo = localStorage.getItem('userInfo')
-    this.getToken();
+    this.getToken()
+  }
+}
+
+function notification() {
+  const $message = $('.js-message');
+  const $msgContent = $message.find('.js-msg-content');
+  const $msgMenu = $message.find('.js-msg-menu');
+  const $allReadBtn = $message.find('.js-read-all');
+  const $loadMoreBtn = $message.find('.js-load-more');
+  const $msgList = $message.find('.msg-list');
+  // 未读消息数量
+  let num = $msgMenu.find('.new').length;
+  // 请求页
+  let loadPage = 2;
+
+  // prevent body scroll when $msgMenu scroll
+  lockScroll($msgMenu);
+
+  clickAtOrigin($message, () => $msgContent.removeClass('active'));
+
+  $message.on('click', () => {
+    $msgContent.toggleClass('active');
+  });
+
+  $msgMenu.on('click', 'li.new a', function (e) {
+    e.preventDefault();
+    const $elem = $(this).parents('li');
+    const url = $(this).attr('href');
+    read($elem, url);
+  });
+
+  $allReadBtn.on('click', function () {
+    readAll();
+  });
+
+  $loadMoreBtn.on('click', function () {
+    loadMoreMsg($(this));
+  });
+
+  // 单个消息标记已读
+  function read($elem, url) {
+    const id = $elem.data('id');
+
+    ajax({
+      url: `/notifications/${id}/read`,
+      type: 'PUT',
+    }).done(() => {
+      $elem.removeClass('new');
+      num--;
+      if (num === 0) $message.removeClass('high');
+      window.location.replace(url);
+    });
+  }
+
+  // 全部消息标记已读
+  function readAll() {
+    ajax({
+      url: '/notifications/read_all',
+      type: 'PUT',
+    }).done(() => {
+      $message.removeClass('high');
+      $msgMenu.find('.new').removeClass('new');
+    });
+  }
+
+  // 加载更多消息
+  function loadMoreMsg($this) {
+    ajax({
+      url: '/notifications',
+      data: { page: loadPage },
+    }).done((data) => {
+      loadPage++;
+      if (data) {
+        $msgList.append(data);
+      } else {
+        $this.addClass('hidden').siblings('span').removeClass('hidden');
+      }
+    });
   }
 }
 </script>
@@ -282,8 +397,6 @@ triangleDown($color = #fff)
     &:hover
       color #fff
 
-
-
   .message
     position relative
     display inline-block
@@ -291,16 +404,17 @@ triangleDown($color = #fff)
     cursor pointer
     i
       font-size 1.2em
-    .subpanel.active
-      opacity 1
-      visibility visible
-      transform translateY(0)
-      transition all 0.3s ease
-    .icon-message
+    &.expand
+      .subpanel
+        opacity 1
+        visibility visible
+        transform translateY(0)
+        transition all 0.3s ease
+        text-align left
+    .icon-notice
       position relative
-      top -1px
-      font-size 1.8rem
-      margin 0 12px
+      font-size 20px
+      margin 0 10px 0 0
     .count
       font-size 1.5rem
     .msg-content
@@ -321,16 +435,16 @@ triangleDown($color = #fff)
       background-color: #f00
       border-radius: 100%
   .msg-header
-    text-align: left
-    padding: 10px 8px
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12)
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.12)
-    line-height: 1.5
+    padding 10px 8px
+    border-bottom 1px solid rgba(0, 0, 0, 0.12)
+    box-shadow 1px 1px 5px rgba(0, 0, 0, 0.12)
+    line-height 1.5
     .title
-      display: inline-block
-      font-weight: bold
+      display inline-block
+      font-weight bold
   .no-message
-    margin: 10px 0
+    text-align center
+    margin 10px 0
   .btn
     display: inline-block
     padding: 2px 10px
@@ -348,64 +462,57 @@ triangleDown($color = #fff)
       color: #444
       border-color: #444
   .msg-menu
-    position: relative
-    padding: 12px
-    margin: 0
-    max-height: 400px
-    overflow: auto
+    text-align center
+    position relative
+    padding 12px
+    margin 0
+    max-height 400px
+    overflow auto
     scrollbar()
     li
-      position: relative
-      min-height: 40px
-      border-bottom: 1px solid #efefef
-      padding-bottom: 8px
-      margin-bottom: 8px
+      position relative
+      min-height 40px
+      border-bottom 1px solid #efefef
+      padding-bottom 8px
+      margin-bottom 8px
+      text-align left
     .avatar
       width 35px
       position absolute
       top 0
       left 0
     img
-      width: 100%
-      border-radius: 8px
-      border: 1px solid #f0f0f0
+      width 100%
+      border-radius 8px
+      border 1px solid #f0f0f0
     div
-      line-height: 1.5
-      text-align: left
-      padding-left: 50px
+      line-height 1.5
+      text-align left
+      padding-left 50px
       a
-        color: #7d7d7d
+        color #7d7d7d
     li.new
       .avatar::after
-        content: ''
-        width: 6px
-        height: 6px
-        position: absolute
-        top: -3px
-        right: -3px
-        background-color: #f00
-        border-radius: 100%
+        content ''
+        width 6px
+        height 6px
+        position absolute
+        top -3px
+        right -3px
+        background-color #f00
+        border-radius 100%
     .load-more
-      line-height: 1.7
+      line-height 1.7
   ul
     list-style-type none
     padding 0
     margin 0
-  .msg-content::before
-    content ''
-    position absolute
-    left 0
-    bottom 0
-    width 100%
-    height 20px
-    background linear-gradient(rgba(255, 255, 255, 0), white)
-    z-index 10
 
   // search btn
   .search-btn
     cursor pointer
     font-size 1.3em
-    margin-right 28px
+    margin-right 20px
     line-height initial
     display inline-block
     width 1.5em

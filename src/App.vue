@@ -116,6 +116,10 @@ a
   display -webkit-box
   -webkit-line-clamp 2
   -webkit-box-orient vertical
+#error
+  h1
+    text-align center
+    padding 200px 0
 .main-content
   margin 50px 0
   .article-list
@@ -194,21 +198,11 @@ a
 
 
 //  public css
-
 .no-touch-bg
   user-select none
   -webkit-tap-highlight-color transparent
   -webkit-touch-callout none
   -webkit-user-select none
-
-.a-title-text
-  color #2c3e50
-  font-size 2rem
-  font-weight bold
-
-.border1
-  border 1px solid #D3D3D3
-
 .slide-fade-enter-active
   transition all .1s ease
 .slide-fade-leave-active
@@ -217,32 +211,6 @@ a
   transform translateX(10px)
   opacity 0
 
-.title
-  float left
-  h1
-    display inline-block
-    margin-right 20px
-
-.filter
-  margin-bottom 20px
-  float right
-  .el-button
-    margin-left 0px
-  .el-input
-    margin-left 20px
-    width 200px
-
-.bg-purple-dark
-  background #99a9bf
-.bg-purple
-  background #d3dce6
-.bg-purple-light
-  background #e5e9f2
-.grid-content
-  border-radius 4px
-  min-height 46px
-  padding 10px
-  position relative
 .center
   position   absolute
   top        50%

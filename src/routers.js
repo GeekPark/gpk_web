@@ -78,19 +78,21 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title
-  let token = localStorage.getItem('token')
-	if(to.meta.requireAuth) {
-		if(token) {
-			next()
-		} else {
-			next({
-				path: '/login',
-				query: { redirect: to.fullPath }
-			})
-		}
-	} else {
-		next()
-	}
+  next()
+  
+  // let token = localStorage.getItem('token')
+	// if(to.meta.requireAuth) {
+	// 	if(token) {
+	// 		next()
+	// 	} else {
+	// 		next({
+	// 			path: '/login',
+	// 			query: { redirect: to.fullPath }
+	// 		})
+	// 	}
+	// } else {
+	// 	next()
+	// }
 })
 
 export default router

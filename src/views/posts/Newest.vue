@@ -56,10 +56,16 @@ export default {
     .news-cover
       border 1px solid #F1F1F1
       position relative
+      width 100%
+      height 0
+      padding-bottom 64%
       overflow hidden
       img
-        width 100%
-        height 120px
+        position absolute
+        top 50%
+        left 50%
+        transform translate3d(-50%, -50%, 0)
+        height 100%
     p
       margin 5px 0
       line-height 1.5
@@ -71,16 +77,10 @@ export default {
       padding-right 15px
       box-sizing border-box
       .multiline-text-overflow
-        -webkit-line-clamp 3
-      .news-cover
-        float left
-        margin-right 20px
-        width 50%
-        img
-          width 100%
+        -webkit-line-clamp 2
   
   @media screen and (max-width: 540px)
     .news-item
-      width 100%
+      width 50%
 </style>
 
