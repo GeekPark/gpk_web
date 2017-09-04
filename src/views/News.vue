@@ -1,6 +1,5 @@
 <template lang="jade">
 #post
-  v-title {{postsData.title}}
   section.container(v-show="postsData.post_type")
     .main-wrap
       template(v-if="!show")
@@ -56,7 +55,6 @@ import Related from './posts/Related.vue'
 import Newest from './posts/Newest.vue'
 import Nextnews from './posts/Nextnews.vue'
 import Share from '../components/Share.vue'
-import VTitle from '../components/VTitle.vue'
 import Comment from './Comment.vue'
 import mediumZoom from 'medium-zoom'
 import { isWechat, isMobileUA } from 'mdetect'
@@ -64,7 +62,7 @@ import { isWechat, isMobileUA } from 'mdetect'
 const access_key = localStorage.getItem('access_key')
 
 export default {
-  components: { Hotnews, Nextnews, Share, VTitle, Comment, Sponsor, Related, Newest },
+  components: { Hotnews, Nextnews, Share, Comment, Sponsor, Related, Newest },
 
   data () {
     return {
@@ -78,6 +76,7 @@ export default {
   },
   watch: {
     'postsData': function (val, oldVal) {
+      document.title = val.title
       if (!isMobileUA()) {
         setTimeout(()=>{
           mediumZoom([
@@ -100,21 +99,23 @@ export default {
           });
         })
 
-        const imgs = [];
-        imgs.push($('#topic-cover').attr('src'));
-        $('#article-body img').each(function () {
-          imgs.push($(this).attr('src'));
-        });
-
-        $('#post').on('click', 'img', function () {
-          const src = $(this).attr('src');
-          if (imgs.indexOf(src) === -1) return;
-          // window.ga('send', 'event', 'M.article.pic.zoom', 'zoom', src);
-          wx.previewImage({
-            current: src,
-            urls: imgs,
+        setTimeout(()=>{
+          const imgs = [];
+          imgs.push(val.cover_url);
+          $('#article-body img').each(function () {
+            imgs.push($(this).attr('src'));
           });
-        });
+
+          $('#post').on('click', 'img', function () {
+            const src = $(this).attr('src');
+            if (imgs.indexOf(src) === -1) return;
+            // window.ga('send', 'event', 'M.article.pic.zoom', 'zoom', src);
+            wx.previewImage({
+              current: src,
+              urls: imgs,
+            });
+          });
+        }, 100)
       }
 
       if (val === 'video') {

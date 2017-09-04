@@ -21,13 +21,11 @@ const router = new VueRouter({
   routes: [
     { path: '/',
       name: 'index',
-      component: Index,
-      meta: {title: '极客公园-只为商业新变量'}
+      component: Index
     },
     { path: '/news/:id',
       name: 'news',
-      component: News,
-      meta: {title: '文章详情'}
+      component: News
     },
     { path: '/column/:id',
       name: 'column',
@@ -77,7 +75,9 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
+  if (to.meta) {
+    document.title = to.meta.title
+  }
   next()
   
   // let token = localStorage.getItem('token')

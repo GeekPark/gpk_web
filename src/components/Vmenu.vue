@@ -35,10 +35,8 @@
   .users
     .username#user-avatar(v-if="userInfo")
       img(:src="userInfo.avatar_url")
-      a.logout(@click="logout")
-        i.fa.fa-sign-out
-        | 退出登录
-    //- a.signin(v-else, @click="login") 登录
+      a.logout(@click="logout") 退出登录
+    a.signin(v-else, @click="login") 登录
 </template>
 
 <script>
@@ -88,12 +86,17 @@ export default {
       border-bottom 1px solid #fff
       line-height 3
       font-size 16px
+      margin-bottom 15px
     dd
       font-size 14px
       margin 10px 0
       line-height 2
+  .users
+    display flex
+    justify-content center
+    align-items flex-end
   .username
-    margin 10px 0 0px 0
+    margin 8px 0 0px 0
     text-align center
     font-size 16px
     img
