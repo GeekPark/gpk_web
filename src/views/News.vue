@@ -10,19 +10,20 @@
           .label.article-info(v-if="postsData.post_type !== 'video' && postsData.column && !promotion[postsData.column.id]")
             a.category-tag(:href="`/column/${postsData.column && postsData.column.id}`" target="_blank")  {{postsData.column && postsData.column.title}}
             .article-time {{postsData.reading_time}}min read
-          h1 {{postsData.title}}
+          h1.topic-title {{postsData.title}}
           .user-info
             a.author(v-for="author in postsData.authors", :href="`/users/${author.id}`")
               img(:src="author.avatar_url")
-              | {{author.nickname}}
+              span {{author.nickname}}
             span.release-date {{postsData.published_at | formatDate}}
-        .topic-cover(v-if="postsData.post_type !== 'video'")
-          img#topic-cover(:src="postsData.cover_url")
-          .tips
-            i.iconfont.icon-quotes
-            span 摘要
-          p {{postsData.abstract}}
-        #article-body.article-content(v-html="postsData.content")
+        #article-body
+          .topic-cover(v-if="postsData.post_type !== 'video'")
+            img#topic-cover(:src="postsData.cover_url")
+            .tips
+              i.iconfont.icon-quotes
+              span 摘要
+            p {{postsData.abstract}}
+          .article-content(v-html="postsData.content")
         .article-source
         section.tags
           a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
@@ -79,10 +80,7 @@ export default {
       document.title = val.title
       if (!isMobileUA()) {
         setTimeout(()=>{
-          mediumZoom([
-            ...document.querySelectorAll("#topic-cover"),
-            ...document.querySelectorAll(".article-content img")
-          ])
+          mediumZoom(document.querySelectorAll("#article-body img"))
         }, 100)
       } else if (isWechat()) {
         wx.ready(function() {
@@ -101,12 +99,11 @@ export default {
 
         setTimeout(()=>{
           const imgs = [];
-          imgs.push(val.cover_url);
           $('#article-body img').each(function () {
             imgs.push($(this).attr('src'));
           });
 
-          $('#post').on('click', 'img', function () {
+          $('#article-body').on('click', 'img', function () {
             const src = $(this).attr('src');
             if (imgs.indexOf(src) === -1) return;
             // window.ga('send', 'event', 'M.article.pic.zoom', 'zoom', src);
