@@ -48,6 +48,7 @@ export default {
   },
 
   beforeMount () {
+    document.title = this.$route.params.tag + ' | 极客公园'
     this.fetch()
   }
 }

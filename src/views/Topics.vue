@@ -30,6 +30,7 @@ export default {
       this.loading = true;
       api.get(`topics/${this.$route.params.id}`).then((result) => {
         this.topic = result.data.topic
+        document.title = result.data.topic.title + ' | 极客公园'
         this.loading = false
       }).catch((err) => {
         this.$message.error(err.toString())

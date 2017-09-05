@@ -8,7 +8,7 @@
       .item(v-for='item, index in slider.posts', :key='item.id')
         .responsive-imgs
           a(class="link", :href="item.link || `/news/${item.id}`", target="_blank")
-            img(:alt="item.title", class="img-cover loaded", :src="item.cover_url")
+            img(:alt="item.title", class="img-cover loaded", :src="`${item.cover_url}?imageView2/1/w/1120/h/800/interlace/1/q/88/ignore-error/1/`")
             .info-cover
               h3.multiline-text-overflow
                 span {{item.title}}
@@ -18,7 +18,7 @@
       .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')
         a.link(:href="`/news/${item.id}`")
           .img-cover
-            img(:src="item.cover_url")
+            img(:src="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/ignore-error/1/`")
           .info-cover
             h3.multiline-text-overflow
               span {{item.title}}

@@ -33,12 +33,15 @@ export default {
 
   methods: {
     fetch () {
-      this.loading = true;
-      this.page += 1;
+      this.loading = true
+      this.page += 1
       api.get(`columns/${this.$route.params.id}?page=${this.page}`).then((result) => {
-        this.column = result.data.column;
-        this.posts = this.posts.concat(result.data.column.posts);
-        this.loading = false;
+        this.posts = this.posts.concat(result.data.column.posts)
+        if (this.page === 1) {
+          this.column = result.data.column
+          document.title = result.data.column.title + ' | 极客公园'
+        }
+        this.loading = false
       }).catch((err) => {
         this.$message.error(err.toString())
       })

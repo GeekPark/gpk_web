@@ -6,7 +6,7 @@
   article.news-item(v-for='post, index in posts', :key='post.id')
     a(:href="`/news/${post.id}`", target="_blank")
       .news-cover
-        img(alt="", :src="post.cover_url")
+        img(:src="`${post.cover_url}?imageView2/1/w/316/h/202/interlace/1/q/88/ignore-error/1/`")
       p.multiline-text-overflow {{post.title}}
 </template>
 

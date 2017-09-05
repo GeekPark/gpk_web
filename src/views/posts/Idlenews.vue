@@ -5,7 +5,7 @@
     a(:href="`/news/${post.id}`", target="_blank")
       .img-wrapper
         .img-cover
-          img(:src="post.cover_url")
+          img(:src="`${post.cover_url}?imageView2/1/w/490/h/300/interlace/1/q/88/ignore-error/1/`")
       p.multiline-text-overflow {{post.title}}
 </template>
 

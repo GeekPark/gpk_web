@@ -3,7 +3,7 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   template(v-if="(columnId || post.column.id) === 251")
     a.img-cover-wrap(:href="`/news/${post.id}`")
       .img-cover
-        img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
+        img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/ignore-error/1/`")
     .ts-item(v-for="img,index in post.img_list.slice(0, 2)")
       .img-cover
         img(:src="img")
@@ -30,7 +30,7 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   template(v-else)
     a.img-cover-wrap(:href="`/news/${post.id}`")
       .img-cover
-        img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/285/h/214/interlace/1/q/88/ignore-error/1/`")
+        img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/ignore-error/1/`")
         .play(v-if="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}

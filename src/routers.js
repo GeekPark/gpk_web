@@ -29,6 +29,9 @@ const router = new VueRouter({
       component: News,
       meta: {title: '文章详情'}
     },
+    { path: '/topics/:id',
+      redirect: '/news/:id'
+    },
     { path: '/column/:id',
       name: 'column',
       component: Column,
@@ -52,7 +55,7 @@ const router = new VueRouter({
     { path: '/liked',
       name: 'liked',
       component: Liked,
-      meta: {title: '我的喜欢'}
+      meta: {title: '我的喜欢 | 极客公园'}
     },
     { path: '/about',
       name: 'about',
@@ -63,15 +66,6 @@ const router = new VueRouter({
       name: 'report',
       component: Report,
       meta: {title: '求报道'}
-    },
-    { path: '/comment',
-      name: 'comment',
-      component: Comment,
-      meta: {title: '评论'}
-    },
-    { path: '/admin',
-      redirect: 'http://admin.geekpark.net',
-      meta: {title: '后台'}
     },
     { path: '*',
       component: Errors,

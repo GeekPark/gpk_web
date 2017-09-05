@@ -55,6 +55,7 @@ export default {
     fetchUser () {
       api.account.get(`api/v1/users/brief?user_id=${this.$route.params.id}`).then((result) => {
         this.users = result.data.shift()
+        document.title = this.users.nickname + ' | 极客公园'
       }).catch((err) => {
         this.$message.error(err.toString())
       })
