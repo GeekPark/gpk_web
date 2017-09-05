@@ -106,8 +106,6 @@ html, body
 div, a, img
   -webkit-tap-highlight-color transparent
   -webkit-touch-callout none
-  -webkit-user-select none
-  user-select none
 input, textarea
   outline none
 img

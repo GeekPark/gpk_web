@@ -93,6 +93,8 @@ export default {
     h4
       font-size 24px
       margin 10px 0
+      width 126px
+      text-align center
     p
       a
         color #9B9B9B
@@ -117,6 +119,7 @@ export default {
     .user-info
       h4
         font-size 20px
+        width auto
       p
         display none
     .bio
