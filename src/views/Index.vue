@@ -237,10 +237,10 @@ export default {
   position relative
   .swiper-slide
     width 100%
+    position relative
   .img-cover
     padding-bottom 48%
     background-color #c3c3c3
-    border 1px solid #efefef
     position relative
     overflow hidden
     text-align center
@@ -255,11 +255,12 @@ export default {
   .info-cover
     position absolute
     bottom 0
+    left 0
     padding 0 28% 3% 4%
+    transform translate3d(0%, 0%, 0)
     text-align left
-    z-index 2
     h3
-      font-size 14px
+      font-size 16px
       color #fff
       line-height 2
       margin 0

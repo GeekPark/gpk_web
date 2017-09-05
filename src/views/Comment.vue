@@ -2,7 +2,7 @@
 #comment
   textarea.heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
   .input-box
-    input.submit-comment(type="button", value="发表评论", @click="submitComment")
+    button.submit-comment(@click="submitComment") 发表评论
   .comment-wrap(v-if="comments.length")
     h4
       i.iconfont.icon-double-slash

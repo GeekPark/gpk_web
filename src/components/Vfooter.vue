@@ -12,7 +12,7 @@ footer.page-footer#footer
           br
           | 　　　　　正东集团院内 C8座105室 极客公园
         p
-          span(style="color: #DCD900") 关注我们
+          span(style="color: #DCD900") 关注我们：
           a.share-btn.weibo(href="//weibo.com/geekpark" target="_blank")
             .iconfont.icon-weibo
           a.share-btn.twitter(href="//twitter.com/geekparknet" target="_blank")
@@ -90,7 +90,7 @@ export default {
 .footer-wrap
   background-color #1e1e1e
   padding 60px 0 40px
-  color #fff
+  color rgba(255,255,255,.6)
   line-height 1.7
   text-align center
   section
@@ -111,8 +111,9 @@ export default {
   h4
     font-size 18px
     font-weight normal
-  a
     color #fff
+  a
+    color rgba(255,255,255,.6)
   a:hover
     color #fff
   ul
@@ -130,7 +131,8 @@ export default {
     width 40px
     height 40px
     text-align center
-    margin-left 10px
+    margin-left 0px
+    margin-right 10px
     background-color rgba(255, 255, 255, 0.3)
     border-radius 100%
     opacity 0.5
@@ -153,13 +155,13 @@ export default {
     background-color #0077B7
   .wechat-qr
     position absolute
-    opacity: 0
-    top: -10px
-    left: 50%
-    transform: translate(-50%, -90%) scale(0)
-    transform-origin: bottom
-    transition: all 0.2s
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)
+    opacity 0
+    top -10px
+    left 50%
+    transform translate(-50%, -90%) scale(0)
+    transform-origin bottom
+    transition all 0.2s
+    box-shadow 0 5px 5px rgba(0, 0, 0, 0.3)
   .share-btn.wechat:hover
     .wechat-qr
       opacity: 1

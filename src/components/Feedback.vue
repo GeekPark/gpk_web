@@ -188,6 +188,8 @@ export default {
     position relative
     &:hover
       color #333
+    .icon-feedback
+      vertical-align -2px
   .tools-erweima:hover + .qr-group, .qr-group:hover
     visibility visible
     opacity 1
