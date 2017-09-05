@@ -93,7 +93,7 @@ export default {
       line-height 2
   .users
     display flex
-    justify-content center
+    // justify-content center
     align-items flex-end
   .username
     margin 8px 0 0px 0
@@ -106,4 +106,6 @@ export default {
   .logout
     display block
     margin-top 10px
+  a.signin
+    color #0185f2
 </style>

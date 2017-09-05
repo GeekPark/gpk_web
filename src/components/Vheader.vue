@@ -43,7 +43,7 @@
             li
               a.logout(@click="logout")
                 | 退出登录
-      a.signin(v-else, @click="login") 登录/注册
+      a.signin(v-else, @click="login") 登录
 
   header.m-header(class="hidden-notxs")
     a.m-button.sidebar-button.open#open(:class="showmenu ? 'opened' : ''", @click="showmenu = !showmenu")

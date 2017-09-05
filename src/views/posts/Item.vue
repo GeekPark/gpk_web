@@ -183,6 +183,7 @@ export default {
     position relative
     display inline-block
     width 63%
+    overflow hidden
   &.tushang
     .img-cover
       padding-bottom 100%

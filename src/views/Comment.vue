@@ -128,14 +128,14 @@ export default {
       } else {
         this.replyid = repId
         this.nickname = nickname
-        setTimeout(()=>{$('#textarea-' + repId).val(`回复${nickname}:`).focus()}, 100)
+        setTimeout(()=>{$('#textarea-' + repId).val(`@${nickname}:`).focus()}, 100)
       }
     },
     submitReply: function(e, i) {
       var fd = $(e.target).serializeArray()
       var commentId
       var commentContent
-      let re = new RegExp(`^回复${this.nickname}:`, "im")
+      let re = new RegExp(`^@${this.nickname}:`, "im")
       fd.forEach(function(item) {
         if (item.name === 'comment_id') {
           commentId = item.value;
