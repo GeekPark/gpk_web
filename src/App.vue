@@ -3,6 +3,7 @@
   vheader
   transition(name="fade" mode="out-in")
     router-view
+  feedback(v-if="!isMobileUA")
   vfooter
 </template>
 
@@ -12,6 +13,11 @@ import api from 'stores/api'
 
 export default {
   name: 'app',
+  computed: {
+    isMobileUA () {
+      return isMobileUA()
+    }
+  },
   mounted() {
     if (isWechat()) {
       // 配置
@@ -194,9 +200,11 @@ a
     display none
   .container
     margin 0 20px
-  .main-content .article-list
-    width 100%
-
+  .main-content
+    margin-top 0
+    .article-list
+      margin-top 30px
+      width 100%
 
 //  public css
 .no-touch-bg

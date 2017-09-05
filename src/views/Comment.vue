@@ -74,7 +74,7 @@ export default {
         this.commentLoaded = true;
 
         if (location.hash) {
-          this.goToComment(location.hash)
+          setTimeout(()=>{this.goToComment(location.hash)}, 1000)
         }
       }).catch((err) => {
         console.log(err);
@@ -197,7 +197,7 @@ export default {
     goToComment: function(id) {
       console.log('goToComment', id)
       var $target = $(id)
-      var targetOffset = $target.offset().top - $('#header header').height() - 50
+      var targetOffset = $target.offset().top - 50
       $('html,body').animate({
         scrollTop: targetOffset
       }, 500)
@@ -233,8 +233,6 @@ export default {
 
 <style lang="stylus">
 @import "../stylus/var.styl"
-
-
 #comment
   box-sizing border-box
   background #F6F6F6

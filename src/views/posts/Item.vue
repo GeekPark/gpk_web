@@ -112,7 +112,7 @@ export default {
       display block
     a
       h3, h2
-        color #0185F2
+        color $color-blue
   p
     font-size 16px
     color rgba(0,0,0,.5)
@@ -234,7 +234,15 @@ export default {
     margin-right 1em
     font-weight bold
   @media $media
+    padding 10px 0
     // display flex
+    &:hover
+      background inherit
+      &:before, &:after
+        display none
+      a
+        h3, h2
+          color inherit
     p
       display none
     .article-zaozhidao
@@ -300,4 +308,5 @@ export default {
       font-size 10px
       padding-left 32%
       line-height 1
+      bottom 10px
 </style>

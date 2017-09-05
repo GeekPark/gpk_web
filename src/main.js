@@ -9,10 +9,12 @@ import store        from 'stores'
 import Element      from 'element-ui'
 import Vheader      from 'components/Vheader.vue'
 import Vfooter      from 'components/Vfooter.vue'
+import Feedback     from 'components/Feedback.vue'
 
 Vue.use(Element)
 Vue.component(Vheader.name,      Vheader)
 Vue.component(Vfooter.name,      Vfooter)
+Vue.component(Feedback.name,      Feedback)
 
 // Vue.directive('title', {
 //   inserted: function (el, binding) {

@@ -3,16 +3,17 @@
   .header-banner(:class="'bg-' + Math.floor(Math.random()*(5))")
   .users-content(v-if="users")
     .container.relative
-      .avatar
-        img(:src="users.avatar_url")
       .bio {{users.bio}}
       .user-info
         h4 {{users.nickname}}
         p
           a(:href="'mailto:' + users.email") {{users.email}}
-  .main-content
+      .avatar
+        img(:src="users.avatar_url")
+  .main-content.gray-bg
     .container
       .article-list
+        p.total_count 共发表内容 {{meta.total_count}}篇
         item(v-for="post in posts", :key="post.id", :post="post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
@@ -33,6 +34,7 @@ export default {
     return {
       page: 0,
       loading: true,
+      meta: {},
       posts: [],
       users: null
     }
@@ -44,8 +46,9 @@ export default {
       this.page += 1;
       api.get(`posts/author/${this.$route.params.id}?page=${this.page}`).then((result) => {
         console.log(result);
-        this.posts = this.posts.concat(result.data.posts);
-        this.loading = false;
+        this.meta = result.data.meta
+        this.posts = this.posts.concat(result.data.posts)
+        this.loading = false
       }).catch((err) => {
         console.log(err);
         this.$message.error(err.toString())
@@ -96,4 +99,38 @@ export default {
     p
       a
         color #9B9B9B
+@media screen and (max-width: 767px)
+  .header-banner
+    display none
+  .users-content
+    padding 25px 0
+    border none
+    text-align center
+    .container
+      display flex
+      flex-direction column-reverse
+      justify-content center
+    .avatar
+      position static
+      img
+        width 70px
+        height 70px
+        border none
+        border-radius 50%
+    .user-info
+      h4
+        font-size 20px
+      p
+        display none
+    .bio
+      float none
+      color rgba(0,0,0,.8)
+  .gray-bg
+    background #F6F6F6
+    padding-bottom 50px
+    margin-bottom 0
+    .total_count
+      margin 0
+      padding-bottom 10px
+      color rgba(0,0,0,.6)
 </style>

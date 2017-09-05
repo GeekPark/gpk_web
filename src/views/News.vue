@@ -87,7 +87,7 @@ export default {
           wx.onMenuShareTimeline({ // 分享朋友圈
             title: val.title, // 分享标题
             link: window.location.href, // 分享链接
-            imgUrl: val, // 分享图标
+            imgUrl: val.cover_url, // 分享图标
           });
           wx.onMenuShareAppMessage({ // 分享给好友
             title: val.title, // 分享标题
@@ -115,7 +115,7 @@ export default {
         }, 100)
       }
 
-      if (val === 'video') {
+      if (val.post_type === 'video') {
         const el = document.getElementById('play-room');
         let videoScript = document.createElement('script');
         videoScript.src = `//union.bokecc.com/player?vid=${this.postsData.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
@@ -236,7 +236,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     margin-bottom 30px
     border-bottom 1px solid #ddd
     .user-info a
-      color #0185f2
+      color $color-blue
     .category-tag
       display inline-block
       padding 0 9px
@@ -281,11 +281,11 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     word-wrap break-word
     font-size 16px
     line-height 1.625
-    b
-      color #fff
-      font-weight normal
-      background #000
-      padding 2px 0
+    // b
+    //   color #fff
+    //   font-weight normal
+    //   background #000
+    //   padding 2px 0
     h2
       position relative
       font-size 18px

@@ -1,5 +1,5 @@
 <template lang="jade">
-.next-news
+.next-news(v-if="post")
   h4 →下一篇
   article.news-item
     a(:href="`/news/${post.id}`", target="_blank")
@@ -15,18 +15,18 @@ export default {
   data () {
     return {
       loading: true,
-      post: {},
+      post: null,
     }
   },
   methods: {
     fetch () {
       this.loading = true;
       api.get(`posts/${this.$route.params.id}/next`).then((result) => {
-        console.log(result);
-        this.post = result.data.post;
-        this.loading = false;
+        if (result.data) {
+          this.post = result.data.post
+        }
+        this.loading = false
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },

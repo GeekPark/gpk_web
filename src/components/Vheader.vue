@@ -43,7 +43,7 @@
             li
               a.logout(@click="logout")
                 | 退出登录
-      a.signin(v-else, @click="login") 登录
+      a.signin(v-else, @click="login") 登录/注册
 
   header.m-header(class="hidden-notxs")
     a.m-button.sidebar-button.open#open(:class="showmenu ? 'opened' : ''", @click="showmenu = !showmenu")
@@ -87,8 +87,8 @@ export default {
   methods: {
     dropmenu() {
       const $dom = $('#user-avatar')
-      $dom.addClass('expand')
-      $('body').css('cursor', 'pointer')
+      $dom.toggleClass('expand')
+      // $('body').css('cursor', 'pointer')
       const cancle = clickAtOutside(
         $dom.get(0),
         () => {
@@ -99,8 +99,8 @@ export default {
     },
     dropmessage() {
       const $dom = $('#js-message')
-      $dom.addClass('expand')
-      $('body').css('cursor', 'pointer')
+      $dom.toggleClass('expand')
+      // $('body').css('cursor', 'pointer')
       const cancle = clickAtOutside(
         $dom.get(0),
         () => {
@@ -543,12 +543,14 @@ triangleDown($color = #fff)
     line-height $header-h
     width 50px
     text-align center
+    font-size 14px
     transition all $trans-dura
+    .icon-search
+      font-size 1.2em
     &.opened
       transform scale(1) rotate(180deg)
   .sidebar-button
     left 0
-    font-size 14px
   .search-btn
     top 0
     right 0
