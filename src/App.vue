@@ -27,7 +27,7 @@ export default {
       this.toload = true
     }).catch((err) => {
       this.toload = true
-      this.$message.error(err.toString())
+      // this.$message.error(err.toString())
     });
   },
   mounted() {
