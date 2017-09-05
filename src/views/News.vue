@@ -60,7 +60,7 @@ import Comment from './Comment.vue'
 import mediumZoom from 'medium-zoom'
 import { isWechat, isMobileUA } from 'mdetect'
 
-const access_key = localStorage.getItem('access_key')
+let access_key
 
 export default {
   components: { Hotnews, Nextnews, Share, Comment, Sponsor, Related, Newest },
@@ -70,7 +70,7 @@ export default {
       show: false,
       postsData: {},
       promotion: {
-        '2': '捕风捉影',
+        '2': '行业资讯',
         '248': '业界资讯'
       }
     }
@@ -139,7 +139,6 @@ export default {
     },
     preview () {
       api.get(`posts/${this.$route.params.id}/preview?key=${this.$route.query.key}`).then(result => {
-        console.log('preview data: ', result)
         if (result.data.message) {
           this.$message.error(result.data.message);
         } else {
@@ -157,11 +156,9 @@ export default {
       }
       let like = this.postsData.liked ? 'unlike' : 'like'
       api.post(`posts/${id}/${like}?access_key=${access_key}`).then((res) => {
-        console.log('res', res);
         this.postsData.liked = !this.postsData.liked;
         this.postsData.like_count += like === 'unlike' ? -1 : 1
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
@@ -173,6 +170,7 @@ export default {
     }
   },
   beforeMount () {
+    access_key = this.$store.state.access_key
     if (this.$route.query.key) {
       this.preview()
     } else {
@@ -213,6 +211,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
 #post
   margin 40px auto 0 auto
   color #353535
+  min-height 60vh
   .container
     text-align center
   .main-wrap

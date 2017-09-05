@@ -38,7 +38,7 @@
               a(href="https://account.geekpark.net")
                 | 用户设置
             li(v-if="userInfo.roles && userInfo.roles.indexOf('admin') > -1")
-              a(href="http://admin.geekpark.net")
+              a(href="http://www.geekpark.net/admin")
                 | 公园后台
             li
               a.logout(@click="logout")
@@ -65,6 +65,8 @@ import clickAtOutside from 'click-at-outside'
 import Vmenu from './Vmenu.vue'
 import Search from './Search.vue'
 
+let access_key
+
 export default {
   name: 'vheader',
   components: { Vmenu, Search },
@@ -80,9 +82,6 @@ export default {
       activeIndex: "1",
       message: [],
     }
-  },
-  mounted() {
-    // this.getToken();
   },
   methods: {
     dropmenu() {
@@ -109,34 +108,19 @@ export default {
         }
       )
     },
-    getToken() {
-      api.account.get('/my/access_key').then((result) => {
-        if (result.status === 200 && result.data.access_key) {
-          this.$store.state.access_key = result.data.access_key
-          localStorage.setItem('access_key', result.data.access_key)
-          this.getUser()
-          this.getMessage()
-        } else {
-          this.cleanUser()
-        }
-      }).catch((err) => {
-        console.log(err)
-      });
-    },
 
     cleanUser() {
-      localStorage.removeItem('access_key')
       localStorage.removeItem('userInfo')
       this.$store.state.access_key = null
       this.$store.state.userInfo = null
     },
 
     getUser() {
-      api.get(`admin/info?access_key=${localStorage.getItem("access_key")}`).then((result) => {
+      api.get(`admin/info?access_key=${access_key}`).then((result) => {
         this.$store.state.userInfo = result.data
         localStorage.setItem('userInfo', JSON.stringify(result.data))
       }).catch((err) => {
-        console.log(err)
+        this.$message.error(err.toString())
       })
     },
 
@@ -154,31 +138,35 @@ export default {
       window.location.href = url
     },
     getMessage() {
-      api.account.get(`api/v1/notifications/all?access_key=${localStorage.getItem("access_key")}`).then((result) => {
-        console.log('getMessage', result.data)
+      api.account.get(`api/v1/notifications/all?access_key=${access_key}`).then((result) => {
         this.message = result.data
       }).catch((err) => {
-        console.log(err)
+        this.$message.error(err.toString())
       })
     },
     readMessage() {
-      api.account.post(`api/v1/notifications/read?access_key=${localStorage.getItem("access_key")}`).then((result) => {
+      api.account.post(`api/v1/notifications/read?access_key=${access_key}`).then((result) => {
         console.log('readMessage', result.data)
       }).catch((err) => {
-        console.log(err)
+        this.$message.error(err.toString())
       })
     },
     readAllMessage() {
-      api.account.post(`api/v1/notifications/read_all?access_key=${localStorage.getItem("access_key")}`).then((result) => {
+      api.account.post(`api/v1/notifications/read_all?access_key=${access_key}`).then((result) => {
         console.log('readAllMessage', result.data)
       }).catch((err) => {
-        console.log(err)
+        this.$message.error(err.toString())
       })
     }
   },
   beforeMount () {
-    // this.userInfo = localStorage.getItem('userInfo')
-    this.getToken()
+    access_key = this.$store.state.access_key
+    if (access_key) {
+      this.getUser()
+      this.getMessage()
+    } else {
+      this.cleanUser()
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <template lang="jade">
-#app(v-loading="isLoading", element-loading-text="拼命加载中")
+#app(v-loading="isLoading", element-loading-text="拼命加载中" v-if="toload")
   vheader
   transition(name="fade" mode="out-in")
     router-view
@@ -15,8 +15,20 @@ export default {
   name: 'app',
   data () {
     return {
-      isMobile: isMobileUA()
+      isMobile: isMobileUA(),
+      toload: false
     }
+  },
+  beforeCreate () {
+    api.account.get('/my/access_key').then((result) => {
+      if (result.status === 200 && result.data.access_key) {
+        this.$store.state.access_key = result.data.access_key
+      }
+      this.toload = true
+    }).catch((err) => {
+      this.toload = true
+      this.$message.error(err.toString())
+    });
   },
   mounted() {
     if (isWechat()) {
@@ -62,7 +74,6 @@ export default {
           });
         })
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       });
     }

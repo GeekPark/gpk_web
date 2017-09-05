@@ -18,7 +18,8 @@
 <script>
 import Item from './posts/Item.vue'
 import api from 'stores/api'
-const access_key = localStorage.getItem('access_key');
+
+let access_key
 
 export default {
   components: { Item },
@@ -37,19 +38,18 @@ export default {
       this.loading = true;
       this.page += 1;
       api.get(`posts/favorite_posts?access_key=${access_key}&page=${this.page}`).then((result) => {
-        console.log(result)
         this.total_count = result.data.meta.total_count
         if (result.data.posts) this.posts = this.posts.concat(result.data.posts)
         this.loading = false
         if (result.data.meta.total_pages <= this.page) this.nomore = true
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
   },
 
   mounted () {
+    access_key = this.$store.state.access_key
     this.fetch()
   }
 }

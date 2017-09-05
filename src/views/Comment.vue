@@ -50,7 +50,7 @@ import api from 'stores/api'
 import moment from 'moment'
 
 let loginURL
-const access_key = localStorage.getItem('access_key')
+let access_key
 
 export default {
   props: ['postid'],
@@ -69,7 +69,6 @@ export default {
   methods: {
     fetch () {
       api.get(`posts/${this.postid}/comments?access_key=${access_key}`).then(result => {
-        console.log(result, location.hash);
         this.comments = result.data.comments
         this.commentLoaded = true;
 
@@ -77,7 +76,6 @@ export default {
           setTimeout(()=>{this.goToComment(location.hash)}, 1000)
         }
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
@@ -99,7 +97,6 @@ export default {
       api.post(`posts/${this.postid}/comments?access_key=${access_key}`, {
         content: this.message
       }).then(result => {
-        console.log(result);
         var comment = result.data
         comment.commenter_info = [this.$store.state.userInfo]
         comment.like_count = 0
@@ -114,7 +111,6 @@ export default {
         // $('#replyForm-' + _this.comments[i].id).find('textarea').val('');
         this.message = ''
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
@@ -158,7 +154,6 @@ export default {
         content: commentContent,
         parent_id: commentId
       }).then(result => {
-        console.log('reply return: ', result)
         var reply = result.data
         reply.commenter_info = [this.$store.state.userInfo]
         reply.content = commentContent
@@ -179,9 +174,7 @@ export default {
         return;
       }
       let like = item.liked ? 'unlike' : 'like'
-      console.log(item, index);
       api.post(`posts/${this.postid}/comments/${item.id}/${like}?access_key=${access_key}`).then((result) => {
-        console.log('result', result);
         if (item.liked) {
           item.liked = false;
           item.like_count--;
@@ -190,12 +183,10 @@ export default {
           item.like_count++;
         }
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
     goToComment: function(id) {
-      console.log('goToComment', id)
       var $target = $(id)
       var targetOffset = $target.offset().top - 50
       $('html,body').animate({
@@ -225,6 +216,7 @@ export default {
     },
   },
   beforeMount () {
+    access_key = this.$store.state.access_key
     this.fetch()
   }
 }
@@ -317,7 +309,7 @@ export default {
   .c-rp
     text-align right
     margin-bottom 15px
-    font-size 10px
+    font-size 12px
     .time
       float left
     span
