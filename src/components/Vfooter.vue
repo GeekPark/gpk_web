@@ -13,15 +13,15 @@ footer.page-footer#footer
           | 　　　　　正东集团院内 C8座105室 极客公园
         p
           span(style="color: #DCD900") 关注我们
-          a.weibo.share-btn(href="//weibo.com/geekpark" target="_blank" data-track-label="weibo")
+          a.share-btn.weibo(href="//weibo.com/geekpark" target="_blank")
             .iconfont.icon-weibo
-          a.twitter.share-btn(href="//twitter.com/geekparknet" target="_blank" data-track-label="twitter")
+          a.share-btn.twitter(href="//twitter.com/geekparknet" target="_blank")
             .iconfont.icon-twitter
-          a.wechat.relative.share-btn(href="javascript:;" data-track-label="wechat")
+          a.share-btn.wechat.relative(href="javascript:;")
             .iconfont.icon-wechat
             .wechat-qr.triangle-down
               img(src='../assets/imgs/qr_geekpark.jpg' alt="极客公园微信公众平台" width="120" height="120")
-          a.rss.share-btn(href="http://feed.geekpark.net" target="_blank" data-track-label="rss")
+          a.share-btn.rss(href="http://feed.geekpark.net" target="_blank")
             .iconfont.icon-rss
 
       section.about
@@ -92,7 +92,6 @@ export default {
   padding 60px 0 40px
   color #fff
   line-height 1.7
-  font-weight 300
   text-align center
   section
     display inline-block
@@ -127,21 +126,31 @@ export default {
     &:hover
       opacity: 1
   .share-btn
-    display: inline-block
-    width: 40px
-    height: 40px
-    text-align: center
-    margin-left: 10px
-    background-color: rgba(255, 255, 255, 0.3)
-    border-radius: 100%
-    opacity: 0.5
-    transition: opacity 0.3s
+    display inline-block
+    width 40px
+    height 40px
+    text-align center
+    margin-left 10px
+    background-color rgba(255, 255, 255, 0.3)
+    border-radius 100%
+    opacity 0.5
+    transition opacity 0.3s
     .iconfont
-      font-size: 18px
-      color: rgba(255, 255, 255, 1)
-      line-height: 40px
+      font-size 18px
+      color #fff
+      line-height 40px
     &:hover
-      opacity: 1
+      opacity 1
+  .share-btn.wechat:hover
+    background-color #00D10D
+  .share-btn.weibo:hover
+    background-color #DF2029
+  .share-btn.twitter:hover
+    background-color #049FF6
+  .share-btn.rss:hover
+    background-color #F99726
+  .share-btn.linkedin:hover
+    background-color #0077B7
   .wechat-qr
     position absolute
     opacity: 0
@@ -151,7 +160,7 @@ export default {
     transform-origin: bottom
     transition: all 0.2s
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)
-  .wechat.share-btn:hover
+  .share-btn.wechat:hover
     .wechat-qr
       opacity: 1
       transform: translate(-50%, -100%) scale(1)
@@ -164,26 +173,4 @@ export default {
     float left
   .info-copyright
     float right
-
-.trademark
-  display: block
-  .old-logo
-    margin-left: 5px
-  .detail
-    top: -100px
-    left: 50%
-    width: 245px
-    text-align: center
-    opacity: 0
-    padding: 10px
-    border: 1px solid #efefef
-    transform: scale(0) translateY(0)
-    background-color: #fff
-    color: #222
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3)
-    transform-origin: bottom center
-    transition: all 0.2s
-  &:hover .detail
-    opacity: 1
-    transform: scale(1) translateY(-10%)
 </style>

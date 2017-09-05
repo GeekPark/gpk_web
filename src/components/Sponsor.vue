@@ -6,7 +6,8 @@
         a(:href="item.ad.link", target="_blank", :title="item.ad.title")
           img(:src="item.ad.cover_url", :alt="item.ad.title")
   i.icon-ad 广告
-  i.iconfont.icon-close(@click="closeAd")
+  i.iconfont.icon-close(@click="closeAd", title="不再显示")
+    span 不再显示
 </template>
 
 <script>
@@ -72,6 +73,8 @@ export default {
   transform scale(1)
   &:hover
     filter brightness(102%) contrast(115%)
+    i.icon-close
+      opacity 1
   img
     width 100%
   i
@@ -96,6 +99,13 @@ export default {
     margin 0
     padding 0 .5em
     top 0
+    opacity 0
+    span
+      padding-left .5em
+      display none
+    &:hover
+      span
+        display inline
   &.ads-top_banner
     margin-bottom 10px
   &.ads-medium_up,

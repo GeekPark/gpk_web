@@ -3,7 +3,7 @@
   vheader
   transition(name="fade" mode="out-in")
     router-view
-  feedback(v-if="!isMobileUA")
+  feedback(v-if="!isMobile")
   vfooter
 </template>
 
@@ -13,9 +13,9 @@ import api from 'stores/api'
 
 export default {
   name: 'app',
-  computed: {
-    isMobileUA () {
-      return isMobileUA()
+  data () {
+    return {
+      isMobile: isMobileUA()
     }
   },
   mounted() {

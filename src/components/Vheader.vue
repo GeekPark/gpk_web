@@ -61,7 +61,7 @@
 
 <script>
 import api from 'stores/api'
-import clickAtOutside           from 'click-at-outside'
+import clickAtOutside from 'click-at-outside'
 import Vmenu from './Vmenu.vue'
 import Search from './Search.vue'
 

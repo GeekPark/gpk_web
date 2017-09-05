@@ -7,10 +7,6 @@
     .container
       .article-list
         item(v-for="post in posts", :key="post.id", :post="post", :columnTitle="column.title", :columnId="column.id")
-        .tac
-          a.load-more(@click="fetch", :class="{'loading-in': loading}")
-            .loading-article
-            span 加载更多
       .article-sidebar
         hotnews
 </template>
@@ -35,7 +31,7 @@ export default {
     fetch () {
       this.loading = true;
       this.page += 1;
-      api.get(`columns/${this.$route.params.id}?page=${this.page}`).then((result) => {
+      api.get(`columns/${this.$route.params.id}`).then((result) => {
         console.log(result);
         this.column = result.data.column;
         this.posts = this.posts.concat(result.data.column.posts);
@@ -67,6 +63,7 @@ export default {
     font-size 50px
     font-weight 300
     letter-spacing .5em
+    text-indent 0.25em
   .desc
     font-size 14px
     font-weight 300
@@ -77,6 +74,7 @@ export default {
     h3
       font-size 40px
       letter-spacing 0
+      text-indent 0
     .desc
       letter-spacing 0
     

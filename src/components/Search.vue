@@ -54,9 +54,9 @@ export default {
     loadMore() {
       if (this.isOver) return
       this.isLoading = true
-      api.get(`admin/posts?title=${this.keyword}&page=${page}`).then((result) => {
+      api.get(`posts?query=${this.keyword}&page=${page}`).then((result) => {
         this.count = result.data.meta.total_count
-        this.posts = this.count ? this.posts.concat(result.data.posts) : []
+        this.posts = page === 1 ? result.data.posts : this.posts.concat(result.data.posts)
         this.isOver = this.posts.length && ++page > result.data.meta.total_pages
         this.isLoading = false
       }).catch((err) => {

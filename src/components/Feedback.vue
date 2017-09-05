@@ -23,9 +23,9 @@
               .img
                 img(src='../assets/imgs/qr_topview.jpg', alt='顶楼')
                 p 关注前沿科技，发表最具科技的商业洞见。
-        a.tools-item(@click="dialogFormVisible = true")
+        a.tools-item(@click="dialogFormVisible = true", data-tooltip="意见反馈")
           i.iconfont.icon-feedback
-        a.tools-item.gotop(@click="pageScroll")
+        a.tools-item.gotop(@click="pageScroll", data-tooltip="返回顶部")
           i.iconfont.icon-gotop
   el-dialog(:title="nowPanel ? '提交成功' : '意见反馈'", :visible.sync="dialogFormVisible")
     .feedback(v-if="nowPanel")
@@ -95,6 +95,48 @@ export default {
 
 <style lang="stylus">
 @import "../stylus/var.styl";
+[data-tooltip]
+  position relative
+  z-index 2
+  cursor pointer
+
+[data-tooltip]:before,
+[data-tooltip]:after
+  visibility hidden
+  opacity 0
+  pointer-events none
+
+[data-tooltip]:before
+  position absolute
+  right 124%
+  top 7px
+  padding 7px 12px
+  background-color #F6F6F6
+  color #000
+  content attr(data-tooltip)
+  text-align center
+  font-size 14px
+  line-height 1.2
+  font-weight 500
+  width 60px
+
+[data-tooltip]:after
+  position absolute
+  right 45px
+  top 12px
+  width 0
+  border-top 10px solid transparent
+  border-bottom 10px solid transparent
+  border-left 10px solid #F6F6F6
+  content " "
+  font-size 0
+  line-height 0
+
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after
+  visibility visible
+  opacity 1
+
 .feedback
   line-height 1.5
   .dialog-footer

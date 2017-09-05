@@ -233,16 +233,16 @@ export default {
         margin-left 0
       &:first-child
         width 100%
-.breakding-news-slider
-  overflow: hidden
+#breakding-news-slider
+  overflow hidden
   position relative
   .swiper-slide
     width 100%
   .img-cover
-    padding-bottom 60%
-    background-color: #c3c3c3;
+    padding-bottom 48%
+    background-color #c3c3c3
     border 1px solid #efefef
-    position: relative;
+    position relative
     overflow hidden
     text-align center
     img
@@ -260,16 +260,16 @@ export default {
     text-align left
     z-index 2
     h3
-      font-size 16px
+      font-size 14px
       color #fff
-      line-height 1.8
+      line-height 2
       margin 0
       font-weight normal
       span
         background #000
         display inline
         line-height 1.5
-        padding 4px 10px
+        padding 3px 10px
         box-decoration-break clone
   .swiper-pagination
     bottom 0
