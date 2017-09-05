@@ -269,10 +269,8 @@ export default {
   methods: {
     fetch () {
       api.get('/').then((result) => {
-        console.log(result);
         this.postsData = result.data
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     }

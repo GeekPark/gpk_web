@@ -29,11 +29,9 @@ export default {
     fetch () {
       this.loading = true;
       api.get(`topics/${this.$route.params.id}`).then((result) => {
-        console.log(result)
         this.topic = result.data.topic
         this.loading = false
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },

@@ -109,7 +109,6 @@ export default {
       this.loading = true
       this.page += 1
       api.get(`?page=${this.page}`).then((result) => {
-        console.log('homepage data: ', this.page, result)
         this.page < 2 ? this.slider = result.data.slider : ''
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false

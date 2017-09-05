@@ -69,6 +69,10 @@ const router = new VueRouter({
       component: Comment,
       meta: {title: '评论'}
     },
+    { path: '/admin',
+      redirect: 'http://admin.geekpark.net',
+      meta: {title: '后台'}
+    },
     { path: '*',
       component: Errors,
       meta: {title: 'Error'}

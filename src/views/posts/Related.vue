@@ -1,5 +1,5 @@
 <template lang="jade">
-.more-news
+.more-news(v-if="posts.length > 0")
   h4
     i.iconfont.icon-double-slash
     | 你可能感兴趣
@@ -24,12 +24,11 @@ export default {
     fetch () {
       this.loading = true;
       api.get(`posts/${this.$route.params.id}/related`).then((result) => {
-        console.log(result);
         this.posts = result.data.posts;
         this.loading = false;
       }).catch((err) => {
         console.log(err);
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
   },

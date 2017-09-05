@@ -37,13 +37,11 @@ export default {
       this.loading = true;
       this.page += 1;
       api.get(`posts/by-tag/${this.$route.params.tag}?page=${this.page}`).then((result) => {
-        console.log(result)
         this.total_count = result.data.meta.total_count
         this.posts = this.posts.concat(result.data.posts)
         this.loading = false
         if (result.data.meta.total_pages <= this.page) this.nomore = true
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },

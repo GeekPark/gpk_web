@@ -23,12 +23,11 @@ export default {
     fetch () {
       this.loading = true;
       api.get(`columns/2?per=5`).then((result) => {
-        console.log(result);
         this.posts = result.data.column.posts;
         this.loading = false;
       }).catch((err) => {
         console.log(err);
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
   },

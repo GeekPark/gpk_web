@@ -45,21 +45,17 @@ export default {
       this.loading = true;
       this.page += 1;
       api.get(`posts/author/${this.$route.params.id}?page=${this.page}`).then((result) => {
-        console.log(result);
         this.meta = result.data.meta
         this.posts = this.posts.concat(result.data.posts)
         this.loading = false
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },
     fetchUser () {
       api.account.get(`api/v1/users/brief?user_id=${this.$route.params.id}`).then((result) => {
-        console.log(result)
         this.users = result.data.shift()
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     },

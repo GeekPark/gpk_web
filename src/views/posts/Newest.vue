@@ -24,12 +24,11 @@ export default {
     fetch () {
       this.loading = true;
       api.get(`posts?per=4`).then((result) => {
-        console.log(result);
         this.posts = result.data.posts;
         this.loading = false;
       }).catch((err) => {
         console.log(err);
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
   },

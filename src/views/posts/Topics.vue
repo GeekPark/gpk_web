@@ -25,12 +25,11 @@ export default {
     fetch () {
       this.loading = true;
       api.get(`topics?per=3`).then((result) => {
-        console.log(result);
         this.data = result.data;
         this.loading = false;
       }).catch((err) => {
         console.log(err);
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
   },
