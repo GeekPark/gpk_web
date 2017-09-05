@@ -40,7 +40,6 @@ export default {
   methods: {
     fetch () {
       api.get(`ads`).then((result) => {
-        console.log('position', this.position, result)
         if (!localStorage.getItem(this.position)) {
           this.ads = result.data
         }
@@ -111,8 +110,13 @@ export default {
   &.ads-medium_up,
   &.ads-medium_below,
   &.ads-post
-    padding-bottom 87.3%
+    // padding-bottom 87.3%
     margin-bottom 50px
+    padding 0
+    height auto
+    .swiper-container
+      position static
+      height auto
   .swiper-container
     position absolute
     top 0

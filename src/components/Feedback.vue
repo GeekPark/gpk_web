@@ -108,8 +108,8 @@ export default {
 
 [data-tooltip]:before
   position absolute
-  right 124%
-  top 7px
+  right 45px
+  top 2px
   padding 7px 12px
   background-color #F6F6F6
   color #000
@@ -122,8 +122,8 @@ export default {
 
 [data-tooltip]:after
   position absolute
-  right 45px
-  top 12px
+  right 38px
+  top 8px
   width 0
   border-top 10px solid transparent
   border-bottom 10px solid transparent
@@ -176,11 +176,11 @@ export default {
     border 2px solid rgba(91,91,91,.6)
     border-radius 50%
     background #fff
-    font-size 18px
+    font-size 15px
     display block
-    width 40px
-    height 40px
-    line-height 40px
+    width 32px
+    height 32px
+    line-height 32px
     text-align center
     cursor pointer
     transition all .3s
@@ -194,7 +194,7 @@ export default {
     transform translate(0, 0px)
   .qr-group
     position absolute
-    right 45px
+    right 35px
     top -60px
     background #F6F6F6
     // box-shadow 0 1px 2px rgba(0, 1px, 11px, 0.1)

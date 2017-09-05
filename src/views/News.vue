@@ -33,8 +33,6 @@
         .like-wrap
           .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
             span.like-icon
-              .heart-animation-1
-              .heart-animation-2
           p(v-if="postsData.like_count > 0") {{postsData.like_count}}
         comment(:postid="$route.params.id")
         related(v-if="postsData.column && !promotion[postsData.column.id]")

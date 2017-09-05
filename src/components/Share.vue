@@ -36,10 +36,8 @@ export default {
     const countShare = (type, id) => {
       // type: wechat weibo linkedin twitter
       api.patch(`topic/${id}/add_count`, { name: type }).then(result => {
-        console.log(result);
         this.postsData = result.data.post
       }).catch((err) => {
-        console.log(err);
         this.$message.error(err.toString())
       })
     };
