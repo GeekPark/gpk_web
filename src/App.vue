@@ -16,8 +16,7 @@ export default {
   data () {
     return {
       isMobile: isMobileUA(),
-      toload: false,
-      target: 'dddddd',
+      toload: false
     }
   },
   beforeCreate () {
