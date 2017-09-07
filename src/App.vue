@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       isMobile: isMobileUA(),
-      toload: false
+      toload: false,
+      target: 'dddddd',
     }
   },
   beforeCreate () {
@@ -31,6 +32,9 @@ export default {
     });
   },
   mounted() {
+    if (!isMobileUA()) {
+      this.$store.state.target = '_blank'
+    }
     if (isWechat()) {
       // 配置
       var url = window.location.href;

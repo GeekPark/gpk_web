@@ -2,7 +2,7 @@
 .idle-news
   h3 行业资讯
   article.news-item(v-for="post in posts.slice(0, 5)", :key="post.id")
-    a(:href="`/news/${post.id}`", target="_blank")
+    a(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-wrapper
         .img-cover
           img(:src="`${post.cover_url}?imageView2/1/w/490/h/300/interlace/1/q/88/ignore-error/1/`")
@@ -43,8 +43,7 @@ export default {
   padding 15px
   margin-bottom 50px
   h3
-    font-size 20px
-    font-weight 500
+    font-size 22px
     margin 0
   .news-item
     margin 15px 0

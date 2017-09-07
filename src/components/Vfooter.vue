@@ -53,7 +53,7 @@ footer.page-footer#footer
         p(style="text-align:center")
           img(height="100" src='../assets/imgs/qr_app.gif')
           br
-          | iOS & Android
+          | iOS APP
   .footer-copyright
     .container
       .info-icp

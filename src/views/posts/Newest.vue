@@ -4,7 +4,7 @@
     i.iconfont.icon-double-slash
     | 最新文章
   article.news-item(v-for='post, index in posts', :key='post.id')
-    a(:href="`/news/${post.id}`", target="_blank")
+    a(:href="`/news/${post.id}`", :target="$store.state.target")
       .news-cover
         img(:src="`${post.cover_url}?imageView2/1/w/316/h/202/interlace/1/q/88/ignore-error/1/`")
       p.multiline-text-overflow {{post.title}}

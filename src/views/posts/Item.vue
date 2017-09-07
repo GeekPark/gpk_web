@@ -1,18 +1,18 @@
 <template lang="jade">
 article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
   template(v-if="(columnId || post.column.id) === 251")
-    a.img-cover-wrap(:href="`/news/${post.id}`")
+    a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
         img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/ignore-error/1/`")
-    .ts-item(v-for="img,index in post.img_list.slice(0, 2)")
+    a.ts-item(v-for="img,index in post.img_list.slice(0, 2)", :href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
         img(:src="img")
       .img-count(v-if="index == 1") {{post.img_list.length}}张图片
       
     .article-info
-      a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
-      .article-time {{post.published_at | fromNow}}
-      a(v-bind:href="`/news/${post.id}`")
+      a.category-tag(:href="`/column/${columnId || post.column.id}`", :target="$store.state.target") {{columnTitle || post.column.title}}
+      .article-time {{post.published_timestamp | fromNow}}
+      a(v-bind:href="`/news/${post.id}`", :target="$store.state.target")
         h3.multiline-text-overflow {{post.title}}
 
   //- template(v-else-if="(columnId || post.column.id) === 74")
@@ -20,31 +20,31 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   //-     .article-info
   //-       .article-zaozhidao
   //-         a(:href="`/news/${post.id}`")
-  //-           h2.multiline-text-overflow {{post.published_at | getDay}} 极客早知道
+  //-           h2.multiline-text-overflow {{post. | getDay}} 极客早知道
   //-         ul
   //-           li(v-for="h2_title in post.h2_list")
   //-             | {{h2_title}}
   //-       a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
-  //-       .article-time {{post.published_at | fromNow}}
+  //-       .article-time {{post.published_timestamp | fromNow}}
   
   template(v-else)
-    a.img-cover-wrap(:href="`/news/${post.id}`")
+    a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
         img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/ignore-error/1/`")
         .play(v-if="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}
     .article-info
-      a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
-      .article-time {{post.published_at | fromNow}}
-      a(v-bind:href="`/news/${post.id}`")
+      a.category-tag(:href="`/column/${columnId || post.column.id}`", :target="$store.state.target") {{columnTitle || post.column.title}}
+      .article-time {{post.published_timestamp | fromNow}}
+      a(v-bind:href="`/news/${post.id}`", :target="$store.state.target")
         h3.multiline-text-overflow {{post.title}}
       p.multiline-text-overflow {{post.abstract}}
 
   .article-meta.hidden-xs
-    a.article-author(v-for="author in post.authors", :href="`/users/${author.id}`") {{author.nickname}}
+    a.article-author(v-for="author in post.authors", :href="`/users/${author.id}`", :target="$store.state.target") {{author.nickname}}
     .source-right
-      a.btn-comment(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`")
+      a.btn-comment(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`", :target="$store.state.target")
         i.iconfont.icon-comment
         | {{post.comments_count}}
       template(v-if="post.like_count > 0")
@@ -64,7 +64,7 @@ export default {
     fromNow: function (value) {
       if (!value) return ''
       let str;
-      const time = moment(value);
+      const time = moment.unix(value);
       const diff = moment().diff(time, 'days');
       if (diff >= 1) {
         str = time.format('YYYY/MM/DD');
@@ -75,7 +75,7 @@ export default {
     },
     getDay: function (value) {
       if (!value) return ''
-      return moment(value).format('MM月DD日');
+      return moment.unix(value).format('MM月DD日');
     }
   }
 }

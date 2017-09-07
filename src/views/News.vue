@@ -15,7 +15,7 @@
             a.author(v-for="author in postsData.authors", :href="`/users/${author.id}`")
               img(:src="author.avatar_url")
               span {{author.nickname}}
-            span.release-date {{postsData.published_at | formatDate}}
+            span.release-date {{postsData.published_timestamp | formatDate}}
         #article-body
           .topic-cover(v-if="postsData.post_type !== 'video'")
             img#topic-cover(:src="postsData.cover_url")
@@ -26,7 +26,7 @@
           .article-content(v-html="postsData.content")
         .article-source
         section.tags
-          a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`", target="_blank") {{tag}}
+          a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`") {{tag}}
         .share-wrap
           share(:title="postsData.title")
       template(v-if="show")
@@ -126,7 +126,7 @@ export default {
   methods: {
     fetch () {
       api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
-        if (result.data.post && result.data.post.published_at) {
+        if (result.data.post && result.data.post.published_timestamp) {
           this.postsData = result.data.post
         } else {
           this.$router.push({path: '/404'})
@@ -164,7 +164,7 @@ export default {
   filters: {
     formatDate: function (value) {
       if (!value) return ''
-      return moment(value).format("YYYY/MM/DD")
+      return moment.unix(value).format("YYYY/MM/DD")
     }
   },
   beforeMount () {
@@ -318,7 +318,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       color #333
       img + i
         color rgba(0, 0, 0, .6)
-        font-size 12px
+        font-size 14px
         font-style normal
     a, a:visited
       color #333
