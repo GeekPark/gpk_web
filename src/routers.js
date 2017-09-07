@@ -75,6 +75,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  if (window.ga) {
+    window.ga('set', 'page', to.fullPath);
+    window.ga('send', 'pageview');
+  }
   document.title = to.meta.title
   next()
   
