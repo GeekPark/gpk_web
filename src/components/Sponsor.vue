@@ -1,8 +1,8 @@
 <template lang="jade">
-.sponsor(v-if="adShow && ads[position]", :class="'ads-' + position")
+.sponsor(v-if="adShow && ads.length", :class="'ads-' + position")
   .ads-container.swiper-container(:class="position")
     .swiper-wrapper
-      .swiper-slide(v-for="item in ads[position]")
+      .swiper-slide(v-for="item in ads")
         a(:href="item.ad.link", target="_blank", :title="item.ad.title")
           img(:src="item.ad.cover_url", :alt="item.ad.title")
   i.icon-ad 广告
@@ -40,16 +40,15 @@ export default {
   methods: {
     fetch () {
       api.get(`ads`).then((result) => {
-        if (!localStorage.getItem(this.position)) {
-          this.ads = result.data
-        }
+        let data = result.data[this.position] || []
+        this.ads = data.filter(item => !localStorage.getItem(`ad_${item.ad.id}`))
       }).catch((err) => {
         this.$message.error(err.toString())
       })
     },
     closeAd: function () {
       this.adShow = false
-      localStorage.setItem(this.position, "1")
+      localStorage.setItem(`ad_${this.ads[0].ad.id}`, "1")
     }
   },
   beforeMount () {
