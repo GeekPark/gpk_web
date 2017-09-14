@@ -3,8 +3,8 @@
   .ads-container.swiper-container(:class="position")
     .swiper-wrapper
       .swiper-slide(v-for="item in ads")
-        a(@click="saveClick(item.ad.id)", :href="item.ad.link", target="_blank", :title="item.ad.title")
-          img(:src="item.ad.cover_url", :alt="item.ad.title")
+        a(@click="saveClick(item.ad.id)", :href="item.ad.link", target="_blank")
+          img(:src="item.ad.cover_url")
   i.icon-ad 广告
   i.iconfont.icon-close(@click="closeAd", title="不再显示")
     span 不再显示
