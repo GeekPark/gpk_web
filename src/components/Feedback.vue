@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #feedback
   .container.clear
     .wr-fx
@@ -59,8 +59,8 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', () => {
-      let scrollTop = document.body.scrollTop
-      scrollTop > 800 ? 
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+      scrollTop > 800 ?
         document.querySelector(".fixed-tools").classList.add("show") :
         document.querySelector(".fixed-tools").classList.remove("show")
     })
@@ -70,7 +70,7 @@ export default {
       this.qrindex = index
     },
     pageScroll () {
-      $("body").animate({scrollTop:0}, '500')
+      $("html, body").animate({scrollTop:0}, '500')
     },
     submitForm () {
       if (!this.fb_content || this.loading) return;
@@ -94,7 +94,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import "../stylus/var.styl";
 [data-tooltip]
   position relative
   z-index 2

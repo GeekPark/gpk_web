@@ -2,12 +2,18 @@ import Vuex      from 'vuex'
 import Vue       from 'vue'
 import mutations from './mutations'
 import actions   from './actions'
-import state     from './state'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  mutations,
-  actions,
-  state
-})
+export function createStore () {
+  return new Vuex.Store({
+    state: {
+      isLoading: false,
+      access_key: null,
+      target: '',
+      userInfo: null
+    },
+    mutations,
+    actions
+  })
+}

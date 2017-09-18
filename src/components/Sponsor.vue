@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .sponsor(v-if="adShow && ads.length", :class="'ads-' + position")
   .ads-container.swiper-container(:class="position")
     .swiper-wrapper
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-require('swiper/dist/css/swiper.min.css');
-import Swiper from 'swiper';
+// require('swiper/dist/css/swiper.min.css');
+// import Swiper from 'swiper';
 import api from 'stores/api'
 
 export default {

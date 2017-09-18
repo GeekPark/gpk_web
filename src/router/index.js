@@ -1,18 +1,18 @@
 import Vue             from 'vue'
 import VueRouter       from 'vue-router'
-import config          from './config.js'
+import config          from '../config.js'
 
-import Index           from 'views/Index.vue'
-import News            from 'views/News.vue'
-import Column          from 'views/Column.vue'
-import Topics          from 'views/Topics.vue'
-import Tag             from 'views/Tag.vue'
-import Author          from 'views/Author.vue'
-import Liked           from 'views/Liked.vue'
+import Home            from '../views/Home.vue'
+import News            from '../views/News.vue'
+import Column          from '../views/Column.vue'
+import Topics          from '../views/Topics.vue'
+import Tag             from '../views/Tag.vue'
+import Author          from '../views/Author.vue'
+import Liked           from '../views/Liked.vue'
 
-import About           from 'views/About.vue'
-import Report          from 'views/Report.vue'
-import Errors          from 'views/Errors.vue'
+import About           from '../views/About.vue'
+import Report          from '../views/Report.vue'
+import Errors          from '../views/Errors.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +21,7 @@ const router = new VueRouter({
   routes: [
     { path: '/',
       name: 'index',
-      component: Index,
+      component: Home,
       meta: {title: '极客公园-只为商业新变量'}
     },
     { path: '/news/:id',
@@ -75,13 +75,15 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (window.ga) {
-    window.ga('set', 'page', to.fullPath);
-    window.ga('send', 'pageview');
-  }
-  document.title = to.meta.title
-  next()
-  
+  // console.log('router.beforeEach', to, from);
+  // if (window.ga) {
+  //   window.ga('set', 'page', to.fullPath);
+  //   window.ga('send', 'pageview');
+  // }
+  // document.title = to.meta.title
+  // console.log('beforeEach', typeof window)
+  // next()
+
   // let token = localStorage.getItem('token')
 	// if(to.meta.requireAuth) {
 	// 	if(token) {
@@ -97,4 +99,6 @@ router.beforeEach((to, from, next) => {
 	// }
 })
 
-export default router
+export function createRouter () {
+  return router
+}

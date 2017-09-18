@@ -3,9 +3,9 @@
   subnav
   .container
     sponsor(position="top_banner")
-  .breaking-news(v-if="!isMobileUA")
+  .breaking-news(v-if="!isMobile")
     .container
-      .item(v-for='item, index in slider.posts', :key='item.id')
+      .item(v-for='item, index in homepage.slider.posts', :key='item.id')
         .responsive-imgs
           a(@click="saveClick(item)", class="link", :href="item.link || `/news/${item.id}`", :target="$store.state.target")
             img(:alt="item.title", class="img-cover loaded", :src="`${item.cover_url}?imageView2/1/w/1120/h/800/interlace/1/q/88/interlace/1/`")
@@ -15,7 +15,7 @@
               p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
   .swiper-container#breakding-news-slider.breakding-news-slider(v-else)
     .swiper-wrapper
-      .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')
+      .news-item.swiper-slide(v-for='item, index in homepage.slider.posts', :key='item.id')
         a.link(:href="`/news/${item.id}`")
           .img-cover
             img(:src="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/interlace/1/`")
@@ -28,7 +28,7 @@
         template(v-for="posts in homepage_posts")
           .time
             i.iconfont.icon-arrow-left
-            | {{posts.date | formatDate}}
+            | {{posts.date | timeAt}}
             i.iconfont.icon-arrow-right
           item(v-for="item in posts.data", :key="item.post.id", :post="item.post")
         .tac
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-require('swiper/dist/css/swiper.min.css')
 import Subnav from '../components/Vsubnav.vue'
 import Sponsor from '../components/Sponsor.vue'
 import Item from './posts/Item.vue'
@@ -52,64 +51,36 @@ import Hotnews from './posts/Hotnews.vue'
 import Idlenews from './posts/Idlenews.vue'
 import Topics from './posts/Topics.vue'
 import api from 'stores/api'
-import moment from 'moment'
-import Swiper from 'swiper'
-import { isWechat, isMobileUA } from 'mdetect'
+// import Swiper from 'swiper'
 
+let page = 1
 export default {
   components: { Subnav, Sponsor, Item, Idlenews, Hotnews, Topics },
-  computed: {
-    isMobileUA () {
-      return isMobileUA()
-    }
-  },
+  title: '极客公园-只为商业新变量',
   data () {
     return {
-      page: 0,
-      loading: true,
+      page: page,
+      loading: false,
       homepage_posts: [],
-      slider: {
-        posts: [],
-      },
-      ads: []
+      ads: [],
+      isMobile: false
     }
   },
-  watch: {
-    'slider.posts': function (val, oldVal) {
-      if (isMobileUA()) {
-        setTimeout(()=>{
-          new Swiper('#breakding-news-slider', {
-            autoplay: 5000,
-            loop: true
-          })
-        }, 100)
-      } else {
-        if (this.ads.post_left) val[3] = this.ads.post_left[0].ad
-        if (this.ads.post_right) val[4] = this.ads.post_right[0].ad
-      }
-    }
+  asyncData ({ store, route }) {
+    // 触发 action 后，会返回 Promise
+    return store.dispatch('FETCH_HOME', { page })
   },
-  mounted(){
-    window.addEventListener('scroll', () => {
-      let scrollTop = document.body.scrollTop
-      let totalPage
-      if (isMobileUA()) {
-        totalPage = 999999
-      } else {
-        totalPage = 3
-      }
-      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight && 
-          !this.loading && this.page < totalPage) {
-        this.fetch()
-      }
-    })
+  computed: {
+    homepage () {
+      this.homepage_posts = this.$store.state.homepage.homepage_posts
+      return this.$store.state.homepage
+    }
   },
   methods: {
     fetch () {
       this.loading = true
-      this.page += 1
-      api.get(`?page=${this.page}`).then((result) => {
-        this.page < 2 ? this.slider = result.data.slider : ''
+      page += 1
+      api.get(`?page=${page}`).then((result) => {
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false
       }).catch((err) => {
@@ -130,25 +101,29 @@ export default {
       })
     },
   },
-  filters: {
-    formatDate: function (value) {
-      if (!value) return ''
-      let str
-      const time = moment.unix(value)
-      str = time.format(`ddd.`)
-      return time.calendar(null, {
-        sameDay: '今天',
-        lastDay: '昨天',
-        lastWeek: 'MM.DD',
-        sameElse: 'MM.DD'
-      }) + ' \\ ' + str
-    }
-  },
-  beforeMount () {
-    if (!isMobileUA()) {
-      this.getAds()
-    }
-    this.fetch()
+  mounted () {
+    this.getAds()
+    // if (this.$device.isMobile()) {
+    //   this.isMobile = true
+    //   new Swiper('#breakding-news-slider', {
+    //     autoplay: 5000,
+    //     loop: true
+    //   })
+    // }
+
+    window.addEventListener('scroll', () => {
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+      let totalPage
+      if (this.$device.isMobile()) {
+        totalPage = 999999
+      } else {
+        totalPage = 3
+      }
+      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight &&
+          !this.loading && page < totalPage) {
+        this.fetch()
+      }
+    })
   }
 }
 </script>

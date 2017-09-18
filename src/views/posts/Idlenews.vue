@@ -1,11 +1,11 @@
-<template lang="jade">
+<template lang="pug">
 .idle-news
   h3 行业资讯
   article.news-item(v-for="post in posts.slice(0, 5)", :key="post.id")
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-wrapper
         .img-cover
-          img(:src="`${post.cover_url}?imageView2/1/w/490/h/300/interlace/1/q/88/ignore-error/1/`")
+          img(:src="`${post.cover_url}?imageView2/1/w/490/h/300/interlace/1/q/88/interlace/1/`")
       p.multiline-text-overflow {{post.title}}
 </template>
 

@@ -1,28 +1,27 @@
-<template lang="jade">
+<template lang="pug">
 #app(v-loading="isLoading", element-loading-text="拼命加载中" v-if="toload")
+  feedback
   vheader
   transition(name="fade" mode="out-in")
-    router-view
-  feedback(v-if="!isMobile")
+    router-view(:access_key="$store.state.access_key")
   vfooter
 </template>
 
 <script>
-import { isWechat, isMobileUA } from 'mdetect';
 import api from 'stores/api'
 
 export default {
   name: 'app',
   data () {
     return {
-      isMobile: isMobileUA(),
-      toload: false
+      toload: true
     }
   },
   beforeCreate () {
     api.account.get('/my/access_key').then((result) => {
       if (result.status === 200 && result.data.access_key) {
         this.$store.state.access_key = result.data.access_key
+        localStorage.setItem('access_key', result.data.access_key)
       }
       this.toload = true
     }).catch((err) => {
@@ -30,11 +29,13 @@ export default {
       // this.$message.error(err.toString())
     });
   },
+  created () {
+  },
   mounted() {
-    if (!isMobileUA()) {
+    if (!this.$device.isMobile()) {
       this.$store.state.target = '_blank'
     }
-    if (isWechat()) {
+    if (this.$device.isWechat()) {
       // 配置
       var url = window.location.href;
       // let imgUrl = document.querySelector('article').querySelector('.banner').src || '7f.png';
@@ -53,7 +54,7 @@ export default {
       //     imgUrl = item.content;
       //   }
       // });
-      
+
       api.get(`wechat/js_config?request_url=${url}`).then(function(res) {
         wx.config({
           debug: false,
@@ -144,6 +145,7 @@ a
   .article-list
     width 815px
     display inline-block
+    text-align left
     .time
       border 1px solid rgba(0,0,0,0.1)
       border-width 1px 0

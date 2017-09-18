@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #search-panel
   .search-wrapper(:class="isLoading ? 'loading' : ''")
     .wrap

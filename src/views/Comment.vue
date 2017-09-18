@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #comment
   textarea.heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
   .input-box
@@ -216,7 +216,7 @@ export default {
     },
   },
   beforeMount () {
-    access_key = this.$store.state.access_key
+    access_key = this.$store.state.access_key || localStorage.getItem('access_key')
     this.fetch()
   }
 }

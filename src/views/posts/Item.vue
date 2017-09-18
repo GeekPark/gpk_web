@@ -1,15 +1,15 @@
-<template lang="jade">
+<template lang="pug">
 article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
   template(v-if="(columnId || post.column.id) === 251")
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
-        img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/ignore-error/1/`")
+        img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/interlace/1/`")
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .ts-item(v-for="(img, index) in post.img_list.slice(0, 2)")
         .img-cover
           img(:src="img")
         .img-count(v-if="index == 1") {{post.img_list.length}}张图片
-      
+
     .article-info
       a.category-tag(:href="`/column/${columnId || post.column.id}`", :target="$store.state.target") {{columnTitle || post.column.title}}
       .article-time {{post.published_timestamp | fromNow}}
@@ -27,11 +27,11 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   //-             | {{h2_title}}
   //-       a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
   //-       .article-time {{post.published_timestamp | fromNow}}
-  
+
   template(v-else)
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
-        img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/ignore-error/1/`")
+        img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/interlace/1/`")
         .play(v-if="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}
@@ -58,27 +58,8 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
 </template>
 
 <script>
-import moment from 'moment'
 export default {
-  props: ['post', 'columnId', 'columnTitle'],
-  filters: {
-    fromNow: function (value) {
-      if (!value) return ''
-      let str;
-      const time = moment.unix(value);
-      const diff = moment().diff(time, 'days');
-      if (diff >= 1) {
-        str = time.format('YYYY/MM/DD');
-      } else {
-        str = time.locale('zh-cn').fromNow();
-      }
-      return str
-    },
-    getDay: function (value) {
-      if (!value) return ''
-      return moment.unix(value).format('MM月DD日');
-    }
-  }
+  props: ['post', 'columnId', 'columnTitle']
 }
 </script>
 

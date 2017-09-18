@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #about
   .min-height-wrapper
     section.about-banner
@@ -14,18 +14,18 @@
         a#links(href="javascript:;" data-page="links") 友情链接
         a#contact(href="javascript:;" data-page="contact") 联系方式
       .page-content.hidden
-        
+
         //- 关于我们
         section.page.about
           p 极客公园成立于2010年，是中国创新者的大本营。通过对前沿科技的观察报道，业界一流的线下活动，众筹孵化等全方位的创业服务，极客公园汇聚了中国最广大的创新、创业人群。在内容媒体、会展公关、创业服务三大业务线协同发展下，极客公园帮助中国创业者更有效率的探索未来，链接更多的资源，让优秀的科技创业公司得以更快速的成长。
           p “极客”概念在极客公园的推动下，已经成为推动社会发展的重要力量。极客公园亦成为中国极客群体交流互助的首选平台和中国创新人群成长道路上的重要伙伴。
-        
+
         //- 公司愿景
         section.page.vision
           p “相信创新的力量，相信产品的力量”，这是极客公园的信仰。创新并实践是极客精神的内核，这种精神不仅是保持互联网行业持续进化和不断发展的终极驱动力，可以促进优秀产品在各个行业的涌现，从而让我们的生活更加美好。
           p 极客公园力争打造中国最好的聚焦于互联网产品的线下沙龙及线上社区，让前卫的想法、良好的产品、优秀的模式在这里能得到最佳的传播效果。
           p 极客公园致力于让互联网产品领域创新的想法，优秀的设计，以及宝贵的经验得到汇聚和传播，成为那些通过互联网产品正在改变人们生活的极客们最好的伙伴和最坚定的支持者。
-        
+
         //- 产品服务
         section.page.products
           #product-menu.product-menu
@@ -34,7 +34,7 @@
             a.btn(href="javascript:;" data-page="geeksvc") 极客加速计划
             a.btn(href="javascript:;" data-page="convention") 公关会展服务
             //- a.btn(href="javascript:;" data-page="geekchoice") 极客之选体验空间
-        
+
           #product-cont
             section.product-page.news
               h2.show-xs 极客资讯
@@ -78,7 +78,7 @@
               h2.show-xs 公关会展服务
               p 极客公园将媒体专业的判断力，与丰富的会展经验相结合，创造出一次次令人印象深刻的科技盛会，获得了业界的普遍认可。极客公园将这种能力开放，为那些相关经验欠缺，或是对公关会展有着更高要求的公司提供服务，为其带来切实的帮助。
               p 目前，极客公园凭借业界领先的公关会展能力，曾为创维、搜狗、英特尔、沃尔沃等公司策划线下活动，让这些优秀的公司和团队以最佳的姿态展现在人们眼前。
-        
+
         //- 使用条款
         section.page.terms
           h2 1. 接受条款
@@ -178,7 +178,7 @@
           p 倘本协议之任何规定因与中华人民共和国法律抵触而无效，您依然同意应依照法律，努力使该规定所反映之当事人意向具备效力，且本协议其它规定仍应具有完整的效力及效果；
           p 本协议之标题仅供方便而设，不具任何法律或契约效果；
           p GeekPark对本协议享有最终解释权。
-        
+
         //- 隐私协议
         section.page.privacy
           p 极客公园（GeekPark）以此声明对本站用户隐私保护的许诺。GeekPark的隐私声明正在不断改进中，随着GeekPark服务范围的扩大，会随时更新隐私声明。我 们欢迎您随时查看隐私声明。
@@ -188,7 +188,7 @@
             li 您同意公开你的个人资料，享受为您提供的产品和服务；
             li 本站需要听从法庭传票、法律命令或遵循法律程序；
             li 本站发现您违反了本站服务条款或本站其它使用规定。
-        
+
         //- 友情链接
         section.page.links
           ul.links
@@ -258,9 +258,9 @@
 
 <script>
 import api from 'stores/api'
-import { isMobileView } from 'mdetect';
 
 export default {
+  title: '关于我们',
   data () {
     return {
     }
@@ -323,8 +323,8 @@ export default {
         }
       },
     });
-    
-    if (isMobileView()) {
+
+    if (this.$device.isMobile()) {
       $('#product-menu').remove();
       // prevent jump to event categore page, no rwd fit
       $('.event-item a').on('click', e => e.preventDefault());

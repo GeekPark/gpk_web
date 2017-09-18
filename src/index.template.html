@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="webkit" name="renderer" />
-    <title>极客公园-只为商业新变量</title>
+    <title>{{title || '极客公园-只为商业新变量'}}</title>
     <meta content="极客公园，为你带来互联网热门趋势、热点产品的深度分析，发掘产品和趋势的价值。" name="description" />
     <meta content="极客公园, geekpark, 极客, 极客观察, 极客活动, geek, geeker, 创业, 科技新闻, 移动互联网, 互联网创业, vr, 极客加速, app, 孵化器" name="keywords" />
     <link href="http://www.geekpark.net/" rel="canonical" />
@@ -44,9 +44,22 @@
     </style>
   </head>
   <body>
-    <div id="app"></div>
-    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
-    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> 
-    
+    <!--vue-ssr-outlet-->
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #error
   h1 404 没有对应页面
 </template>

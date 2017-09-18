@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #index
   .header-banner(:class="'bg-' + Math.floor(Math.random()*(5))")
   .users-content(v-if="users")
@@ -28,23 +28,22 @@ import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import api from 'stores/api'
 
+let page = 1
 export default {
   components: { Item, Hotnews },
   data () {
     return {
-      page: 0,
-      loading: true,
+      loading: false,
       meta: {},
       posts: [],
       users: null
     }
   },
-
   methods: {
     fetch () {
       this.loading = true;
-      this.page += 1;
-      api.get(`posts/author/${this.$route.params.id}?page=${this.page}`).then((result) => {
+      page += 1;
+      api.get(`posts/author/${this.$route.params.id}?page=${page}`).then((result) => {
         this.meta = result.data.meta
         this.posts = this.posts.concat(result.data.posts)
         this.loading = false
@@ -72,9 +71,34 @@ export default {
 
 <style lang="stylus" scoped>
 .header-banner
+  background url('../assets/imgs/column_bg.jpg') center center no-repeat
+  background-size cover
+  color #fff
+  text-align center
+  padding 20px 0
+  height 180px
   for $num in (0..4)
     {'&.bg-' + $num}
       background-image url('../assets/imgs/author_bg_' + $num + '.jpg')
+  h3
+    margin 40px 0 40px
+    font-size 50px
+    font-weight 300
+    letter-spacing .5em
+    text-indent 0.25em
+  .desc
+    font-size 14px
+    font-weight 300
+    letter-spacing .5em
+    padding 0 60px
+    line-height 1.5
+  @media screen and (max-width: 767px)
+    h3
+      font-size 40px
+      letter-spacing 0
+      text-indent 0
+    .desc
+      letter-spacing 0
 .users-content
   border-bottom 1px solid #DADADA
   padding 50px 0 10px

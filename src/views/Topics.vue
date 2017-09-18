@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #index
   .header-banner(:style="{backgroundImage: 'url(' + topic.banner_url + ')'}")
     h3 # {{topic.title}} #

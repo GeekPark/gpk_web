@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .need-report-wrapper
   .banner-bg
   .container.report-container
@@ -96,6 +96,7 @@
 import api from 'stores/api'
 
 export default {
+  title: '寻求报道',
   data () {
     return {
     }
@@ -186,7 +187,7 @@ export default {
         }, '');
 
       $('#submit-button').addClass('loading');
-      
+
       api.post('feedback/new', {
           type: 'needreport',
           content: $('input[name="name"]').val(),

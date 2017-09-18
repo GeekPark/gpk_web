@@ -1,43 +1,45 @@
-<template lang="jade">
+<template lang="pug">
 #post
-  section.container(v-show="postsData.post_type")
+  section.container(v-show="news.post_type")
     .main-wrap
       template(v-if="!show")
         .preview 此为文章临时预览链接，将在30分钟后失效
       article
-        #play-room(:class="{'video-player': postsData.post_type == 'video'}")
-        header.post-header(:class="{'video': postsData.post_type == 'video'}")
-          .label.article-info(v-if="postsData.post_type !== 'video' && postsData.column && !promotion[postsData.column.id]")
-            a.category-tag(:href="`/column/${postsData.column && postsData.column.id}`" target="_blank")  {{postsData.column && postsData.column.title}}
-            .article-time {{postsData.reading_time}}min read
-          h1.topic-title {{postsData.title}}
+        #play-room(:class="{'video-player': news.post_type == 'video'}")
+        header.post-header(:class="{'video': news.post_type == 'video'}")
+          .label.article-info(v-if="news.post_type !== 'video' && news.column && !promotion[news.column.id]")
+            a.category-tag(:href="`/column/${news.column && news.column.id}`" target="_blank")  {{news.column && news.column.title}}
+            .article-time {{news.reading_time}}min read
+          h1.topic-title {{news.title}}
           .user-info
-            a.author(v-for="author in postsData.authors", :href="`/users/${author.id}`")
+            a.author(v-for="author in news.authors", :href="`/users/${author.id}`")
               img(:src="author.avatar_url")
               span {{author.nickname}}
-            span.release-date {{postsData.published_timestamp | formatDate}}
+            span.release-date {{news.published_timestamp | formatDate}}
         #article-body
-          .topic-cover(v-if="postsData.post_type !== 'video'")
-            img#topic-cover(:src="postsData.cover_url")
+          .topic-cover(v-if="news.post_type !== 'video'")
+            img#topic-cover(:src="news.cover_url")
             .tips
               i.iconfont.icon-quotes
               span 摘要
-            p {{postsData.abstract}}
-          .article-content(v-html="postsData.content")
+            p {{news.abstract}}
+          .article-content(v-html="news.content")
         .article-source
         section.tags
-          a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`") {{tag}}
+          a.article-tag(v-for="tag in news.tags", :href="`/tags/${tag}`") {{tag}}
         .share-wrap
-          share(:title="postsData.title")
+          share(:title="news.title")
       template(v-if="show")
-        .like-wrap
-          .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
+        .like-wrap.hidden-xs
+          .like-button(@click="toggleLike(news.id)", :class="{liked: news.liked}")
             span.like-icon
-          p(v-if="postsData.like_count > 0") {{postsData.like_count}}
+          p(v-if="news.like_count > 0") {{news.like_count}}
+        a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
+          | 打开极客公园App阅读更多内容
         comment(:postid="$route.params.id")
-        related(v-if="postsData.column && !promotion[postsData.column.id]")
+        related(v-if="news.column && !promotion[news.column.id]")
         newest
-      
+
     aside.article-sidebar
       sponsor(position="post")
       hotnews
@@ -47,7 +49,6 @@
 
 <script>
 import api from 'stores/api'
-import moment from 'moment'
 import Sponsor from '../components/Sponsor.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Related from './posts/Related.vue'
@@ -56,78 +57,40 @@ import Nextnews from './posts/Nextnews.vue'
 import Share from '../components/Share.vue'
 import Comment from './Comment.vue'
 import mediumZoom from 'medium-zoom'
-import { isWechat, isMobileUA } from 'mdetect'
 
 let access_key
 
 export default {
   components: { Hotnews, Nextnews, Share, Comment, Sponsor, Related, Newest },
-
   data () {
     return {
-      show: false,
-      postsData: {},
+      show: true,
       promotion: {
         '2': '行业资讯',
         '248': '业界资讯'
       }
     }
   },
-  watch: {
-    'postsData': function (val, oldVal) {
-      document.title = val.title
-      if (!isMobileUA()) {
-        setTimeout(()=>{
-          mediumZoom(document.querySelectorAll("#article-body img"))
-        }, 100)
-      } else if (isWechat()) {
-        wx.ready(function() {
-          wx.onMenuShareTimeline({ // 分享朋友圈
-            title: val.title, // 分享标题
-            link: window.location.href, // 分享链接
-            imgUrl: val.cover_url, // 分享图标
-          });
-          wx.onMenuShareAppMessage({ // 分享给好友
-            title: val.title, // 分享标题
-            desc: val.abstract, // 分享描述
-            link: window.location.href, // 分享链接
-            imgUrl: val.cover_url, // 分享图标
-          });
-        })
-
-        setTimeout(()=>{
-          const imgs = [];
-          $('#article-body img').each(function () {
-            imgs.push($(this).attr('src'));
-          });
-
-          $('#article-body').on('click', 'img', function () {
-            const src = $(this).attr('src');
-            if (imgs.indexOf(src) === -1) return;
-            // window.ga('send', 'event', 'M.article.pic.zoom', 'zoom', src);
-            wx.previewImage({
-              current: src,
-              urls: imgs,
-            });
-          });
-        }, 100)
-      }
-
-      if (val.post_type === 'video') {
-        const el = document.getElementById('play-room');
-        let videoScript = document.createElement('script');
-        videoScript.src = `//union.bokecc.com/player?vid=${this.postsData.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
-        videoScript.type ='text/javascript';
-        el.innerHTML = '';
-        el.appendChild(videoScript);
-      }
+  title () {
+    return this.news.title
+  },
+  asyncData ({ store, route: { params: { id }, query: { key }} }) {
+    if (key) {
+      return store.dispatch('FETCH_PREVIEW', { id })
+    } else {
+      return store.dispatch('FETCH_NEWS', { id, key })
+    }
+  },
+  computed: {
+    news () {
+      return this.$store.state.news.post
     }
   },
   methods: {
     fetch () {
       api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
         if (result.data.post && result.data.post.published_timestamp) {
-          this.postsData = result.data.post
+          this.news = result.data.post
         } else {
           this.$router.push({path: '/404'})
         }
@@ -140,7 +103,7 @@ export default {
         if (result.data.message) {
           this.$message.error(result.data.message);
         } else {
-          this.postsData = result.data.post
+          this.news = result.data.post
         }
       }).catch((err) => {
         this.$router.push({path: '/404'})
@@ -152,29 +115,69 @@ export default {
         if (confirm('喜欢需要登录喔，点击确定去登录')) window.location.href = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`;
         return;
       }
-      let like = this.postsData.liked ? 'unlike' : 'like'
+      let like = this.news.liked ? 'unlike' : 'like'
       api.post(`posts/${id}/${like}?access_key=${access_key}`).then((res) => {
-        this.postsData.liked = !this.postsData.liked;
-        this.postsData.like_count += like === 'unlike' ? -1 : 1
+        this.news.liked = !this.news.liked;
+        this.news.like_count += like === 'unlike' ? -1 : 1
       }).catch((err) => {
         this.$message.error(err.toString())
       })
     },
   },
-  filters: {
-    formatDate: function (value) {
-      if (!value) return ''
-      return moment.unix(value).format("YYYY/MM/DD")
+  mounted () {
+    let _this = this
+    if (!this.news.published_timestamp) {
+      this.show = false
+    }
+
+    if (!this.$device.isMobile()) {
+      setTimeout(()=>{
+        mediumZoom(document.querySelectorAll("#article-body img"))
+      }, 100)
+    } else if (this.$device.isWechat()) {
+      wx.ready(function() {
+        wx.onMenuShareTimeline({ // 分享朋友圈
+          title: _this.news.title, // 分享标题
+          link: window.location.href, // 分享链接
+          imgUrl: _this.cover_url, // 分享图标
+        });
+        wx.onMenuShareAppMessage({ // 分享给好友
+          title: _this.title, // 分享标题
+          desc: _this.abstract, // 分享描述
+          link: window.location.href, // 分享链接
+          imgUrl: _this.cover_url, // 分享图标
+        });
+      })
+
+      setTimeout(()=>{
+        const imgs = [];
+        $('#article-body img').each(function () {
+          imgs.push($(this).attr('src'));
+        });
+
+        $('#article-body').on('click', 'img', function () {
+          const src = $(this).attr('src');
+          if (imgs.indexOf(src) === -1) return;
+          // window.ga('send', 'event', 'M.article.pic.zoom', 'zoom', src);
+          wx.previewImage({
+            current: src,
+            urls: imgs,
+          });
+        });
+      }, 100)
+    }
+
+    if (this.news.post_type === 'video') {
+      const el = document.getElementById('play-room');
+      let videoScript = document.createElement('script');
+      videoScript.src = `//union.bokecc.com/player?vid=${this.news.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
+      videoScript.type ='text/javascript';
+      el.innerHTML = '';
+      el.appendChild(videoScript);
     }
   },
   beforeMount () {
-    access_key = this.$store.state.access_key
-    if (this.$route.query.key) {
-      this.preview()
-    } else {
-      this.fetch()
-      this.show = true
-    }
+    access_key = this.$store.state.access_key || localStorage.getItem('access_key')
   }
 }
 
@@ -191,6 +194,14 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
   padding 0 .5em
   line-height 2
   margin-bottom 1.5em
+.app-down
+  display block
+  background $color-blue
+  color #fff
+  text-align center
+  font-size 16px
+  line-height 50px
+  margin 30px 0 75px
 #play-room
   &.video-player
     position relative
@@ -273,7 +284,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       margin-top 40px
       span
         color rgba(0,0,0,.6)
-  
+
   .article-content
     word-wrap break-word
     font-size 16px
@@ -324,7 +335,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       color #333
       text-decoration none
       border-bottom 1px solid #F84B8D
-  
+
   .tags
     margin-top 30px
     a
@@ -426,7 +437,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     &::after
       animation: heartFloatSub-4 1s 0.15s $bezier both
       opacity: .4
-  
+
 // Animations
 @keyframes heartPulse
   0%

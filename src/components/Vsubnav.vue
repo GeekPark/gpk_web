@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .sub-nav
   .container
     a(href="/column/81")

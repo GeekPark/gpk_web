@@ -1,5 +1,5 @@
-<template lang="jade">
-.share-wrap.js-share-wrap(data-track-category="article.share" data-track-item=".js-share-btn")
+<template lang="pug">
+.share-wrap.js-share-wrap
   span 分享至
   a.share-btn.wechat.relative.js-share-btn(href="javascript:;" data-type="wechat")
     i.iconfont.icon-wechat
@@ -19,12 +19,51 @@ import QRious from 'qrious'
 export default {
   name: 'share',
   props: ["title"],
-  computed: {
-    qr() {
-      return new QRious({ value: document.location.href }).toDataURL()
+  data () {
+    return {
+      qr: ''
     }
   },
   mounted() {
+    this.qr = new QRious({ value: document.location.href }).toDataURL()
+    var share = {
+      setting: {
+        width: 700,
+        height: 400
+      },
+      getCoords: (type) => {
+        if (type === 'top') return (window.innerHeight - share.setting.height) / 2;
+        if (type === 'left') return (window.innerWidth - share.setting.width) / 2;
+      },
+      openWindow(url) {
+        window.open(
+          url, '',
+          `width=${this.setting.width}, height=${this.setting.height}, top=${this.getCoords('top')}, left=${this.getCoords('left')}, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no`);
+      },
+      run({ type, url, text, des, thumb, appkey }) {
+        url = encodeURIComponent(url || document.location);
+        text = encodeURIComponent(text || document.title);
+        des = encodeURIComponent(des || '');
+        thumb = thumb || '';
+        appkey = appkey || '3896321144';
+
+        let jump;
+        switch (type) {
+          case 'weibo':
+            jump = `http://service.weibo.com/share/share.php?url=${url}&appkey=${appkey}&title=${text}&pic=${thumb}&ralateUid=1735559201`;
+            break;
+          case 'twitter':
+            jump = `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=GeekParkNet`;
+            break;
+          case 'linkedin':
+            jump = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}&summary=${des}&source=GeekPark`
+            break;
+        }
+
+        share.openWindow(jump);
+      }
+    };
+
     $('.js-share-btn').on('click', function() {
       const type = $(this).data('type');
       if (type !== 'wechat') {
@@ -44,43 +83,7 @@ export default {
   }
 }
 
-var share = {
-  setting: {
-    width: 700,
-    height: 400
-  },
-  getCoords: (type) => {
-    if (type === 'top') return (window.innerHeight - share.setting.height) / 2;
-    if (type === 'left') return (window.innerWidth - share.setting.width) / 2;
-  },
-  openWindow(url) {
-    window.open(
-      url, '',
-      `width=${this.setting.width}, height=${this.setting.height}, top=${this.getCoords('top')}, left=${this.getCoords('left')}, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no`);
-  },
-  run({ type, url, text, des, thumb, appkey }) {
-    url = encodeURIComponent(url || document.location);
-    text = encodeURIComponent(text || document.title);
-    des = encodeURIComponent(des || '');
-    thumb = thumb || '';
-    appkey = appkey || '3896321144';
 
-    let jump;
-    switch (type) {
-      case 'weibo':
-        jump = `http://service.weibo.com/share/share.php?url=${url}&appkey=${appkey}&title=${text}&pic=${thumb}&ralateUid=1735559201`;
-        break;
-      case 'twitter':
-        jump = `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=GeekParkNet`;
-        break;
-      case 'linkedin':
-        jump = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}&summary=${des}&source=GeekPark`
-        break;
-    }
-
-    share.openWindow(jump);
-  }
-};
 </script>
 
 <style lang="stylus">

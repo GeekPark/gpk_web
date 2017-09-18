@@ -1,11 +1,11 @@
-<template lang="jade">
+<template lang="pug">
 .hot-news
   h3 七日热门
   article.news-item(v-for='post, index in posts', :key='post.id')
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .news-cover
         span {{index + 1}}
-        img(:src="`${post.cover_url}?imageView2/1/w/482/h/300/interlace/1/q/88/ignore-error/1/`")
+        img(:src="`${post.cover_url}?imageView2/1/w/482/h/300/interlace/1/q/88/interlace/1/`")
       p.multiline-text-overflow {{post.title}}
 </template>
 

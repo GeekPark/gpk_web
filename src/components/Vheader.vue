@@ -1,9 +1,9 @@
-<template lang="jade">
+<template lang="pug">
 #header
   header.header(class="hidden-xs")
     .container.relative
       .logo
-        router-link(to="/")
+        a.active(href="/")
           img.logo-img(src="../assets/imgs/copyright.png")
         //- = render 'shared/v2/doodle'
       nav.nav
@@ -50,7 +50,7 @@
       i.iconfont.icon-menu(v-if="!showmenu")
       i.iconfont.icon-close(v-else)
     .logo
-      router-link(to="/")
+      a(href="/")
         img.logo-img(src="../assets/imgs/copyright.png")
     Vmenu(v-if="showmenu", :logout="logout", :login="login")
     a.m-button.search-btn.search-icon-anim(:class="showsearch ? 'opened' : ''", @click="showsearch = !showsearch")
@@ -61,7 +61,7 @@
 
 <script>
 import api from 'stores/api'
-import clickAtOutside from 'click-at-outside'
+// import clickAtOutside from 'click-at-outside'
 import Vmenu from './Vmenu.vue'
 import Search from './Search.vue'
 
@@ -111,6 +111,7 @@ export default {
 
     cleanUser() {
       localStorage.removeItem('userInfo')
+      localStorage.removeItem('access_key')
       this.$store.state.access_key = null
       this.$store.state.userInfo = null
     },
@@ -159,8 +160,9 @@ export default {
       })
     }
   },
-  beforeMount () {
-    access_key = this.$store.state.access_key
+  mounted () {
+    access_key = this.$store.state.access_key || localStorage.getItem('access_key')
+
     if (access_key) {
       this.getUser()
       this.getMessage()
@@ -262,7 +264,7 @@ scrollbar()
   &::-webkit-scrollbar-track
     background-color: transparent
 
-  &::-webkit-scrollbar-thumb 
+  &::-webkit-scrollbar-thumb
     background-color: #efefef
     border-radius: 5px
 

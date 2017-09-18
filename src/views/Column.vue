@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 #index
   .header-banner
     h3 {{column.title}}
@@ -20,36 +20,40 @@ import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import api from 'stores/api'
 
+let page = 1
+
 export default {
   components: { Item, Hotnews },
+  title () {
+    return this.column.title
+  },
   data () {
     return {
-      page: 0,
-      loading: true,
-      column: {},
-      posts: [],
+      loading: false,
+      posts: []
+    }
+  },
+  asyncData ({ store, route: { params: { id } } }) {
+    return store.dispatch('FETCH_COLUMN', { id, page })
+  },
+  computed: {
+    column () {
+      this.posts = this.$store.state.column.column.posts
+      return this.$store.state.column.column
     }
   },
 
   methods: {
     fetch () {
       this.loading = true
-      this.page += 1
-      api.get(`columns/${this.$route.params.id}?page=${this.page}`).then((result) => {
+      page += 1
+      api.get(`columns/${this.$route.params.id}?page=${page}`).then((result) => {
         this.posts = this.posts.concat(result.data.column.posts)
-        if (this.page === 1) {
-          this.column = result.data.column
-          document.title = result.data.column.title + ' | 极客公园'
-        }
         this.loading = false
       }).catch((err) => {
         this.$message.error(err.toString())
       })
     },
-  },
-
-  beforeMount () {
-    this.fetch()
   }
 }
 
@@ -82,5 +86,5 @@ export default {
       text-indent 0
     .desc
       letter-spacing 0
-    
+
 </style>
