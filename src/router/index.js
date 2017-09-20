@@ -21,68 +21,57 @@ const router = new VueRouter({
   routes: [
     { path: '/',
       name: 'index',
-      component: Home,
-      meta: {title: '极客公园-只为商业新变量'}
+      component: Home
     },
     { path: '/news/:id',
       name: 'news',
-      component: News,
-      meta: {title: '文章详情'}
+      component: News
     },
     { path: '/topics/:id',
       redirect: '/news/:id'
     },
     { path: '/column/:id',
       name: 'column',
-      component: Column,
-      meta: {title: '栏目页'}
+      component: Column
     },
     { path: '/topic/:id',
       name: 'topics',
-      component: Topics,
-      meta: {title: '专题页'}
+      component: Topics
     },
     { path: '/tags/:tag',
       name: 'tags',
-      component: Tag,
-      meta: {title: '标签页'}
+      component: Tag
     },
     { path: '/users/:id',
       name: 'author',
-      component: Author,
-      meta: {title: '作者主页'}
+      component: Author
     },
     { path: '/liked',
       name: 'liked',
-      component: Liked,
-      meta: {title: '我的喜欢 | 极客公园'}
+      component: Liked
     },
     { path: '/about',
       name: 'about',
-      component: About,
-      meta: {title: '关于极客公园'}
+      component: About
     },
     { path: '/report',
       name: 'report',
-      component: Report,
-      meta: {title: '求报道'}
-    },
-    { path: '*',
-      component: Errors,
-      meta: {title: 'Error'}
+      component: Report
+    // },
+    // { path: '*',
+    //   component: Errors,
+    //   meta: {title: 'Error'}
     }
   ]
 })
 
 // router.beforeEach((to, from, next) => {
 //   next()
-//   console.log('router.beforeEach', to, from);
 //   if (window.ga) {
 //     window.ga('set', 'page', to.fullPath);
 //     window.ga('send', 'pageview');
 //   }
 //   document.title = to.meta.title
-//   console.log('beforeEach', typeof window)
 //   next()
 
 //   let token = localStorage.getItem('token')

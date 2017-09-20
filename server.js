@@ -61,9 +61,10 @@ const serve = (path, cache) => express.static(resolve(path), {
 app.use(compression({ threshold: 0 }))
 // app.use(favicon('./public/logo-48.png'))
 app.use('/dist', serve('./dist', true))
-// app.use('/public', serve('./public', true))
+app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
-app.use('/service-worker.js', serve('./dist/service-worker.js'))
+// app.use('/service-worker.js', serve('./dist/service-worker.js'))
+app.use(express.static(__dirname + '/public'));
 
 // since this app has no user-specific content, every page is micro-cacheable.
 // if your app involves user-specific content, you need to implement custom
@@ -83,10 +84,11 @@ function render (req, res) {
     if (err.url) {
       res.redirect(err.url)
     } else if(err.code === 404) {
-      res.status(404).send('404 | Page Not Found')
+      res.status(404).sendFile(__dirname + '/public/404.html');
+      // res.status(404).send('404 | Page Not Found')
     } else {
       // Render Error Page or Redirect
-      res.status(500).send('500 | Internal Server Error')
+      res.status(500).sendFile(__dirname + '/public/500.html');
       console.error(`error during render : ${req.url}`)
       console.error(err.stack)
     }

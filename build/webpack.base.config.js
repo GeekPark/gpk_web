@@ -18,7 +18,8 @@ module.exports = {
       'public': path.resolve(__dirname, '../public'),
       'components': path.resolve(__dirname, '../src/components'),
       'store': path.resolve(__dirname, '../src/store')
-    }
+    },
+    extensions: ['.js', '.vue']
   },
   module: {
     noParse: /es6-promise\.js$/, // avoid webpack shimming process
@@ -40,7 +41,7 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: '[name].[ext]?[hash]'
+            name: 'img/[name].[ext]?[hash]'
           }
         }
       },
@@ -50,7 +51,7 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: '[name].[ext]?[hash]'
+            name: 'fonts/[name].[ext]?[hash]'
           }
         }
       },
@@ -60,10 +61,6 @@ module.exports = {
           use: 'css-loader?minimize',
           fallback: 'vue-style-loader'
         }) : ['vue-style-loader', 'css-loader']
-      },
-      {
-        test: /\.pug/,
-        use: 'pug-loader'
       }
     ]
   },

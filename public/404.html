@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>叮咚，火星已到达，下车请刷卡</title>
+  <style>
+  body {
+    background-color: #585858;
+    color: #2E2F30;
+    font-family: arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .wrapper {
+    display: block;
+    margin: 0 auto;
+    max-width: 1920px;
+    position: relative;
+  }
+
+  .logo {
+    width: 180px;
+    padding: 20px;
+    display: inline-block;
+  }
+
+  .logo  img {
+    width: 100%;
+  }
+
+
+  .error-info {
+    width: 100%;
+    margin-top: 10%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 20%;
+  }
+
+  .error-info img {
+    width: 450px;
+  }
+
+  .error-info .robot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1920px;
+    height: 221px;
+    bottom: -200px;
+    background-image: url('./404_robot.gif');
+    background-repeat: no-repeat;
+  }
+
+  a.button {
+    position: fixed;
+    display: block;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    background-color: #00b7ee;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    width: 150px;
+    text-align: center;
+  }
+  </style>
+</head>
+
+<body>
+  <!-- This file lives in public/404.html -->
+  <!-- <div class="dialog">
+    <h1>The page you were looking for doesn't exist.</h1>
+    <p>You may have mistyped the address or the page may have moved.</p>
+  </div>
+  <p>If you are the application owner check the logs for more information.</p> -->
+  <div class="wrapper">
+    <a class="logo" href="/">
+      <img src="https://ocpk3ohd2.qnssl.com/assets/v2/logo-white-17da4794923538b2e3ab104a04fbe7f5.png">
+    </a>
+    <div class="error-info">
+      <img src="./404_bg_new.png">
+      <div class="robot"></div>
+    </div>
+
+    <a class="button" href="/">返回首页</a>
+  </div>
+</body>
+</html>

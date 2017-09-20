@@ -22,7 +22,6 @@ export default {
   },
 
   FETCH_NEWS: ({ commit, state }, { id }) => {
-    console.log('access_key', state.access_key)
     return fetchNews(id, state.access_key)
       .then(data => commit('SET_NEWS', { data }))
   },

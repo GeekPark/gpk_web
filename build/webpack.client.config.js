@@ -45,29 +45,26 @@ const config = merge(base, {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  const srcDir = path.resolve(__dirname, '../').replace(/\\/g, "\/")
-  prefixMulti = {
-    [srcDir]: ''
-  }
-  config.plugins.push(
-    // auto generate service worker
-    new SWPrecachePlugin({
-      cacheId: 'geekpark-ssr',
-      filename: 'service-worker.js',
-      minify: true,
-      // stripPrefixMulti: prefixMulti,
-      dontCacheBustUrlsMatching: /./,
-      staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
-      runtimeCaching: [{
-          urlPattern: '/',
-          handler: 'networkFirst'
-        },
-        {
-          urlPattern: '/news/:id',
-          handler: 'networkFirst'
-        }
-      ]
-    })
-  )
+  config.output.publicPath = 'https://ocpk3ohd2.qnssl.com/dist/'
+  // config.plugins.push(
+  //   // auto generate service worker
+  //   new SWPrecachePlugin({
+  //     cacheId: 'geekpark-ssr',
+  //     filename: 'service-worker.js',
+  //     minify: true,
+  //     // stripPrefixMulti: prefixMulti,
+  //     dontCacheBustUrlsMatching: /./,
+  //     staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+  //     runtimeCaching: [{
+  //         urlPattern: '/',
+  //         handler: 'networkFirst'
+  //       },
+  //       {
+  //         urlPattern: '/news/:id',
+  //         handler: 'networkFirst'
+  //       }
+  //     ]
+  //   })
+  // )
 }
 module.exports = config

@@ -49,7 +49,6 @@ function fetch (child) {
 export function fetchAccessKey () {
   return new Promise((resolve, reject) => {
     api.$get(`${accountApi}my/access_key`).then(res => {
-      console.log('fetchAccessKey', res)
       resolve(res)
     }).catch(reject)
   })
