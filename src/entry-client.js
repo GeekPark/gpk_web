@@ -28,7 +28,7 @@ router.onReady(() => {
   // 在初始路由 resolve 后执行，
   // 以便我们不会二次预取(double-fetch)已有的数据。
   // 使用 `router.beforeResolve()`，以便确保所有异步组件都 resolve。
-  /* router.beforeResolve((to, from, next) => {
+  router.beforeResolve((to, from, next) => {
     const matched = router.getMatchedComponents(to)
     const prevMatched = router.getMatchedComponents(from)
     // 我们只关心之前没有渲染的组件
@@ -37,17 +37,18 @@ router.onReady(() => {
     const activated = matched.filter((c, i) => {
       return diffed || (diffed = (prevMatched[i] !== c))
     })
-    if (!activated.length) {
+    const asyncDataHooks = activated.map(c => c.asyncData).filter(_ => _)
+    if (!asyncDataHooks.length) {
       return next()
     }
-    Promise.all(activated.map(c => {
-      if (c.asyncData) {
-        return c.asyncData({ store, route: to })
-      }
-    })).then(() => {
-      next()
-    }).catch(next)
-  }) */
+    Promise.all(asyncDataHooks.map(hook => hook({ store, route: to })))
+      .then(() => {
+        next()
+      })
+      .catch(next)
+  })
+
+  // actually mount to DOM
   app.$mount('#app')
 })
 

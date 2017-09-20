@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import api from 'stores/api'
+import api from 'store/api'
 import Sponsor from '../components/Sponsor.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Related from './posts/Related.vue'

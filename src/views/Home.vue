@@ -50,7 +50,7 @@ import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Idlenews from './posts/Idlenews.vue'
 import Topics from './posts/Topics.vue'
-import api from 'stores/api'
+import api from 'store/api'
 // import Swiper from 'swiper'
 
 let page = 1
@@ -102,7 +102,6 @@ export default {
     },
   },
   mounted () {
-    console.log('mounted')
     this.getAds()
     // if (this.$device.isMobile()) {
     //   this.isMobile = true

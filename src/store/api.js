@@ -1,5 +1,4 @@
 import config from '../config'
-import store  from './index.js'
 import axios  from 'axios'
 const base_url = `${config.host}v1`
 

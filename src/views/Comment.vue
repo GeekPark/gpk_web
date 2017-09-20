@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import api from 'stores/api'
+import api from 'store/api'
 import moment from 'moment'
 
 let loginURL

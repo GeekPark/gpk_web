@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
+import { createStore } from './store'
+import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import * as filters from './util/filters'
 import Device from './util/device.js'
 
-import { createStore } from './stores'
-import { createRouter } from './router'
 import Element from 'element-ui'
 import Vheader from 'components/Vheader.vue'
 import Vfooter from 'components/Vfooter.vue'
@@ -18,11 +18,12 @@ Vue.component(Vheader.name, Vheader)
 Vue.component(Vfooter.name, Vfooter)
 Vue.component(Feedback.name, Feedback)
 
+Vue.mixin(titleMixin)
+
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-Vue.mixin(titleMixin)
 
 export function createApp (ssrContext) {
   // 创建 router 和 store 实例
@@ -34,7 +35,6 @@ export function createApp (ssrContext) {
   const app = new Vue({
     router,
     store,
-    ssrContext,
     render: h => h(App)
   })
   // 暴露 app, router 和 store。

@@ -4,6 +4,8 @@ import fetch from 'node-fetch'
 
 export function createAPI ({ config, version }) {
   let api
+  // this piece of code may run multiple times in development mode,
+  // so we attach the instantiated API to `process` to avoid duplications
   if (process.__API__) {
     api = process.__API__
   } else {
@@ -15,7 +17,6 @@ export function createAPI ({ config, version }) {
         max: 1000,
         maxAge: 1000 * 60 * 15
       }),
-      cachedIds: {},
       '$get': function (url) {
         return fetch(url).then(res => res.json())
       },
@@ -29,12 +30,6 @@ export function createAPI ({ config, version }) {
         }).then(res => res.json())
       }
     }
-    // const arr = ['top', 'new']
-    // arr.forEach(type => {
-    //   api.$get(`${api.url}${type}stories.json`).then(res => {
-    //     api.cachedIds[type] = res
-    //   })
-    // })
     process.__API__ = api
   }
   return api

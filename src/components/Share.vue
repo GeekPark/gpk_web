@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import api from 'stores/api'
+import api from 'store/api'
 import QRious from 'qrious'
 
 export default {

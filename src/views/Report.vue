@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import api from 'stores/api'
+import api from 'store/api'
 
 export default {
   title: '寻求报道',

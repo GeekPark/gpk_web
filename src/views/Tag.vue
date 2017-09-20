@@ -18,7 +18,7 @@
 <script>
 import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
-import api from 'stores/api'
+import api from 'store/api'
 
 export default {
   components: { Item, Hotnews },

@@ -13,7 +13,7 @@
 <script>
 // require('swiper/dist/css/swiper.min.css');
 // import Swiper from 'swiper';
-import api from 'stores/api'
+import api from 'store/api'
 
 export default {
   name: 'sponsor',

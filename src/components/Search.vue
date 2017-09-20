@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import api from 'stores/api'
+import api from 'store/api'
 let page = 1
 
 export default {

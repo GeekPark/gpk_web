@@ -17,7 +17,7 @@
 
 <script>
 import Item from './posts/Item.vue'
-import api from 'stores/api'
+import api from 'store/api'
 
 let access_key
 

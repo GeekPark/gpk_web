@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import api from 'stores/api'
+import api from 'store/api'
 // import clickAtOutside from 'click-at-outside'
 import Vmenu from './Vmenu.vue'
 import Search from './Search.vue'
@@ -121,7 +121,7 @@ export default {
         this.$store.state.userInfo = result.data
         localStorage.setItem('userInfo', JSON.stringify(result.data))
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
 
