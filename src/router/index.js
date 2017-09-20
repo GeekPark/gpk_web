@@ -74,30 +74,31 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  // console.log('router.beforeEach', to, from);
-  // if (window.ga) {
-  //   window.ga('set', 'page', to.fullPath);
-  //   window.ga('send', 'pageview');
-  // }
-  // document.title = to.meta.title
-  // console.log('beforeEach', typeof window)
-  // next()
+// router.beforeEach((to, from, next) => {
+//   next()
+//   console.log('router.beforeEach', to, from);
+//   if (window.ga) {
+//     window.ga('set', 'page', to.fullPath);
+//     window.ga('send', 'pageview');
+//   }
+//   document.title = to.meta.title
+//   console.log('beforeEach', typeof window)
+//   next()
 
-  // let token = localStorage.getItem('token')
-	// if(to.meta.requireAuth) {
-	// 	if(token) {
-	// 		next()
-	// 	} else {
-	// 		next({
-	// 			path: '/login',
-	// 			query: { redirect: to.fullPath }
-	// 		})
-	// 	}
-	// } else {
-	// 	next()
-	// }
-})
+//   let token = localStorage.getItem('token')
+// 	if(to.meta.requireAuth) {
+// 		if(token) {
+// 			next()
+// 		} else {
+// 			next({
+// 				path: '/login',
+// 				query: { redirect: to.fullPath }
+// 			})
+// 		}
+// 	} else {
+// 		next()
+// 	}
+// })
 
 export function createRouter () {
   return router

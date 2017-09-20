@@ -1,5 +1,5 @@
 <template lang="pug">
-footer.page-footer#footer
+footer.page-footer#footer(v-once)
   .footer-wrap
     .container
       section.contact

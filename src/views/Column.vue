@@ -12,7 +12,7 @@
             .loading-article
             span 加载更多
       .article-sidebar
-        hotnews
+        hotnews(v-once)
 </template>
 
 <script>

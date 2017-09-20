@@ -1,5 +1,5 @@
 <template lang="pug">
-.need-report-wrapper
+.need-report-wrapper(v-once)
   .banner-bg
   .container.report-container
     h1.page-title 寻求报道

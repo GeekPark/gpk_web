@@ -24,19 +24,19 @@ export default {
       ads: []
     }
   },
-  watch: {
-    'ads': function(val, oldVal) {
-      if (val[this.position] && val[this.position].length > 1) {
-        setTimeout(()=>{
-          let se = `.ads-container.${this.position}`
-          new Swiper(se, {
-            // effect: 'fade',
-            autoplay: 5000,
-          })
-        }, 500);
-      }
-    }
-  },
+  // watch: {
+  //   'ads': function(val, oldVal) {
+  //     if (val[this.position] && val[this.position].length > 1) {
+  //       setTimeout(()=>{
+  //         let se = `.ads-container.${this.position}`
+  //         new Swiper(se, {
+  //           // effect: 'fade',
+  //           autoplay: 5000,
+  //         })
+  //       }, 500);
+  //     }
+  //   }
+  // },
   methods: {
     fetch () {
       api.get(`ads`).then((result) => {

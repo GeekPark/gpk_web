@@ -2,7 +2,7 @@
 #index
   subnav
   .container
-    sponsor(position="top_banner")
+    sponsor(position="top_banner", v-once)
   .breaking-news(v-if="!isMobile")
     .container
       .item(v-for='item, index in homepage.slider.posts', :key='item.id')
@@ -36,11 +36,11 @@
             .loading-article
             span 加载更多
       .article-sidebar
-        sponsor(position="medium_up")
-        hotnews
-        idlenews
-        topics
-        sponsor(position="medium_below")
+        sponsor(position="medium_up", v-once)
+        hotnews(v-once)
+        idlenews(v-once)
+        topics(v-once)
+        sponsor(position="medium_below", v-once)
 </template>
 
 <script>
@@ -102,6 +102,7 @@ export default {
     },
   },
   mounted () {
+    console.log('mounted')
     this.getAds()
     // if (this.$device.isMobile()) {
     //   this.isMobile = true

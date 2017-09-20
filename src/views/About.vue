@@ -1,5 +1,5 @@
 <template lang="pug">
-#about
+#about(v-once)
   .min-height-wrapper
     section.about-banner
       .container.relative

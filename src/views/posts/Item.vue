@@ -1,5 +1,5 @@
 <template lang="pug">
-article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
+article.article-item(v-once, :class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
   template(v-if="(columnId || post.column.id) === 251")
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover

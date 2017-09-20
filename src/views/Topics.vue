@@ -8,7 +8,7 @@
       .article-list
         item(v-for="post in topic.posts", :key="post.id", :post="post")
       .article-sidebar
-        hotnews
+        hotnews(v-once)
 </template>
 
 <script>

@@ -16,6 +16,7 @@
               img(:src="author.avatar_url")
               span {{author.nickname}}
             span.release-date {{news.published_timestamp | formatDate}}
+            a.edit(v-if="userInfo && userInfo.roles && userInfo.roles.indexOf('admin') > -1", :href="`http://admin.geekpark.net/posts/new?id=${news.id}`") 编辑
         #article-body
           .topic-cover(v-if="news.post_type !== 'video'")
             img#topic-cover(:src="news.cover_url")
@@ -37,14 +38,14 @@
         a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
           | 打开极客公园App阅读更多内容
         comment(:postid="$route.params.id")
-        related(v-if="news.column && !promotion[news.column.id]")
-        newest
+        related(v-if="news.column && !promotion[news.column.id]", v-once)
+        newest(v-once)
 
     aside.article-sidebar
-      sponsor(position="post")
-      hotnews
+      sponsor(position="post", v-once)
+      hotnews(v-once)
       template(v-if="show")
-        nextnews
+        nextnews(v-once)
 </template>
 
 <script>
@@ -84,6 +85,9 @@ export default {
   computed: {
     news () {
       return this.$store.state.news.post
+    },
+    userInfo () {
+      return this.$store.state.userInfo
     }
   },
   methods: {
@@ -131,9 +135,7 @@ export default {
     }
 
     if (!this.$device.isMobile()) {
-      setTimeout(()=>{
-        mediumZoom(document.querySelectorAll("#article-body img"))
-      }, 100)
+      mediumZoom(document.querySelectorAll("#article-body img"))
     } else if (this.$device.isWechat()) {
       wx.ready(function() {
         wx.onMenuShareTimeline({ // 分享朋友圈
@@ -271,6 +273,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
         margin-right .5em
       .author
         margin-right 1em
+      .edit
+        margin-left 1em
   .topic-cover
     border-bottom 1px solid #ddd
     margin-bottom 30px
