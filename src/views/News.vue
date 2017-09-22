@@ -1,42 +1,44 @@
 <template lang="jade">
 #post
-  section.container(v-show="postsData.post_type")
+  section.container(v-show="news.post_type")
     .main-wrap
       template(v-if="!show")
         .preview 此为文章临时预览链接，将在30分钟后失效
       article
-        #play-room(:class="{'video-player': postsData.post_type == 'video'}")
-        header.post-header(:class="{'video': postsData.post_type == 'video'}")
-          .label.article-info(v-if="postsData.post_type !== 'video' && postsData.column && !promotion[postsData.column.id]")
-            a.category-tag(:href="`/column/${postsData.column && postsData.column.id}`" target="_blank")  {{postsData.column && postsData.column.title}}
-            .article-time {{postsData.reading_time}}min read
-          h1.topic-title {{postsData.title}}
+        #play-room(:class="{'video-player': news.post_type == 'video'}")
+        header.post-header(:class="{'video': news.post_type == 'video'}")
+          .label.article-info(v-if="news.post_type !== 'video' && news.column && !promotion[news.column.id]")
+            a.category-tag(:href="`/column/${news.column && news.column.id}`" target="_blank")  {{news.column && news.column.title}}
+            .article-time {{news.reading_time}}min read
+          h1.topic-title {{news.title}}
           .user-info
-            a.author(v-for="author in postsData.authors", :href="`/users/${author.id}`")
+            a.author(v-for="author in news.authors", :href="`/users/${author.id}`")
               img(:src="author.avatar_url")
               span {{author.nickname}}
-            span.release-date {{postsData.published_timestamp | formatDate}}
+            span.release-date {{news.published_timestamp | formatDate}}
             a.edit(v-if="$store.state.userInfo && $store.state.userInfo.roles && $store.state.userInfo.roles.indexOf('admin') > -1", :href="`http://admin.geekpark.net/posts/new?id=${news.id}`") 编辑
         #article-body
-          .topic-cover(v-if="postsData.post_type !== 'video'")
-            img#topic-cover(:src="postsData.cover_url")
+          .topic-cover(v-if="news.post_type !== 'video'")
+            img#topic-cover(:src="news.cover_url")
             .tips
               i.iconfont.icon-quotes
               span 摘要
-            p {{postsData.abstract}}
-          .article-content(v-html="postsData.content")
+            p {{news.abstract}}
+          .article-content(v-html="news.content")
         .article-source
         section.tags
-          a.article-tag(v-for="tag in postsData.tags", :href="`/tags/${tag}`") {{tag}}
+          a.article-tag(v-for="tag in news.tags", :href="`/tags/${tag}`") {{tag}}
         .share-wrap
-          share(:title="postsData.title")
+          share(:title="news.title")
       template(v-if="show")
-        .like-wrap
-          .like-button(@click="toggleLike(postsData.id)", :class="{liked: postsData.liked}")
+        .like-wrap.hidden-xs
+          .like-button(@click="toggleLike(news.id)", :class="{liked: news.liked}")
             span.like-icon
-          p(v-if="postsData.like_count > 0") {{postsData.like_count}}
+          p(v-if="news.like_count > 0") {{news.like_count}}
+        a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
+          | 打开极客公园App阅读更多内容
         comment(:postid="$route.params.id")
-        related(v-if="postsData.column && !promotion[postsData.column.id]", v-once)
+        related(v-if="news.column && !promotion[news.column.id]", v-once)
         newest(v-once)
 
     aside.article-sidebar(v-if="!$device.isMobile()")
@@ -64,7 +66,7 @@ export default {
   data () {
     return {
       show: false,
-      postsData: {},
+      news: {},
       promotion: {
         '2': '行业资讯',
         '248': '业界资讯'
@@ -72,7 +74,7 @@ export default {
     }
   },
   watch: {
-    'postsData': function (val, oldVal) {
+    'news': function (val, oldVal) {
       document.title = val.title
       if (!this.$device.isMobile()) {
         setTimeout(()=>{
@@ -114,7 +116,7 @@ export default {
       if (val.post_type === 'video') {
         const el = document.getElementById('play-room');
         let videoScript = document.createElement('script');
-        videoScript.src = `//union.bokecc.com/player?vid=${this.postsData.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
+        videoScript.src = `//union.bokecc.com/player?vid=${this.news.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
         videoScript.type ='text/javascript';
         el.innerHTML = '';
         el.appendChild(videoScript);
@@ -125,7 +127,7 @@ export default {
     fetch () {
       api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
         if (result.data.post && result.data.post.published_timestamp) {
-          this.postsData = result.data.post
+          this.news = result.data.post
         } else {
           this.$router.push({path: '/404'})
         }
@@ -138,7 +140,7 @@ export default {
         if (result.data.message) {
           this.$message.error(result.data.message);
         } else {
-          this.postsData = result.data.post
+          this.news = result.data.post
         }
       }).catch((err) => {
         this.$router.push({path: '/404'})
@@ -150,10 +152,10 @@ export default {
         if (confirm('喜欢需要登录喔，点击确定去登录')) window.location.href = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`;
         return;
       }
-      let like = this.postsData.liked ? 'unlike' : 'like'
+      let like = this.news.liked ? 'unlike' : 'like'
       api.post(`posts/${id}/${like}?access_key=${access_key}`).then((res) => {
-        this.postsData.liked = !this.postsData.liked;
-        this.postsData.like_count += like === 'unlike' ? -1 : 1
+        this.news.liked = !this.news.liked;
+        this.news.like_count += like === 'unlike' ? -1 : 1
       }).catch((err) => {
         this.$message.error(err.toString())
       })
@@ -183,6 +185,14 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
   padding 0 .5em
   line-height 2
   margin-bottom 1.5em
+.app-down
+  display block
+  background $color-blue
+  color #fff
+  text-align center
+  font-size 16px
+  line-height 50px
+  margin 30px 0 75px
 #play-room
   &.video-player
     position relative
