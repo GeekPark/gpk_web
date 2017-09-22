@@ -1,5 +1,5 @@
 <template lang="jade">
-.need-report-wrapper
+.need-report-wrapper(v-once)
   .banner-bg
   .container.report-container
     h1.page-title 寻求报道
@@ -186,7 +186,7 @@ export default {
         }, '');
 
       $('#submit-button').addClass('loading');
-      
+
       api.post('feedback/new', {
           type: 'needreport',
           content: $('input[name="name"]').val(),

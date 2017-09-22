@@ -1,5 +1,5 @@
 <template lang="jade">
-footer.page-footer#footer
+footer.page-footer#footer(v-once)
   .footer-wrap
     .container
       section.contact
@@ -11,7 +11,7 @@ footer.page-footer#footer
           | 公司地址：北京市朝阳区酒仙桥路4号751 D·Park
           br
           | 　　　　　正东集团院内 C8座105室 极客公园
-        p
+        div
           span(style="color: #DCD900") 关注我们：
           a.share-btn.weibo(href="//weibo.com/geekpark" target="_blank")
             .iconfont.icon-weibo
@@ -34,7 +34,7 @@ footer.page-footer#footer
           a(title="加入我们" href="/zhuanti/job/") 加入我们
         p
           a(title="友情链接" href="/about#links") 友情链接
-      
+
       section.sponsor
         h4 云服务支持
         ul.list
@@ -47,13 +47,13 @@ footer.page-footer#footer
           li
             a(href="http://www.bokecc.com/" target="_blank")
               img(height="25" src='../assets/imgs/cc.png')
-      
+
       section.down
         h4 APP下载
         p(style="text-align:center")
-          img(height="100" src='../assets/imgs/qr_app.gif')
+          img(height="100" src='../assets/imgs/qr_app.png')
           br
-          | iOS APP
+          | iOS & Android
   .footer-copyright
     .container
       .info-icp

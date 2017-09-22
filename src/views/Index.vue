@@ -2,13 +2,13 @@
 #index
   subnav
   .container
-    sponsor(position="top_banner")
-  .breaking-news(v-if="!isMobileUA")
+    sponsor(position="top_banner", v-once)
+  .breaking-news(v-if="!this.$device.isMobile()")
     .container
       .item(v-for='item, index in slider.posts', :key='item.id')
         .responsive-imgs
           a(@click="saveClick(item)", class="link", :href="item.link || `/news/${item.id}`", :target="$store.state.target")
-            img(:alt="item.title", class="img-cover loaded", :src="`${item.cover_url}?imageView2/1/w/1120/h/800/interlace/1/q/88/ignore-error/1/`")
+            img(class="img-cover" v-lazy="item.cover_url" w=563 h=404)
             .info-cover
               h3.multiline-text-overflow
                 span {{item.title}}
@@ -18,7 +18,7 @@
       .news-item.swiper-slide(v-for='item, index in slider.posts', :key='item.id')
         a.link(:href="`/news/${item.id}`")
           .img-cover
-            img(:src="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/ignore-error/1/`")
+            img(v-lazy="item.cover_url" w=540 h=260)
           .info-cover
             h3.multiline-text-overflow
               span {{item.title}}
@@ -28,7 +28,7 @@
         template(v-for="posts in homepage_posts")
           .time
             i.iconfont.icon-arrow-left
-            | {{posts.date | formatDate}}
+            | {{posts.date | timeAt}}
             i.iconfont.icon-arrow-right
           item(v-for="item in posts.data", :key="item.post.id", :post="item.post")
         .tac
@@ -36,11 +36,11 @@
             .loading-article
             span 加载更多
       .article-sidebar
-        sponsor(position="medium_up")
-        hotnews
-        idlenews
-        topics
-        sponsor(position="medium_below")
+        sponsor(position="medium_up", v-once)
+        hotnews(v-once)
+        idlenews(v-once)
+        topics(v-once)
+        sponsor(position="medium_below", v-once)
 </template>
 
 <script>
@@ -52,17 +52,10 @@ import Hotnews from './posts/Hotnews.vue'
 import Idlenews from './posts/Idlenews.vue'
 import Topics from './posts/Topics.vue'
 import api from 'stores/api'
-import moment from 'moment'
 import Swiper from 'swiper'
-import { isWechat, isMobileUA } from 'mdetect'
 
 export default {
   components: { Subnav, Sponsor, Item, Idlenews, Hotnews, Topics },
-  computed: {
-    isMobileUA () {
-      return isMobileUA()
-    }
-  },
   data () {
     return {
       page: 0,
@@ -76,7 +69,7 @@ export default {
   },
   watch: {
     'slider.posts': function (val, oldVal) {
-      if (isMobileUA()) {
+      if (this.$device.isMobile()) {
         setTimeout(()=>{
           new Swiper('#breakding-news-slider', {
             autoplay: 5000,
@@ -91,14 +84,14 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', () => {
-      let scrollTop = document.body.scrollTop
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       let totalPage
-      if (isMobileUA()) {
+      if (this.$device.isMobile()) {
         totalPage = 999999
       } else {
         totalPage = 3
       }
-      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight && 
+      if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight &&
           !this.loading && this.page < totalPage) {
         this.fetch()
       }
@@ -130,22 +123,8 @@ export default {
       })
     },
   },
-  filters: {
-    formatDate: function (value) {
-      if (!value) return ''
-      let str
-      const time = moment.unix(value)
-      str = time.format(`ddd.`)
-      return time.calendar(null, {
-        sameDay: '今天',
-        lastDay: '昨天',
-        lastWeek: 'MM.DD',
-        sameElse: 'MM.DD'
-      }) + ' \\ ' + str
-    }
-  },
   beforeMount () {
-    if (!isMobileUA()) {
+    if (!this.$device.isMobile()) {
       this.getAds()
     }
     this.fetch()

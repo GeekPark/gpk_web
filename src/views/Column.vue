@@ -11,8 +11,8 @@
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
             .loading-article
             span 加载更多
-      .article-sidebar
-        hotnews
+      .article-sidebar(v-if="!$device.isMobile()")
+        hotnews(v-once)
 </template>
 
 <script>
@@ -82,5 +82,5 @@ export default {
       text-indent 0
     .desc
       letter-spacing 0
-    
+
 </style>

@@ -7,8 +7,8 @@
     .container
       .article-list
         item(v-for="post in topic.posts", :key="post.id", :post="post")
-      .article-sidebar
-        hotnews
+      .article-sidebar(v-if="!$device.isMobile()")
+        hotnews(v-once)
 </template>
 
 <script>

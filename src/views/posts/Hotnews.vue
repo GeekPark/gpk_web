@@ -5,7 +5,7 @@
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .news-cover
         span {{index + 1}}
-        img(:src="`${post.cover_url}?imageView2/1/w/482/h/300/interlace/1/q/88/ignore-error/1/`")
+        img(v-lazy="post.cover_url" w=241 h=150)
       p.multiline-text-overflow {{post.title}}
 </template>
 

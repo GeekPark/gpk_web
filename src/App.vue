@@ -3,19 +3,17 @@
   vheader
   transition(name="fade" mode="out-in")
     router-view
-  feedback(v-if="!isMobile")
+  feedback(v-if="!$device.isMobile()", v-once)
   vfooter
 </template>
 
 <script>
-import { isWechat, isMobileUA } from 'mdetect';
 import api from 'stores/api'
 
 export default {
   name: 'app',
   data () {
     return {
-      isMobile: isMobileUA(),
       toload: false
     }
   },
@@ -31,10 +29,10 @@ export default {
     });
   },
   mounted() {
-    if (!isMobileUA()) {
+    if (!this.$device.isMobile()) {
       this.$store.state.target = '_blank'
     }
-    if (isWechat()) {
+    if (this.$device.isWechat()) {
       // 配置
       var url = window.location.href;
       // let imgUrl = document.querySelector('article').querySelector('.banner').src || '7f.png';
@@ -53,7 +51,7 @@ export default {
       //     imgUrl = item.content;
       //   }
       // });
-      
+
       api.get(`wechat/js_config?request_url=${url}`).then(function(res) {
         wx.config({
           debug: false,

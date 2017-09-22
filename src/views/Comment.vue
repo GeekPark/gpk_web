@@ -18,7 +18,7 @@
             | {{item.like_count}}
         .c-body {{item.content}}
         .c-rp
-          .time {{item.created_at | formatDate}}
+          .time {{item.created_at | fromNow}}
           span(@click="toggleReplyForm(item.commenter_info[0].nickname, item.id)")
             | {{ replyid == item.id ? '取消' : '回复'}}
         form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == item.id")
@@ -34,7 +34,7 @@
               span @{{reply.parent_commenter_info[0].nickname}}
               | {{reply.content}}
             .c-rp
-              .time {{reply.created_at | formatDate}}
+              .time {{reply.created_at | fromNow}}
               span(@click="toggleReplyForm(reply.commenter_info[0].nickname, reply.id)")
                 | {{ replyid == reply.id ? '取消' : '回复'}}
           form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == reply.id")
@@ -47,7 +47,6 @@
 
 <script>
 import api from 'stores/api'
-import moment from 'moment'
 
 let loginURL
 let access_key
@@ -199,20 +198,6 @@ export default {
       setTimeout(function() {
         $target.css('background-color', '');
       }, 3000);
-    },
-  },
-  filters: {
-    formatDate: function (value) {
-      if (!value) return ''
-      let str;
-      const time = moment(value);
-      const diff = moment().diff(time, 'days');
-      if (diff >= 1) {
-        str = time.format('YYYY/MM/DD HH:mm');
-      } else {
-        str = time.locale('zh-cn').fromNow();
-      }
-      return str
     },
   },
   beforeMount () {

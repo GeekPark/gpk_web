@@ -141,7 +141,8 @@ export default {
       api.account.get(`api/v1/notifications/all?access_key=${access_key}`).then((result) => {
         this.message = result.data
       }).catch((err) => {
-        this.$message.error(err.toString())
+        console.log(err)
+        // this.$message.error(err.toString())
       })
     },
     readMessage() {
@@ -262,7 +263,7 @@ scrollbar()
   &::-webkit-scrollbar-track
     background-color: transparent
 
-  &::-webkit-scrollbar-thumb 
+  &::-webkit-scrollbar-thumb
     background-color: #efefef
     border-radius: 5px
 

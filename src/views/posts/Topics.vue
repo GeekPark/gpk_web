@@ -3,7 +3,7 @@
   h3 专题精选
   article.news-item
     a.topic-card(v-for="topic, index in data.topics", :key="topic.id", :href="`/topic/${topic.id}`", :target="$store.state.target")
-      img(:src="`${topic.app_banner_url}?imageView2/1/w/466/h/300/interlace/1/q/88/ignore-error/1/`")
+      img(v-lazy="topic.app_banner_url" w=233 h=150)
       .mask
         h4.multiline-text-overflow {{topic.title}}
         p {{topic.post_count}}篇文章

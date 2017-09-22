@@ -16,6 +16,7 @@
               img(:src="author.avatar_url")
               span {{author.nickname}}
             span.release-date {{postsData.published_timestamp | formatDate}}
+            a.edit(v-if="$store.state.userInfo && $store.state.userInfo.roles && $store.state.userInfo.roles.indexOf('admin') > -1", :href="`http://admin.geekpark.net/posts/new?id=${news.id}`") 编辑
         #article-body
           .topic-cover(v-if="postsData.post_type !== 'video'")
             img#topic-cover(:src="postsData.cover_url")
@@ -35,19 +36,18 @@
             span.like-icon
           p(v-if="postsData.like_count > 0") {{postsData.like_count}}
         comment(:postid="$route.params.id")
-        related(v-if="postsData.column && !promotion[postsData.column.id]")
-        newest
-      
-    aside.article-sidebar
-      sponsor(position="post")
-      hotnews
+        related(v-if="postsData.column && !promotion[postsData.column.id]", v-once)
+        newest(v-once)
+
+    aside.article-sidebar(v-if="!$device.isMobile()")
+      sponsor(position="post", v-once)
+      hotnews(v-once)
       template(v-if="show")
-        nextnews
+        nextnews(v-once)
 </template>
 
 <script>
 import api from 'stores/api'
-import moment from 'moment'
 import Sponsor from '../components/Sponsor.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Related from './posts/Related.vue'
@@ -56,13 +56,11 @@ import Nextnews from './posts/Nextnews.vue'
 import Share from '../components/Share.vue'
 import Comment from './Comment.vue'
 import mediumZoom from 'medium-zoom'
-import { isWechat, isMobileUA } from 'mdetect'
 
 let access_key
 
 export default {
   components: { Hotnews, Nextnews, Share, Comment, Sponsor, Related, Newest },
-
   data () {
     return {
       show: false,
@@ -76,11 +74,11 @@ export default {
   watch: {
     'postsData': function (val, oldVal) {
       document.title = val.title
-      if (!isMobileUA()) {
+      if (!this.$device.isMobile()) {
         setTimeout(()=>{
           mediumZoom(document.querySelectorAll("#article-body img"))
         }, 100)
-      } else if (isWechat()) {
+      } else if (this.$device.isWechat()) {
         wx.ready(function() {
           wx.onMenuShareTimeline({ // 分享朋友圈
             title: val.title, // 分享标题
@@ -160,12 +158,6 @@ export default {
         this.$message.error(err.toString())
       })
     },
-  },
-  filters: {
-    formatDate: function (value) {
-      if (!value) return ''
-      return moment.unix(value).format("YYYY/MM/DD")
-    }
   },
   beforeMount () {
     access_key = this.$store.state.access_key
@@ -260,6 +252,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
         margin-right .5em
       .author
         margin-right 1em
+      .edit
+        margin-left 1em
   .topic-cover
     border-bottom 1px solid #ddd
     margin-bottom 30px
@@ -273,7 +267,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       margin-top 40px
       span
         color rgba(0,0,0,.6)
-  
+
   .article-content
     word-wrap break-word
     font-size 16px
@@ -324,7 +318,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       color #333
       text-decoration none
       border-bottom 1px solid #F84B8D
-  
+
   .tags
     margin-top 30px
     a
@@ -426,7 +420,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     &::after
       animation: heartFloatSub-4 1s 0.15s $bezier both
       opacity: .4
-  
+
 // Animations
 @keyframes heartPulse
   0%
