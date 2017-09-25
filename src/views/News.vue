@@ -75,7 +75,6 @@ export default {
   },
   watch: {
     'news': function (val, oldVal) {
-      document.title = val.title
       if (!this.$device.isMobile()) {
         setTimeout(()=>{
           mediumZoom(document.querySelectorAll("#article-body img"))
@@ -128,6 +127,7 @@ export default {
       api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
         if (result.data.post && result.data.post.published_timestamp) {
           this.news = result.data.post
+          document.title = result.data.post.title
         } else {
           this.$router.push({path: '/404'})
         }
@@ -141,6 +141,7 @@ export default {
           this.$message.error(result.data.message);
         } else {
           this.news = result.data.post
+          document.title = result.data.post.title
         }
       }).catch((err) => {
         this.$router.push({path: '/404'})

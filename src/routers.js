@@ -91,22 +91,8 @@ router.beforeEach((to, from, next) => {
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
   })();
-  document.title = to.meta.title
+  // document.title = to.meta.title
   next()
-
-  // let token = localStorage.getItem('token')
-	// if(to.meta.requireAuth) {
-	// 	if(token) {
-	// 		next()
-	// 	} else {
-	// 		next({
-	// 			path: '/login',
-	// 			query: { redirect: to.fullPath }
-	// 		})
-	// 	}
-	// } else {
-	// 	next()
-	// }
 })
 
 export default router
