@@ -26,31 +26,26 @@ const router = new VueRouter({
     },
     { path: '/news/:id',
       name: 'news',
-      component: News,
-      meta: {title: '文章详情'}
+      component: News
     },
     { path: '/topics/:id',
       redirect: '/news/:id'
     },
     { path: '/column/:id',
       name: 'column',
-      component: Column,
-      meta: {title: '栏目页'}
+      component: Column
     },
     { path: '/topic/:id',
       name: 'topics',
-      component: Topics,
-      meta: {title: '专题页'}
+      component: Topics
     },
     { path: '/tags/:tag',
       name: 'tags',
-      component: Tag,
-      meta: {title: '标签页'}
+      component: Tag
     },
     { path: '/users/:id',
       name: 'author',
-      component: Author,
-      meta: {title: '作者主页'}
+      component: Author
     },
     { path: '/liked',
       name: 'liked',
@@ -91,7 +86,9 @@ router.beforeEach((to, from, next) => {
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
   })();
-  // document.title = to.meta.title
+  if (to.meta && to.meta.title) {
+    document.title = to.meta.title
+  }
   next()
 })
 
