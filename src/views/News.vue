@@ -219,7 +219,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     max-width 700px
     width 100%
     display inline-block
-    padding-bottom 120px
+    padding-bottom 50px
     vertical-align top
     text-align left
     @media screen and (max-width: 1130px)

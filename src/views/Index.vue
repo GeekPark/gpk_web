@@ -32,7 +32,7 @@
             i.iconfont.icon-arrow-right
           item(v-for="item in posts.data", :key="item.post.id", :post="item.post")
         .tac
-          a.load-more(@click="fetch", :class="{'loading-in': loading}")
+          a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article
             span 加载更多
       .article-sidebar
@@ -64,7 +64,8 @@ export default {
       slider: {
         posts: [],
       },
-      ads: []
+      ads: [],
+      nomore: false
     }
   },
   watch: {
@@ -103,6 +104,7 @@ export default {
       this.page += 1
       api.get(`?page=${this.page}`).then((result) => {
         this.page < 2 ? this.slider = result.data.slider : ''
+        this.nomore = !result.data.homepage_posts.length
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false
       }).catch((err) => {

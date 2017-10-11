@@ -16,7 +16,7 @@
         p.total_count 共发表内容 {{meta.total_count}}篇
         item(v-for="post in posts", :key="post.id", :post="post")
         .tac
-          a.load-more(@click="fetch", :class="{'loading-in': loading}")
+          a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article
             span 加载更多
       .article-sidebar(v-if="!$device.isMobile()")
@@ -36,7 +36,8 @@ export default {
       loading: true,
       meta: {},
       posts: [],
-      users: null
+      users: null,
+      nomore: false
     }
   },
 
@@ -47,6 +48,7 @@ export default {
       api.get(`posts/author/${this.$route.params.id}?page=${this.page}`).then((result) => {
         this.meta = result.data.meta
         this.posts = this.posts.concat(result.data.posts)
+        if (result.data.meta.total_pages <= this.page) this.nomore = true
         this.loading = false
       }).catch((err) => {
         this.$message.error(err.toString())

@@ -7,7 +7,7 @@
     .container
       .article-list
         item(v-for="post in posts", :key="post.id", :post="post")
-        .tac
+        .tac(v-if="!end")
           a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article
             span 加载更多
@@ -29,6 +29,7 @@ export default {
       nomore: false,
       total_count: 0,
       posts: [],
+      end: false
     }
   },
 
