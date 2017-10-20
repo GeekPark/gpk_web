@@ -203,7 +203,7 @@
             li
               a.btn.inverse(target="_blank" title="全球酷玩试用导购平台" href="http://www.jiguo.com/") 极果
             li
-              a.btn.inverse(target="_blank" title="ZEALER社区致力打造年轻人的数码极客社区，为果粉,电子发烧友等数码极客搭建一个电子产品体验，评测分享交流平台，帮助科技爱好者解决技巧、经验上的各种问题，是线上最具人气的中文科技论坛。" href="http://plus.zealer.com/") ZEALER+
+              a.btn.inverse(target="_blank" title="品途商业评论" href="http://www.pintu360.com/") 品途
             li
               a.btn.inverse(target="_blank" title="凤凰科技 让科技更性感" href="http://tech.ifeng.com/") 凤凰科技
             li
@@ -226,8 +226,6 @@
               a.btn.inverse(target="_blank" title="蜻蜓fm在线收听_最好的网络收音机|广播电台在线收听平台" href="http://www.qingting.fm/") 蜻蜓FM
             li
               a.btn.inverse(target="_blank" title="最有看点的互联网金融门户" href="http://www.weiyangx.com/") 未央网
-            li
-              a.btn.inverse(target="_blank" title="内容创业服务平台" href="http://www.newrank.cn/") 新榜
             li
               a.btn.inverse(target="_blank" title="提供信息最快最全的中国飞机网站" href="http://xtopfly.com/") 霄云网
 
