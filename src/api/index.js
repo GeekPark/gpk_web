@@ -17,32 +17,14 @@ const accountApi = config.account
 
 // warm the front page cache every 15 min
 // make sure to do this only once across all requests
-if (api.onServer) {
-  warmCache()
-}
 
-function warmCache () {
-  setTimeout(warmCache, 1000 * 60 * 15)
-}
 
 function fetch (child) {
-  logRequests && console.log(`fetching ${child}...`)
-  const cache = api.cachedItems
-  if (cache && cache.has(child)) {
-    logRequests && console.log(`cache hit for ${child}.`)
-    return Promise.resolve(cache.get(child))
-  } else {
-    return new Promise((resolve, reject) => {
-      api.$get(api.url + child).then(res => {
-        const val = res
-        // mark the timestamp when this item is cached
-        if (val) val.__lastUpdate = Date.now()
-        cache && cache.set(child, val)
-        logRequests && console.log(`fetched ${child}.`)
-        resolve(val)
-      }).catch(reject)
-    })
-  }
+  return new Promise((resolve, reject) => {
+    api.$get(api.url + child).then(res => {
+      resolve(res)
+    }).catch(reject)
+  })
 }
 
 
