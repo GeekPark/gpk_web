@@ -26,6 +26,7 @@
     "node-fetch": "^1.7.3",
     "pug": "^2.0.0-rc.4",
     "qrious": "^4.0.2",
+    "redis": "^2.8.0",
     "route-cache": "^0.4.3",
     "semver": "^5.4.1",
     "serialize-javascript": "^1.4.0",
