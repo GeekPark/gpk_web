@@ -28,7 +28,7 @@ export default {
       loading: true,
       nomore: false,
       total_count: 0,
-      posts: [],
+      posts: []
     }
   },
 

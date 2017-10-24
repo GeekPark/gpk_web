@@ -1,5 +1,5 @@
 <template lang="pug">
-article.article-item(v-once, :class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
+article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
   template(v-if="(columnId || post.column.id) === 251")
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
@@ -32,7 +32,7 @@ article.article-item(v-once, :class="{'tushang': (columnId || post.column.id) ==
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
         img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/interlace/1/`")
-        .play(v-if="post.post_type=='video'")
+        .play(v-show="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}
     .article-info
@@ -45,14 +45,15 @@ article.article-item(v-once, :class="{'tushang': (columnId || post.column.id) ==
   .article-meta.hidden-xs
     a.article-author(v-for="author in post.authors", :href="`/users/${author.id}`", :target="$store.state.target") {{author.nickname}}
     .source-right
-      a.btn-comment(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`", :target="$store.state.target")
-        i.iconfont.icon-comment
-        | {{post.comments_count}}
+      template(v-if="post.comments_count > 0")
+        a.btn-comment(:href="`/news/${post.id}#comment`", :target="$store.state.target")
+          i.iconfont.icon-comment
+          span {{post.comments_count}}
       template(v-if="post.like_count > 0")
         i.iconfont.icon-like
-        | {{post.like_count}}
+        span {{post.like_count}}
   .article-meta.hidden-notxs
-    a(v-if="post.comments_count > 0", :href="`/news/${post.id}#comment`")
+    a(v-show="post.comments_count > 0", :href="`/news/${post.id}#comment`")
       | {{post.comments_count}}条评论
   .clearfix
 </template>

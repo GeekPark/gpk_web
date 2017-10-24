@@ -70,13 +70,9 @@ let access_key
 export default {
   name: 'vheader',
   components: { Vmenu, Search },
-  computed: {
-    userInfo () {
-      return this.$store.state.userInfo
-    }
-  },
   data () {
     return {
+      userInfo: null,
       showmenu: false,
       showsearch: false,
       activeIndex: "1",
@@ -114,11 +110,13 @@ export default {
       localStorage.removeItem('access_key')
       this.$store.state.access_key = null
       this.$store.state.userInfo = null
+      this.userInfo = null
     },
 
     getUser() {
       api.get(`admin/info?access_key=${access_key}`).then((result) => {
         this.$store.state.userInfo = result.data
+        this.userInfo = result.data
         localStorage.setItem('userInfo', JSON.stringify(result.data))
       }).catch((err) => {
         // this.$message.error(err.toString())
@@ -162,6 +160,9 @@ export default {
   },
   mounted () {
     access_key = this.$store.state.access_key || localStorage.getItem('access_key')
+    if (localStorage) {
+      this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    }
 
     if (access_key) {
       this.getUser()
