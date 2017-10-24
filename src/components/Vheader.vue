@@ -142,7 +142,7 @@ export default {
       api.account.get(`api/v1/notifications/all?access_key=${access_key}`).then((result) => {
         this.message = result.data
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
     readMessage() {

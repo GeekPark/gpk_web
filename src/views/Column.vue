@@ -1,5 +1,6 @@
 <template lang="pug">
 #index
+  subnav
   .header-banner
     h3 {{column.title}}
     .desc {{column.description}}
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import Subnav from '../components/Vsubnav.vue'
 import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import api from 'store/api'
@@ -23,7 +25,7 @@ import api from 'store/api'
 let page = 1
 
 export default {
-  components: { Item, Hotnews },
+  components: { Subnav, Item, Hotnews },
   title () {
     return this.column.title
   },
