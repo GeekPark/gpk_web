@@ -101,7 +101,7 @@ export default {
         comment.like_count = 0
         comment.childrens = []
         comment.content = this.message
-        comment.created_at = new Date()
+        comment.created_at = Math.round(new Date().getTime()/1000)
         this.comments.unshift(comment);
         this.$message({
           message: '评论成功！',
@@ -110,7 +110,11 @@ export default {
         // $('#replyForm-' + _this.comments[i].id).find('textarea').val('');
         this.message = ''
       }).catch((err) => {
-        this.$message.error(err.toString())
+        if (err.response.data.error == 'banned') {
+          this.$message.error('您被禁言了，请联系管理员。')
+        } else {
+          this.$message.error(err.toString())
+        }
       })
     },
     toggleReplyForm: function(nickname, repId) {
@@ -157,7 +161,7 @@ export default {
         reply.commenter_info = [this.$store.state.userInfo]
         reply.content = commentContent
         reply.parent_commenter_info = [{nickname: this.nickname}]
-        reply.created_at = new Date()
+        reply.created_at = Math.round(new Date().getTime()/1000)
         this.comments[i].childrens.push(reply);
         this.$message({
           message: '回复成功！',
@@ -165,6 +169,12 @@ export default {
         });
         $('#textarea-' + commentId).val('');
         this.replyid = null
+      }).catch((err) => {
+        if (err.response.data.error == 'banned') {
+          this.$message.error('您被禁言了，请联系管理员。')
+        } else {
+          this.$message.error(err.toString())
+        }
       })
     },
     toggleLike: function(item, index) {
