@@ -5,9 +5,9 @@
     .desc 共{{topic.post_count}}篇文章
   .main-content
     .container
-      .article-list
+      .article-list(key="topics-article-list")
         item(v-for="post in topic.posts", :key="post.id", :post="post")
-      .article-sidebar(v-if="!$device.isMobile()")
+      .article-sidebar
         hotnews(v-once)
 </template>
 

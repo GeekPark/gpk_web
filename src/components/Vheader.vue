@@ -11,17 +11,17 @@
         a(href="//events.geekpark.net" target="_blank") 活动
         a(href="http://f.geekpark.net" target="_blank") 前沿社
       a#search-btn.search-btn(href="javascript:;", :class="showsearch ? 'is-open' : ''", @click="showsearch = !showsearch")
-        i.iconfont.icon-search(v-if="!showsearch")
+        i.iconfont.icon-search(v-if="!showsearch" key="search-icon")
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")
         #js-message.message.dib(@click="dropmessage")
           i.iconfont.icon-notice
           .subpanel.msg-content.js-msg-content
-            .no-message(v-if="message.length < 1") 您还没有消息呢，快去留言互动吧！
+            .no-message(v-if="message.length < 1" key="message-null") 您还没有消息呢，快去留言互动吧！
             template(v-else)
               .msg-header
                 .title 通知
-                a.btn.read-all.js-read-all.hidden(v-if="true", href="javascript:;") 标记为已读
+                a.btn.read-all.js-read-all.hidden(href="javascript:;") 标记为已读
               .msg-menu.js-msg-menu
                 ul.msg-list
                   li(v-for="mg in message")
@@ -160,7 +160,7 @@ export default {
   },
   mounted () {
     access_key = this.$store.state.access_key || localStorage.getItem('access_key')
-    if (localStorage) {
+    if (localStorage && localStorage.getItem('userInfo')) {
       this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
     }
 

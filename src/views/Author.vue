@@ -12,7 +12,7 @@
         img(:src="users.avatar_url")
   .main-content.gray-bg
     .container
-      .article-list
+      .article-list(key="author-article-list")
         p.total_count 共发表内容 {{meta.total_count}}篇
         item(v-for="post in posts", :key="post.id", :post="post")
         .tac
