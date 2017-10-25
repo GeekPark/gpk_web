@@ -3,7 +3,7 @@
   vheader
   transition(name="fade" mode="out-in")
     router-view(:access_key="$store.state.access_key")
-  feedback
+  feedback(v-once)
   vfooter
 </template>
 

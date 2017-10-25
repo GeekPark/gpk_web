@@ -4,7 +4,7 @@
   article.news-item
     a(:href="`/news/${post.id}`")
       .news-cover
-        img(:src="`${post.cover_url}?imageView2/1/w/490/h/300/interlace/1/q/88/interlace/1/`")
+        img(v-lazy="post.cover_url" w=245 h=150)
       p.multiline-text-overflow {{post.title}}
 </template>
 

@@ -3,11 +3,11 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   template(v-if="(columnId || post.column.id) === 251")
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
-        img(class="js-lazy loaded", :src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/interlace/1/`")
+        img(v-lazy="post.cover_url" w=285 h=214)
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .ts-item(v-for="(img, index) in post.img_list.slice(0, 2)")
         .img-cover
-          img(:src="img")
+          img(v-lazy="img" w=255 h=129)
         .img-count(v-if="index == 1") {{post.img_list.length}}张图片
 
     .article-info
@@ -16,22 +16,10 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
       a(v-bind:href="`/news/${post.id}`", :target="$store.state.target")
         h3.multiline-text-overflow {{post.title}}
 
-  //- template(v-else-if="(columnId || post.column.id) === 74")
-  //-   .zaozhidao
-  //-     .article-info
-  //-       .article-zaozhidao
-  //-         a(:href="`/news/${post.id}`")
-  //-           h2.multiline-text-overflow {{post. | getDay}} 极客早知道
-  //-         ul
-  //-           li(v-for="h2_title in post.h2_list")
-  //-             | {{h2_title}}
-  //-       a.category-tag(:href="`/column/${columnId || post.column.id}`") {{columnTitle || post.column.title}}
-  //-       .article-time {{post.published_timestamp | fromNow}}
-
   template(v-else)
     a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-cover
-        img(alt="" class="js-lazy loaded" v-bind:src="`${post.cover_url}?imageView2/1/w/570/h/428/interlace/1/q/88/interlace/1/`")
+        img(v-lazy="post.cover_url" w=285 h=214)
         .play(v-show="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}

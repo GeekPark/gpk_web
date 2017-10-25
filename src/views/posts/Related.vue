@@ -8,7 +8,7 @@
       .img-cover-wrap
         a(:href="`/news/${post.id}`", :target="$store.state.target")
           .news-cover
-            img(:src="`${post.cover_url}?imageView2/1/w/316/h/202/interlace/1/q/88/interlace/1/`")
+            img(v-lazy="post.cover_url" w=158 h=100)
       div
         a.category-tag(:href="`/column/${post.column.id}`", :target="$store.state.target") {{post.column.title}}
         a(:href="`/news/${post.id}`", :target="$store.state.target")

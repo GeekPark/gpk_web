@@ -11,7 +11,7 @@
           a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article
             span 加载更多
-      .article-sidebar
+      .article-sidebar(v-if="!$device.isMobile()")
         hotnews(v-once)
 </template>
 

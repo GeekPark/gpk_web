@@ -51,9 +51,9 @@ footer.page-footer#footer(v-once)
       section.down
         h4 APP下载
         p(style="text-align:center")
-          img(height="100" src='../assets/imgs/qr_app.gif')
+          img(height="100" src='../assets/imgs/qr_app.png')
           br
-          | iOS APP
+          | iOS & Android
   .footer-copyright
     .container
       .info-icp

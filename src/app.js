@@ -3,6 +3,7 @@ import App from './App.vue'
 import { createStore } from './store'
 import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
+import VueLazyload  from 'vue-lazyload'
 import titleMixin from './util/title'
 import * as filters from './util/filters'
 import Device from './util/device.js'
@@ -11,6 +12,20 @@ import Element from 'element-ui'
 import Vheader from 'components/Vheader.vue'
 import Vfooter from 'components/Vfooter.vue'
 import Feedback from 'components/Feedback.vue'
+
+Vue.use(VueLazyload, {
+  preLoad: 1.33333,
+  attempt: 1,
+  filter: {
+    progressive (listener, options) {
+      const f = options.supportWebp ? '/format/webp' : ''
+      const w = listener.el.getAttribute("w") || 0
+      const h = listener.el.getAttribute("h") || 0
+      listener.el.setAttribute('srcset', `${listener.src}?imageView2/1/w/${w * 2}/h/${h * 2}${f}/ignore-error/1/ 2x`)
+      listener.src += `?imageView2/2/w/${w}/h/${h}${f}/ignore-error/1`
+    }
+  }
+})
 
 Vue.use(Element)
 Vue.use(Device)

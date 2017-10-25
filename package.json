@@ -33,6 +33,7 @@
     "route-cache": "^0.4.3",
     "swiper": "^4.0.0-beta.3",
     "vue": "^2.5.2",
+    "vue-lazyload": "^1.1.4",
     "vue-router": "^2.8.1",
     "vue-server-renderer": "^2.5.2",
     "vuex": "^2.5.0",

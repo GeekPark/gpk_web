@@ -13,7 +13,7 @@ export function timeAt (value) {
 
 export function fromNow (value) {
   if (!value) return ''
-  const time = moment.unix(value)
+  const time = Number(value) ? moment.unix(value) : moment(value)
   const diff = moment().diff(time, 'days')
   return diff >= 1 ? time.format('YYYY/MM/DD') : time.locale('zh-cn').fromNow()
 }

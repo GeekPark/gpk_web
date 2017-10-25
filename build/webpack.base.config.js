@@ -40,7 +40,7 @@ module.exports = {
         use: {
           loader: 'url-loader',
           options: {
-            limit: 10000,
+            limit: 6000,
             name: 'img/[name].[ext]?[hash]'
           }
         }
@@ -75,7 +75,7 @@ module.exports = {
           warnings: false
         }
       }),
-      new webpack.optimize.ModuleConcatenationPlugin(),      
+      new webpack.optimize.ModuleConcatenationPlugin(),
       new ExtractTextPlugin({
         filename: 'common.[chunkhash].css'
       })
