@@ -82,32 +82,3 @@ export function fetchPage (type, page) {
 export function fetchUser (id) {
     return fetch(`user/${id}`)
 }
-
-/**
-* 监听数据变动(未使用firebase先使用定时刷新)
-*/
-export function watchList (type, cb) {
-    let first = true
-    let isOn = true
-    let timeoutId = null
-    const handler = res => {
-        cb(res)
-    }
-    function watchTimeout () {
-        if (first) {
-            first = false
-        } else {
-            api.$get(`${api.url}${type}stories.json`).then(handler)
-        }
-        if (isOn) {
-            timeoutId = setTimeout(watchTimeout, 1000 * 60 * 15)
-        }
-    }
-    watchTimeout()
-    return () => {
-        isOn = false
-        if (timeoutId) {
-            clearTimeout(timeoutId)
-        }
-    }
-}

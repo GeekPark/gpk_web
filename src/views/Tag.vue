@@ -5,8 +5,8 @@
     .desc 共{{total_count}}篇文章
   .main-content
     .container
-      .article-list(key="tag-article-list")
-        item(v-for="post in posts", :key="post.id", :post="post")
+      .article-list
+        item(v-for="post in posts", :key="`tag-${post.id}`", :post="post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article

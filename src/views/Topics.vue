@@ -5,8 +5,8 @@
     .desc 共{{topic.post_count}}篇文章
   .main-content
     .container
-      .article-list(key="topics-article-list")
-        item(v-for="post in topic.posts", :key="post.id", :post="post")
+      .article-list
+        item(v-for="post in topic.posts", :key="`topics-${post.id}`", :post="post")
       .article-sidebar
         hotnews(v-once)
 </template>

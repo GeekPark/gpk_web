@@ -6,8 +6,8 @@
     .desc {{column.description}}
   .main-content
     .container
-      .article-list(key="column-article-list")
-        item(v-for="post in posts", :key="post.id", :post="post", :columnTitle="column.title", :columnId="column.id")
+      .article-list
+        item(v-for="post in posts", :key="`column-${post.id}`", :post="post", :columnTitle="column.title", :columnId="column.id")
         .tac(v-if="!nomore")
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
             .loading-article

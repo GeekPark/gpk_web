@@ -5,8 +5,8 @@
     .desc 共{{total_count}}篇文章
   .main-content
     .container(style="text-align: center")
-      .article-list(v-if="total_count > 0" key="liked-article-list")
-        item(v-for="post in posts", :key="post.id", :post="post")
+      .article-list(v-if="total_count > 0")
+        item(v-for="post in posts", :key="`liked-${post.id}`", :post="post")
         .tac(v-if="!end")
           a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article
