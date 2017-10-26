@@ -126,7 +126,7 @@ function render (req, res) {
         if (err) {
           return handleError(err)
         }
-        client.set(key, html)
+        client.set(key, html, 'EX', 300)
         res.send(html)
         if (!isProd) {
           console.log(`whole request: ${Date.now() - s}ms`)
