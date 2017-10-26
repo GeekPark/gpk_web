@@ -20,7 +20,7 @@ footer.page-footer#footer(v-once)
           a.share-btn.wechat.relative(href="javascript:;")
             .iconfont.icon-wechat
             .wechat-qr.triangle-down
-              img(src='../assets/imgs/qr_geekpark.jpg' alt="极客公园微信公众平台" width="120" height="120")
+              img(src='http://imgslim.geekpark.net/image/newgeekpark/qr_geekpark.jpg' alt="极客公园微信公众平台" width="120" height="120")
           a.share-btn.rss(href="http://feed.geekpark.net" target="_blank")
             .iconfont.icon-rss
 
@@ -40,18 +40,18 @@ footer.page-footer#footer(v-once)
         ul.list
           li
             a(href="http://www.qiniu.com/" target="_blank")
-              img(height="30" src='../assets/imgs/qiniu.png')
+              img(height="30" src='http://imgslim.geekpark.net/image/newgeekpark/qiniu.png')
           li
             a(href="https://www.qingcloud.com/" target="_blank")
-              img(height="25" src='../assets/imgs/qingyun.png')
+              img(height="25" src='http://imgslim.geekpark.net/image/newgeekpark/qingyun.png')
           li
             a(href="http://www.bokecc.com/" target="_blank")
-              img(height="25" src='../assets/imgs/cc.png')
+              img(height="25" src='http://imgslim.geekpark.net/image/newgeekpark/cc.png')
 
       section.down
         h4 APP下载
         p(style="text-align:center")
-          img(height="100" src='../assets/imgs/qr_app.png')
+          img(height="100" src='http://imgslim.geekpark.net/image/newgeekpark/qr_app.gif')
           br
           | iOS & Android
   .footer-copyright

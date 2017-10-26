@@ -13,15 +13,15 @@
           .panels
             .panel(:class="{active: qrindex == 1}")
               .img
-                img(src='../assets/imgs/qr_geekpark.jpg', alt='极客公园')
+                img(src='http://imgslim.geekpark.net/image/newgeekpark/qr_geekpark.jpg', alt='极客公园')
                 p 用极客视角，追踪你最不可错过的科技圈。
             .panel(:class="{active: qrindex == 2}")
               .img
-                img(src='../assets/imgs/qr_geekchoice.jpg', alt='极客之选')
+                img(src='http://imgslim.geekpark.net/image/newgeekpark/qr_geekchoice.jpg', alt='极客之选')
                 p 新鲜、有趣的硬件产品，第一时间为你呈现。
             .panel(:class="{active: qrindex == 3}")
               .img
-                img(src='../assets/imgs/qr_topview.jpg', alt='顶楼')
+                img(src='http://imgslim.geekpark.net/image/newgeekpark/qr_topview.jpg', alt='顶楼')
                 p 关注前沿科技，发表最具科技的商业洞见。
         a.tools-item(@click="dialogFormVisible = true", data-tooltip="意见反馈")
           i.iconfont.icon-feedback
