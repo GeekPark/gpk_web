@@ -4,7 +4,7 @@
     .container.relative
       .logo
         a.active(href="/")
-          img.logo-img(src="../assets/imgs/copyright.png")
+          img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
         //- = render 'shared/v2/doodle'
       nav.nav
         a.active(href="/") 资讯
@@ -51,7 +51,7 @@
       i.iconfont.icon-close(v-else)
     .logo
       a(href="/")
-        img.logo-img(src="../assets/imgs/copyright.png")
+        img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
     Vmenu(v-if="showmenu", :logout="logout", :login="login")
     a.m-button.search-btn.search-icon-anim(:class="showsearch ? 'opened' : ''", @click="showsearch = !showsearch")
       i.iconfont.icon-search(v-if="!showsearch")

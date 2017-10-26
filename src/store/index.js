@@ -11,7 +11,10 @@ export function createStore () {
       isLoading: false,
       access_key: null,
       target: '',
-      userInfo: null
+      userInfo: null,
+      qiniu: (name) => {
+        return `'http://ovsnhdoi9.bkt.clouddn.com/image/newgeekpark/${name}`
+      }
     },
     mutations,
     actions

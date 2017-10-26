@@ -7,12 +7,13 @@ import titleMixin from './util/title'
 import * as filters from './util/filters'
 import Device from './util/device.js'
 
-import Element from 'element-ui'
+import {Button, Dialog} from 'element-ui'
 import Vheader from 'components/Vheader.vue'
 import Vfooter from 'components/Vfooter.vue'
 import Feedback from 'components/Feedback.vue'
 
-Vue.use(Element)
+Vue.component(Button.name, Button)
+Vue.component(Dialog.name, Dialog)
 Vue.use(Device)
 Vue.component(Vheader.name, Vheader)
 Vue.component(Vfooter.name, Vfooter)
