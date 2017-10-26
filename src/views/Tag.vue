@@ -1,5 +1,5 @@
 <template lang="pug">
-#index
+#tag
   .header-banner
     h3 # {{$route.params.tag}} #
     .desc 共{{total_count}}篇文章

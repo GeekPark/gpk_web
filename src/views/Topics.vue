@@ -1,5 +1,5 @@
 <template lang="pug">
-#index
+#topics
   .header-banner(:style="{backgroundImage: 'url(' + topic.banner_url + ')'}")
     h3 # {{topic.title}} #
     .desc 共{{topic.post_count}}篇文章

@@ -1,5 +1,5 @@
 <template lang="pug">
-#index
+#liked
   .header-banner
     h3 我的喜欢
     .desc 共{{total_count}}篇文章

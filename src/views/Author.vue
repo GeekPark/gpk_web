@@ -1,5 +1,5 @@
 <template lang="pug">
-#index
+#author
   .header-banner(:class="'bg-' + Math.floor(Math.random()*(5))")
   .users-content(v-if="users")
     .container.relative

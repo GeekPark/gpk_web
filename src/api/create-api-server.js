@@ -1,5 +1,5 @@
 import LRU from 'lru-cache'
-// import Axios from 'axios'
+import Axios from 'axios'
 import fetch from 'node-fetch'
 import config from '../config'
 const redis = require('redis')
@@ -21,7 +21,6 @@ export function createAPI ({ config, version }) {
   if (process.__API__) {
     api = process.__API__
   } else {
-
     api = {
       url: `${config.url}v1/`,
       onServer: true,
@@ -37,24 +36,15 @@ export function createAPI ({ config, version }) {
               resolve(JSON.parse(reply))
               return
             }
-            fetch(url).then(res => {
-              const data = res.json()
-              data.then(r => {
-                client.set(url, JSON.stringify(r), 'EX', 120)
-              })
-              resolve(data)
+            Axios.get(url).then(res => {
+              client.set(url, JSON.stringify(res.data), 'EX', 120)
+              resolve(res.data)
             })
           })
         })
       },
       '$post': function (url, data) {
-        return fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-          },
-          body: JSON.stringify(data)
-        }).then(res => res.json())
+        return Axios.post(url, data).then(res => Promise.resolve(res.data))
       }
     }
     process.__API__ = api
