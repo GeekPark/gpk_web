@@ -89,7 +89,7 @@ app.use(express.static(__dirname + '/public'));
 // headers.
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
-app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
+// app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
 
 function render (req, res) {
   const s = Date.now()
@@ -114,24 +114,13 @@ function render (req, res) {
     title: '极客公园',
     url: req.url
   }
-  const key = 'geekparkpage' + req.url
-   client.get(key, function (err, reply) {
-    if (reply !== null) {
-      res.send(reply)
-      if (!isProd) {
-        console.log(`whole request: ${Date.now() - s}ms`)
-      }
-    } else {
-      renderer.renderToString(context, (err, html) => {
-        if (err) {
-          return handleError(err)
-        }
-        client.set(key, html, 'EX', 300)
-        res.send(html)
-        if (!isProd) {
-          console.log(`whole request: ${Date.now() - s}ms`)
-        }
-      })
+  renderer.renderToString(context, (err, html) => {
+    if (err) {
+      return handleError(err)
+    }
+    res.send(html)
+    if (!isProd) {
+      console.log(`whole request: ${Date.now() - s}ms`)
     }
   })
 }

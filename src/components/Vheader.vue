@@ -114,7 +114,7 @@ export default {
     },
 
     getUser() {
-      api.get(`admin/info?access_key=${access_key}`).then((result) => {
+      api.get(`admin/info?access_key=${access_key}&roles=dev`).then((result) => {
         this.$store.state.userInfo = result.data
         this.userInfo = result.data
         localStorage.setItem('userInfo', JSON.stringify(result.data))
