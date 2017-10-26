@@ -14,6 +14,15 @@ export function createStore () {
       userInfo: null,
       qiniu: (name) => {
         return `'http://ovsnhdoi9.bkt.clouddn.com/image/newgeekpark/${name}`
+      },
+      homepage: {
+        homepage_posts: []
+      },
+      column: {
+        column: []
+      },
+      news: {
+        post: []
       }
     },
     mutations,
