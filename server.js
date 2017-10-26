@@ -4,6 +4,18 @@ const LRU = require('lru-cache')
 const express = require('express')
 const compression = require('compression')
 const microcache = require('route-cache')
+const redis = require('redis')
+const client = redis.createClient()
+console.log('connect redis')
+client.on('error', function (err) {
+  console.log('Error ' + err)
+})
+client.on('ready', function (res) {
+  console.log('client ready')
+})
+client.on('connect', function () {
+  console.log('connect')
+})
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
@@ -102,13 +114,24 @@ function render (req, res) {
     title: '极客公园',
     url: req.url
   }
-  renderer.renderToString(context, (err, html) => {
-    if (err) {
-      return handleError(err)
-    }
-    res.send(html)
-    if (!isProd) {
-      console.log(`whole request: ${Date.now() - s}ms`)
+  const key = 'geekparkpage' + req.url
+   client.get(key, function (err, reply) {
+    if (reply !== null) {
+      res.send(reply)
+      if (!isProd) {
+        console.log(`whole request: ${Date.now() - s}ms`)
+      }
+    } else {
+      renderer.renderToString(context, (err, html) => {
+        if (err) {
+          return handleError(err)
+        }
+        client.set(key, html)
+        res.send(html)
+        if (!isProd) {
+          console.log(`whole request: ${Date.now() - s}ms`)
+        }
+      })
     }
   })
 }
