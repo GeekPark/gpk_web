@@ -15,10 +15,24 @@ import Feedback from 'components/Feedback.vue'
 
 Vue.component(Button.name, Button)
 Vue.component(Dialog.name, Dialog)
-Vue.use(Device)
 Vue.component(Vheader.name, Vheader)
 Vue.component(Vfooter.name, Vfooter)
 Vue.component(Feedback.name, Feedback)
+
+Vue.use(VueLazyload, {
+  preLoad: 1.33333,
+  attempt: 1,
+  filter: {
+    progressive (listener, options) {
+      const f = options.supportWebp ? '/format/webp' : ''
+      const w = listener.el.getAttribute("w") || 0
+      const h = listener.el.getAttribute("h") || 0
+      listener.el.setAttribute('srcset', `${listener.src}?imageView2/1/w/${w * 2}/h/${h * 2}${f}/ignore-error/1/ 2x`)
+      listener.src += `?imageView2/2/w/${w}/h/${h}${f}/ignore-error/1`
+    }
+  }
+})
+Vue.use(Device)
 
 Vue.mixin(titleMixin)
 
