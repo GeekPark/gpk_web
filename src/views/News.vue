@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     fetch () {
-      api.get(`posts/${this.$route.params.id}?access_key=${access_key}`).then(result => {
+      api.get(`posts/${this.$route.params.id}?access_key=${access_key}&roles=dev`).then(result => {
         if (result.data.post && result.data.post.published_timestamp) {
           this.news = result.data.post
         } else {

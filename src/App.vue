@@ -1,5 +1,5 @@
 <template lang="pug">
-#app(v-loading="isLoading", element-loading-text="拼命加载中" v-if="toload")
+#app(element-loading-text="拼命加载中" v-if="toload")
   vheader
   transition(name="fade" mode="out-in")
     router-view(:access_key="$store.state.access_key")
@@ -18,7 +18,7 @@ export default {
     }
   },
   beforeCreate () {
-    api.account.get('/my/access_key').then((result) => {
+    api.account.get('/my/access_key?roles=dev').then((result) => {
       if (result.status === 200 && result.data.access_key) {
         this.$store.state.access_key = result.data.access_key
         localStorage.setItem('access_key', result.data.access_key)
