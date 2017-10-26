@@ -30,7 +30,7 @@
             i.iconfont.icon-arrow-left
             | {{posts.date | timeAt}}
             i.iconfont.icon-arrow-right
-          item(v-for="item in posts.data", :key="`home-${item.post.id}`", :post="item.post")
+          item(v-for="item in posts.data", :key="item.post.id", :post="item.post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
             .loading-article

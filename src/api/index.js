@@ -45,11 +45,11 @@ export function fetchNews (id, access_key) {
 }
 
 export function fetchPreview (id, key) {
-  return fetch(`posts/${id}/preview?key==${key}`)
+  return fetch(`posts/${id}/preview?key=${key}`)
 }
 
 export function fetchColumn (id, page) {
-  return fetch(`columns/${id}?page==${page}`)
+  return fetch(`columns/${id}?page=${page}`)
 }
 
 export function fetchTopics (id, page) {

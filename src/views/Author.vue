@@ -14,7 +14,7 @@
     .container
       .article-list
         p.total_count 共发表内容 {{meta.total_count}}篇
-        item(v-for="post in posts", :key="`author-${post.id}`", :post="post")
+        item(v-for="post in posts", :key="post.id", :post="post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article

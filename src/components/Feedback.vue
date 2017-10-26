@@ -1,5 +1,5 @@
 <template lang="pug">
-#feedback(v-once)
+#feedback
   .container.clear
     .wr-fx
       .fixed-tools

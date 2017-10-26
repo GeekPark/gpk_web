@@ -6,7 +6,7 @@
   .main-content
     .container
       .article-list
-        item(v-for="post in topic.posts", :key="`topics-${post.id}`", :post="post")
+        item(v-for="post in topic.posts", :key="post.id", :post="post")
       .article-sidebar
         hotnews(v-once)
 </template>

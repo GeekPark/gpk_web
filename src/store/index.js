@@ -19,7 +19,9 @@ export function createStore () {
         homepage_posts: []
       },
       column: {
-        column: []
+        column: {
+          posts: []
+        }
       },
       news: {
         post: []

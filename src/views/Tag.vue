@@ -6,7 +6,7 @@
   .main-content
     .container
       .article-list
-        item(v-for="post in posts", :key="`tag-${post.id}`", :post="post")
+        item(v-for="post in posts", :key="post.id", :post="post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading, 'no-more': nomore}")
             .loading-article
