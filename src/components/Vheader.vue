@@ -159,17 +159,21 @@ export default {
     }
   },
   mounted () {
-    access_key = this.$store.state.access_key || localStorage.getItem('access_key')
-    if (localStorage && localStorage.getItem('userInfo')) {
-      this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
-    }
-
-    if (access_key) {
-      this.getUser()
-      this.getMessage()
-    } else {
-      this.cleanUser()
-    }
+    api.account.get('/my/access_key?roles=dev').then((result) => {
+      if (result.status === 200 && result.data.access_key) {
+        // console.log(result.data)
+        this.$store.state.access_key = result.data.access_key
+        access_key = result.data.access_key
+        localStorage.setItem('access_key', result.data.access_key)
+        if (result.data.access_key) {
+          this.getUser()
+          this.getMessage()
+        } else {
+          this.cleanUser()
+        }
+      }
+    }).catch((err) => {
+    })
   }
 }
 
