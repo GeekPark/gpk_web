@@ -11,17 +11,17 @@
         a(href="//events.geekpark.net" target="_blank") 活动
         a(href="http://f.geekpark.net" target="_blank") 前沿社
       a#search-btn.search-btn(href="javascript:;", :class="showsearch ? 'is-open' : ''", @click="showsearch = !showsearch")
-        i.iconfont.icon-search(v-if="!showsearch")
+        i.iconfont.icon-search(v-if="!showsearch" key="search-icon")
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")
         #js-message.message.dib(@click="dropmessage")
           i.iconfont.icon-notice
           .subpanel.msg-content.js-msg-content
-            .no-message(v-if="message.length < 1") 您还没有消息呢，快去留言互动吧！
+            .no-message(v-if="message.length < 1" key="message-null") 您还没有消息呢，快去留言互动吧！
             template(v-else)
               .msg-header
                 .title 通知
-                a.btn.read-all.js-read-all.hidden(v-if="true", href="javascript:;") 标记为已读
+                a.btn.read-all.js-read-all.hidden(href="javascript:;") 标记为已读
               .msg-menu.js-msg-menu
                 ul.msg-list
                   li(v-for="mg in message")
@@ -70,13 +70,9 @@ let access_key
 export default {
   name: 'vheader',
   components: { Vmenu, Search },
-  computed: {
-    userInfo () {
-      return this.$store.state.userInfo
-    }
-  },
   data () {
     return {
+      userInfo: null,
       showmenu: false,
       showsearch: false,
       activeIndex: "1",
@@ -114,11 +110,13 @@ export default {
       localStorage.removeItem('access_key')
       this.$store.state.access_key = null
       this.$store.state.userInfo = null
+      this.userInfo = null
     },
 
     getUser() {
       api.get(`admin/info?access_key=${access_key}`).then((result) => {
         this.$store.state.userInfo = result.data
+        this.userInfo = result.data
         localStorage.setItem('userInfo', JSON.stringify(result.data))
       }).catch((err) => {
         // this.$message.error(err.toString())
@@ -142,7 +140,7 @@ export default {
       api.account.get(`api/v1/notifications/all?access_key=${access_key}`).then((result) => {
         this.message = result.data
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
     readMessage() {
@@ -162,6 +160,9 @@ export default {
   },
   mounted () {
     access_key = this.$store.state.access_key || localStorage.getItem('access_key')
+    if (localStorage && localStorage.getItem('userInfo')) {
+      this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    }
 
     if (access_key) {
       this.getUser()

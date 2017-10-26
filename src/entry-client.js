@@ -23,6 +23,8 @@ if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__)
 }
 
+// wait until router has resolved all async before hooks
+// and async components...
 router.onReady(() => {
   // 添加路由钩子函数，用于处理 asyncData.
   // 在初始路由 resolve 后执行，
@@ -52,6 +54,7 @@ router.onReady(() => {
   app.$mount('#app')
 })
 
-// if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('/service-worker.js')
-// }
+// service worker
+if ('https:' === location.protocol && navigator.serviceWorker) {
+  navigator.serviceWorker.register('/service-worker.js')
+}

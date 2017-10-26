@@ -1,12 +1,12 @@
 <template lang="pug">
-#index
+#topics
   .header-banner(:style="{backgroundImage: 'url(' + topic.banner_url + ')'}")
     h3 # {{topic.title}} #
     .desc 共{{topic.post_count}}篇文章
   .main-content
     .container
       .article-list
-        item(v-for="post in topic.posts", :key="post.id", :post="post")
+        item(v-for="post in topic.posts", :key="`topics-${post.id}`", :post="post")
       .article-sidebar
         hotnews(v-once)
 </template>

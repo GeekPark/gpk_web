@@ -141,13 +141,13 @@ export default {
         wx.onMenuShareTimeline({ // 分享朋友圈
           title: _this.news.title, // 分享标题
           link: window.location.href, // 分享链接
-          imgUrl: _this.cover_url, // 分享图标
+          imgUrl: _this.news.cover_url, // 分享图标
         });
         wx.onMenuShareAppMessage({ // 分享给好友
-          title: _this.title, // 分享标题
-          desc: _this.abstract, // 分享描述
+          title: _this.news.title, // 分享标题
+          desc: _this.news.abstract, // 分享描述
           link: window.location.href, // 分享链接
-          imgUrl: _this.cover_url, // 分享图标
+          imgUrl: _this.news.cover_url, // 分享图标
         });
       })
 
@@ -229,7 +229,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     max-width 700px
     width 100%
     display inline-block
-    padding-bottom 120px
+    padding-bottom 50px
     vertical-align top
     text-align left
     @media screen and (max-width: 1130px)

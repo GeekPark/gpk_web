@@ -1,9 +1,9 @@
 <template lang="pug">
 #app(v-loading="isLoading", element-loading-text="拼命加载中" v-if="toload")
-  feedback
   vheader
   transition(name="fade" mode="out-in")
     router-view(:access_key="$store.state.access_key")
+  feedback(v-once)
   vfooter
 </template>
 

@@ -53,11 +53,13 @@ footer.page-footer#footer(v-once)
         p(style="text-align:center")
           img(height="100" src='http://imgslim.geekpark.net/image/newgeekpark/qr_app.gif')
           br
-          | iOS APP
+          | iOS & Android
   .footer-copyright
     .container
       .info-icp
-        | 京ICP备 13016923号-2 &nbsp;&nbsp;京公网安备 110105001682号
+        a(href="http://www.miitbeian.gov.cn/" target="_blank") 京ICP备13016923号-2
+        | &nbsp;&nbsp;|&nbsp;&nbsp;
+        a(href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502034250" target="_blank") 京公网安备11010502034250号
       .info-copyright
         | 北京传奇极客管理咨询有限公司 &nbsp; Copyright ©&nbsp;
         span.hidden-sm 2009 - {{year}}
@@ -167,10 +169,14 @@ export default {
       opacity: 1
       transform: translate(-50%, -100%) scale(1)
 .footer-copyright
-  color: #5B5B5B
-  background-color: #000
-  line-height: 55px
+  color #5B5B5B
+  background-color #000
+  line-height 55px
   overflow hidden
+  a
+    color #5B5B5B
+    &:hover
+      color #dcdcdc
   .info-icp
     float left
   .info-copyright

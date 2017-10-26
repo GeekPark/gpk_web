@@ -57,10 +57,6 @@ const router = new VueRouter({
     { path: '/report',
       name: 'report',
       component: Report
-    // },
-    // { path: '*',
-    //   component: Errors,
-    //   meta: {title: 'Error'}
     }
   ]
 })

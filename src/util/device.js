@@ -1,5 +1,5 @@
 const isWechat = () => /micromessenger/i.test(navigator.userAgent)
-const isMobile = () => ('ontouchstart' in window)
+const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 var Device = {}
 Device.install = function (Vue, options) {
