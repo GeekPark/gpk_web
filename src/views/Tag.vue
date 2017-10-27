@@ -31,7 +31,11 @@ export default {
       posts: []
     }
   },
-
+  meta () {
+    return {
+      title: "热门标签"
+    }
+  },
   methods: {
     fetch () {
       this.loading = true;

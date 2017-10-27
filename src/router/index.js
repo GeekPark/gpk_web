@@ -12,7 +12,6 @@ import Liked           from '../views/Liked.vue'
 
 import About           from '../views/About.vue'
 import Report          from '../views/Report.vue'
-import Errors          from '../views/Errors.vue'
 
 Vue.use(VueRouter)
 

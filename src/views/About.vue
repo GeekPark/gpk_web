@@ -258,12 +258,15 @@
 import api from 'store/api'
 
 export default {
-  title: '关于我们',
   data () {
     return {
     }
   },
-
+  meta () {
+    return {
+      title: "关于我们"
+    }
+  },
   methods: {
     fetch () {
       api.get('/').then((result) => {

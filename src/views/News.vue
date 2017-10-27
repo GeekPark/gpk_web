@@ -72,8 +72,14 @@ export default {
       }
     }
   },
-  title () {
-    return this.news.title
+  meta () {
+    return {
+      title: this.news.title,
+      description: this.news.abstract,
+      keywords: this.news.tags.join(),
+      pubDate: this.news.published_timestamp,
+      image: this.news.cover_url
+    }
   },
   asyncData ({ store, route: { params: { id }, query: { key }} }) {
     if (key) {

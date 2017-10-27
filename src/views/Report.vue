@@ -96,12 +96,15 @@
 import api from 'store/api'
 
 export default {
-  title: '寻求报道',
   data () {
     return {
     }
   },
-
+  meta () {
+    return {
+      title: "寻求报道"
+    }
+  },
   methods: {
     fetch () {
       api.get('/').then((result) => {

@@ -24,7 +24,11 @@ export default {
       topic: {},
     }
   },
-
+  meta () {
+    return {
+      title: "专题精选"
+    }
+  },
   methods: {
     fetch () {
       this.loading = true;

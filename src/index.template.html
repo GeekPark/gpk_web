@@ -4,19 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="webkit" name="renderer" />
-    <title>{{title || '极客公园-只为商业新变量'}}</title>
-    <meta content="极客公园，为你带来互联网热门趋势、热点产品的深度分析，发掘产品和趋势的价值。" name="description" />
-    <meta content="极客公园, geekpark, 极客, 极客观察, 极客活动, geek, geeker, 创业, 科技新闻, 移动互联网, 互联网创业, vr, 极客加速, app, 孵化器" name="keywords" />
+    <title>{{meta.title}}</title>
+    <link rel="canonical" href="http://www.geekpark.net{{url}}">
+    <meta content="{{meta.description}}" name="description" />
+    <meta content="{{meta.keywords}}" name="keywords" />
     <link href="http://www.geekpark.net/" rel="canonical" />
     <meta content="http://www.geekpark.net/" property="og:url" />
-    <meta content="只为商业新变量" property="og:title" />
+    <meta content="{{meta.title}}" property="og:title" />
     <meta content="website" property="og:type" />
     <meta content="GeekPark" property="og:site_name" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="GeekPark" name="twitter:site" />
-    <meta content="只为商业新变量" name="twitter:title" />
-    <meta content="极客公园，为你带来互联网热门趋势、热点产品的深度分析，发掘产品和趋势的价值。" name="twitter:description" />
-    <meta content="http://www.geekpark.net/default_cover.jpg" name="twitter:image" />
+    <meta content="{{meta.title}}" name="twitter:title" />
+    <meta content="{{meta.description}}" name="twitter:description" />
+    <meta content="{{meta.image}}" name="twitter:image" />
     <meta content="true" name="HandheldFriendly" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="极客公园" name="apple-mobile-web-app-title" />
@@ -47,18 +48,29 @@
     <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <script>
-    (function(){
+      (function(){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
         if (curProtocol === 'https'){
-       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-      }
-      else{
-      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else{
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
-    })();
+      })();
+    </script>
+    <script src="//msite.baidu.com/sdk/c.js?appid=1536768227928825"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://zhanzhang.baidu.com/contexts/cambrian.jsonld",
+        "@id": "http://www.geekpark.com{{url}}",
+        "title": "{{meta.title}}",
+        "description": "{{meta.description}}",
+        "images": ["{{meta.image}}"],
+        "pubDate": "{{meta.pubDate}}",
+        "isOriginal": 1
+      }
     </script>
   </body>
 </html>

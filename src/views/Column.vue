@@ -27,8 +27,10 @@ let page = 1
 
 export default {
   components: { Subnav, Item, Hotnews },
-  title () {
-    return this.column.title
+  meta () {
+    return {
+      title: this.column.title
+    }
   },
   data () {
     return {

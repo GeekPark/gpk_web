@@ -40,6 +40,11 @@ export default {
       nomore: false
     }
   },
+  meta () {
+    return {
+      title: "作者信息"
+    }
+  },
   methods: {
     fetch () {
       this.loading = true;

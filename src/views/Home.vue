@@ -56,7 +56,6 @@ import api from 'store/api'
 let page = 1
 export default {
   components: { Subnav, Sponsor, Item, Idlenews, Hotnews, Topics },
-  title: '极客公园-只为商业新变量',
   data () {
     return {
       page: page,
@@ -64,6 +63,11 @@ export default {
       homepage_posts: [],
       ads: [],
       isMobile: false
+    }
+  },
+  meta () {
+    return {
+      title: "极客公园-只为商业新变量"
     }
   },
   asyncData ({ store, route }) {

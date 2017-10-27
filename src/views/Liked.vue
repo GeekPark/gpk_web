@@ -23,7 +23,6 @@ let access_key
 
 export default {
   components: { Item },
-  title: '我的喜欢',
   data () {
     return {
       page: 0,
@@ -33,7 +32,11 @@ export default {
       posts: [],
     }
   },
-
+  meta () {
+    return {
+      title: "我的喜欢"
+    }
+  },
   methods: {
     fetch () {
       this.loading = true;

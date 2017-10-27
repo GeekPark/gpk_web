@@ -4,7 +4,7 @@ import { createStore } from './store'
 import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import VueLazyload  from 'vue-lazyload'
-import titleMixin from './util/title'
+import metaMixin from './util/meta'
 import * as filters from './util/filters'
 import Device from './util/device.js'
 
@@ -34,7 +34,7 @@ Vue.use(VueLazyload, {
 })
 Vue.use(Device)
 
-Vue.mixin(titleMixin)
+Vue.mixin(metaMixin)
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
