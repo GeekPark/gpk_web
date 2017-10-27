@@ -28,7 +28,13 @@ export default {
 
   FETCH_PREVIEW: ({ commit, state }, { id, key }) => {
     return fetchPreview(id, key)
-      .then(data => commit('SET_PREVIEW', { data }))
+      .then(data => {
+        if (data.message) {
+          return Promise.reject({ code: 404 })
+        } else {
+          commit('SET_PREVIEW', { data })
+        }
+      })
   },
 
   FETCH_COLUMN: ({ commit, state }, { id, page }) => {

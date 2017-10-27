@@ -63,22 +63,3 @@ export function fetchTag (id, page) {
 export function fetchAuthor (id, page) {
   return fetch(`posts/author/${id}?page=${page}`)
 }
-
-export function fetchIdsByType (type) {
-    return api.cachedIds && api.cachedIds[type]
-        ? Promise.resolve(api.cachedIds[type])
-        : fetch(`${type}stories`)
-}
-export function fetchItem (id) {
-    return fetch(`item/${id}`)
-}
-
-export function fetchItems (ids) {
-    return Promise.all(ids.map(id => fetchItem(id)))
-}
-export function fetchPage (type, page) {
-    return fetch(`${type}/${page}`)
-}
-export function fetchUser (id) {
-    return fetch(`user/${id}`)
-}

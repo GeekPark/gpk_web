@@ -77,9 +77,9 @@ export default {
   },
   asyncData ({ store, route: { params: { id }, query: { key }} }) {
     if (key) {
-      return store.dispatch('FETCH_PREVIEW', { id })
+      return store.dispatch('FETCH_PREVIEW', { id, key })
     } else {
-      return store.dispatch('FETCH_NEWS', { id, key })
+      return store.dispatch('FETCH_NEWS', { id })
     }
   },
   computed: {
@@ -91,29 +91,12 @@ export default {
     }
   },
   methods: {
-    fetch () {
-      api.get(`posts/${this.$route.params.id}?access_key=${access_key}&roles=dev`).then(result => {
-        if (result.data.post && result.data.post.published_timestamp) {
-          this.news = result.data.post
-        } else {
-          this.$router.push({path: '/404'})
-        }
-      }).catch((err) => {
-        this.$router.push({path: '/404'})
+    fetchLike () {
+      api.get(`posts/${this.$route.params.id}/status?access_key=${access_key}&roles=dev`).then(result => {
+        this.news.like_count = result.data.post.like_count
+        this.news.liked = result.data.post.liked
       })
     },
-    preview () {
-      api.get(`posts/${this.$route.params.id}/preview?key=${this.$route.query.key}`).then(result => {
-        if (result.data.message) {
-          this.$message.error(result.data.message);
-        } else {
-          this.news = result.data.post
-        }
-      }).catch((err) => {
-        this.$router.push({path: '/404'})
-      })
-    },
-
     toggleLike: function(id) {
       if (!this.$store.state.userInfo) {
         if (confirm('喜欢需要登录喔，点击确定去登录')) window.location.href = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`;
@@ -137,21 +120,30 @@ export default {
     if (!this.$device.isMobile()) {
       mediumZoom(document.querySelectorAll("#article-body img"))
     } else if (this.$device.isWechat()) {
-      wx.ready(function() {
-        wx.onMenuShareTimeline({ // 分享朋友圈
-          title: _this.news.title, // 分享标题
-          link: window.location.href, // 分享链接
-          imgUrl: _this.news.cover_url, // 分享图标
-        });
-        wx.onMenuShareAppMessage({ // 分享给好友
-          title: _this.news.title, // 分享标题
-          desc: _this.news.abstract, // 分享描述
-          link: window.location.href, // 分享链接
-          imgUrl: _this.news.cover_url, // 分享图标
-        });
-      })
 
-      setTimeout(()=>{
+      api.get(`wechat/js_config?request_url=${encodeURIComponent(window.location.href)}`).then(function(res) {
+        wx.config({
+          debug: false,
+          appId: res.data.appId,
+          timestamp: res.data.timestamp,
+          nonceStr: res.data.nonceStr,
+          signature: res.data.signature,
+          jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+        });
+        wx.ready(function() {
+          wx.onMenuShareTimeline({ // 分享朋友圈
+            title: _this.news.title, // 分享标题
+            link: window.location.href, // 分享链接
+            imgUrl: _this.news.cover_url, // 分享图标
+          });
+          wx.onMenuShareAppMessage({ // 分享给好友
+            title: _this.news.title, // 分享标题
+            desc: _this.news.abstract, // 分享描述
+            link: window.location.href, // 分享链接
+            imgUrl: _this.news.cover_url, // 分享图标
+          });
+        })
+
         const imgs = [];
         $('#article-body img').each(function () {
           imgs.push($(this).attr('src'));
@@ -166,7 +158,9 @@ export default {
             urls: imgs,
           });
         });
-      }, 100)
+      }).catch((err) => {
+        this.$message.error(err.toString())
+      });
     }
 
     if (this.news.post_type === 'video') {
@@ -180,6 +174,9 @@ export default {
   },
   beforeMount () {
     access_key = this.$store.state.access_key || localStorage.getItem('access_key')
+    if (access_key) {
+      this.fetchLike()
+    }
   }
 }
 
@@ -396,51 +393,6 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
 .liked .like-icon
   background-size 40%
   animation heartPulse 0.25s $bezier both
-  [class^="heart-animation-"]
-    background: url("../assets/imgs/icons/heart.svg") no-repeat center
-    background-size: contain
-    display: block
-    position: absolute
-    top: 0
-    left: 20px
-    width: 16px
-    height: 14px
-    opacity: 0
-    &::before, &::after
-      content: ''
-      background: inherit
-      background-size: contain
-      width: inherit
-      height: inherit
-      display: inherit
-      position: relative
-      top: inherit
-      left: inherit
-      opacity: 0
-  .heart-animation-1
-    animation: heartFloatMain-1 1s $bezier both
-    &::before, &::after
-      width: 12px
-      height: 10px
-      visibility: hidden
-    &::before
-      opacity: .6
-      animation: heartFloatSub-1 1s 0.25s $bezier both
-    &::after
-      animation: heartFloatSub-2 1s 0.15s $bezier both
-      opacity: .75
-  .heart-animation-2
-    animation: heartFloatMain-2 1s 0.1s $bezier both
-    &::before, &::after
-      width: 10px
-      height: 8px
-      visibility: hidden
-    &::before
-      animation: heartFloatSub-3 1s 0.25s $bezier both
-      opacity: .25
-    &::after
-      animation: heartFloatSub-4 1s 0.15s $bezier both
-      opacity: .4
 
 // Animations
 @keyframes heartPulse
@@ -451,48 +403,4 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
 @keyframes heartUnlike
   50%
     transform: scale(0.75)
-@keyframes heartFloatMain-1
-  0%
-    opacity: 0
-    transform: translate(0) rotate(0)
-  50%
-    opacity: 1
-    transform: translate(0, -25px) rotate(-20deg)
-@keyframes heartFloatMain-2
-  0%
-    opacity: 0
-    transform: translate(0) rotate(0) scale(0)
-  50%
-    opacity: .9
-    transform: translate(-10px, -38px) rotate(25deg) scale(1)
-@keyframes heartFloatSub-1
-  0%
-    visibility: hidden
-    transform: translate(0) rotate(0)
-  50%
-    visibility: visible
-    transform: translate(13px, -13px) rotate(30deg)
-@keyframes heartFloatSub-2
-  0%
-    visibility: hidden
-    transform: translate(0) rotate(0)
-  50%
-    visibility: visible
-    transform: translate(18px, -10px) rotate(55deg)
-@keyframes heartFloatSub-3
-  0%
-    visibility: hidden
-    transform: translate(0) rotate(0)
-  50%
-    visibility: visible
-    transform: translate(-10px, -10px) rotate(-40deg)
-  100%
-    transform: translate(-50px, 0)
-@keyframes heartFloatSub-4
-  0%
-    visibility: hidden
-    transform: translate(0) rotate(0)
-  50%
-    visibility: visible
-    transform: translate(2px, -18px) rotate(-25deg)
 </style>
