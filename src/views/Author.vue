@@ -28,12 +28,12 @@ import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import api from 'store/api'
 
-let page = 1
 export default {
   components: { Item, Hotnews },
   data () {
     return {
       loading: false,
+      page: 0,
       meta: {},
       posts: [],
       users: null,
@@ -48,8 +48,8 @@ export default {
   methods: {
     fetch () {
       this.loading = true;
-      page += 1;
-      api.get(`posts/author/${this.$route.params.id}?page=${page}`).then((result) => {
+      this.page += 1;
+      api.get(`posts/author/${this.$route.params.id}?page=${this.page}`).then((result) => {
         this.meta = result.data.meta
         this.posts = this.posts.concat(result.data.posts)
         if (result.data.meta.total_pages <= this.page) this.nomore = true
