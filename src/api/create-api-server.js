@@ -28,7 +28,7 @@ export function createAPI ({ config, version }) {
             Axios.get(url).then(res => {
               client.set(url, JSON.stringify(res.data), 'EX', 120)
               resolve(res.data)
-            })
+            }).catch(reject)
           })
         })
       },

@@ -1,9 +1,22 @@
 const baseMetaInfo = {
   "title": "极客公园-只为商业新变量",
-  "description": "极客公园，为你带来互联网热门趋势、热点产品的深度分析，发掘产品和趋势的价值。",
-  "keywords": "极客公园, geekpark, 极客, 极客观察, 极客活动, geek, geeker, 创业, 科技新闻, 移动互联网, 互联网创业, vr, 极客加速, app, 孵化器",
+  "description": "极客公园聚焦互联网领域，跟踪最新的科技动态，关注极具创新精神的科技产品。",
+  "keywords": "科技，科技媒体, 科技博客, 科技报道,windows phone, android, apple, iPhone, 移动互联网, 社交媒体, 智能手机, 极客公园，奇点大会，创新大会",
   "image": "https://ocpk3ohd2.qnssl.com/assets/v2/icons/geekpark-icon-196-03ac430f5643fc17aba3b3f5429a287d.png",
   "pubDate": new Date()
+}
+
+function formatDate(time) {
+  const date = new Date(time)
+  const o = {
+    "Y": date.getFullYear(),
+    "M": date.getMonth() + 1,               //月份
+    "D": date.getDate(),                    //日
+    "h": date.getHours(),                   //小时
+    "m": date.getMinutes(),                 //分
+    "s": date.getSeconds(),                 //秒
+  }
+  return `${o.Y}-${o.M}-${o.D}T${o.h}:${o.m}:${o.s}`
 }
 
 function getMeta (vm) {
@@ -11,8 +24,9 @@ function getMeta (vm) {
   let metaInfo = baseMetaInfo
   if (meta) {
     if (typeof meta === 'function') {
-      Object.assign(metaInfo, meta.call(vm));
-      metaInfo.title += ' | 极客公园'
+      metaInfo = Object.assign({}, baseMetaInfo, meta.call(vm));
+      metaInfo.pubDate = formatDate(metaInfo.pubDate)
+      metaInfo.title += metaInfo.title === baseMetaInfo.title ? '' : ' | 极客公园'
     }
     return metaInfo
   }

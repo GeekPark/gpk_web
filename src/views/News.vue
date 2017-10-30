@@ -77,7 +77,7 @@ export default {
       title: this.news.title,
       description: this.news.abstract,
       keywords: this.news.tags.join(),
-      pubDate: this.news.published_timestamp,
+      pubDate: this.news.published_at,
       image: this.news.cover_url
     }
   },
