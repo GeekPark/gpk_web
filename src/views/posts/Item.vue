@@ -104,6 +104,8 @@ export default {
     color rgba(0,0,0,.5)
     a
       color rgba(0,0,0,.5)
+    .article-author
+      margin-right .5em
     .icon-like
       margin-left 20px
     .source-right
