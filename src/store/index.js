@@ -18,6 +18,7 @@ export function createStore () {
       homepage: {
         homepage_posts: []
       },
+      ads: [],
       column: {
         column: {
           posts: []
