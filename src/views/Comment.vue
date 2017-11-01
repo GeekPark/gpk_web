@@ -111,7 +111,7 @@ export default {
         this.message = ''
       }).catch((err) => {
         if (err.response.data.error == 'banned') {
-          this.$message.error('您被禁言了，请联系管理员。')
+          this.$message.error('因为不当内容，你已被禁言')
         } else {
           this.$message.error(err.toString())
         }
@@ -171,7 +171,7 @@ export default {
         this.replyid = null
       }).catch((err) => {
         if (err.response.data.error == 'banned') {
-          this.$message.error('您被禁言了，请联系管理员。')
+          this.$message.error('因为不当内容，你已被禁言')
         } else {
           this.$message.error(err.toString())
         }

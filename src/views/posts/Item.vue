@@ -157,6 +157,8 @@ export default {
     display inline-block
     width 63%
     overflow hidden
+    .multiline-text-overflow
+      max-height 3em
   &.tushang
     .img-cover
       padding-bottom 100%
@@ -183,22 +185,6 @@ export default {
       text-align center
       color #fff
       font-size 26px
-  .zaozhidao ~ .hidden-notxs
-    a
-      float right
-  .article-zaozhidao
-    border-color #000 rgba(0,0,0,.3)
-    border-style solid
-    border-width 6px 1px
-    padding 25px 35px
-    margin-bottom 15px
-    h2
-      font-size 32px
-    ul
-      list-style-type square
-      padding-left 1.5em
-      line-height 2
-      font-size 18px
   .category-tag
     display inline-block
     padding 0 9px
@@ -219,9 +205,6 @@ export default {
           color inherit
     p
       display none
-    .article-zaozhidao
-      h2
-        font-size 22px
     h3
       font-size 16px
       line-height 1.4
