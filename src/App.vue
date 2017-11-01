@@ -47,6 +47,7 @@ html, body
   font-size 14px
   font-family Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Source Han Sans CN",Roboto,"Microsoft Yahei",sans-serif
   -webkit-font-smoothing antialiased
+  background #fff
 div, a, img
   -webkit-tap-highlight-color transparent
   -webkit-touch-callout none
