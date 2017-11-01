@@ -77,8 +77,8 @@ export default {
   computed: {
     homepage () {
       this.homepage_posts = this.$store.state.homepage.homepage_posts
-      if (this.ads.post_left) this.$store.state.homepage.slider.posts[3] = this.ads.post_left[0].ad
-      if (this.ads.post_right) this.$store.state.homepage.slider.posts[4] = this.ads.post_right[0].ad
+      if (this.$store.state.ads.post_left) this.$store.state.homepage.slider.posts[3] = this.$store.state.ads.post_left[0].ad
+      if (this.$store.state.ads.post_right) this.$store.state.homepage.slider.posts[4] = this.$store.state.ads.post_right[0].ad
       return this.$store.state.homepage
     }
   },
@@ -108,7 +108,7 @@ export default {
     },
   },
   mounted () {
-    this.getAds()
+    // this.getAds()
     // if (this.$device.isMobile()) {
     //   this.isMobile = true
     //   new Swiper('#breakding-news-slider', {

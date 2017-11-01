@@ -36,6 +36,10 @@ export function fetchAccessKey () {
   })
 }
 
+export function fetchAd() {
+  return fetch(`ads`)
+}
+
 export function fetchHome (page) {
   return fetch(`?page=${page}`)
 }

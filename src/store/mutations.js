@@ -9,6 +9,10 @@ export default {
     state.homepage = data
   },
 
+  SET_AD: (state, { data }) => {
+    state.ads = data
+  },
+
   SET_NEWS: (state, { data }) => {
     state.news = data
   },

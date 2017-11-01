@@ -1,5 +1,6 @@
 import {
   fetchAccessKey,
+  fetchAd,
   fetchHome,
   fetchNews,
   fetchPreview,
@@ -16,9 +17,15 @@ export default {
       .then(data => commit('SET_ACCESSKEY', { data }))
   },
 
-  FETCH_HOME: ({ commit, state }, { page }) => {
+  FETCH_AD: ({ commit, state }) => {
+    return fetchAd()
+      .then(data => commit('SET_AD', { data }))
+  },
+
+  FETCH_HOME: ({ commit, dispatch, state }, { page }) => {
     return fetchHome(page)
       .then(data => commit('SET_HOME', { data }))
+      .then(() => dispatch('FETCH_AD'))
   },
 
   FETCH_NEWS: ({ commit, state }, { id }) => {
@@ -31,7 +38,7 @@ export default {
     return fetchPreview(id, key)
       .then(data => {
         if (data.message) {
-          return Promise.reject({ code: 404 })
+          return Promise.reject({ url: `/news/${id}` })
         } else {
           commit('SET_PREVIEW', { data })
         }
