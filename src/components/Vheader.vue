@@ -14,9 +14,9 @@
         i.iconfont.icon-search(v-if="!showsearch" key="search-icon")
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")
-        #js-message.message.dib(@click="dropmessage")
+        #js-message.message.dib(@click="messageMenu = !messageMenu" ref='userMessage')
           i.iconfont.icon-notice
-          .subpanel.msg-content.js-msg-content
+          .subpanel.msg-content.js-msg-content(:class="{ expand: messageMenu }")
             .no-message(v-if="message.length < 1" key="message-null") 您还没有消息呢，快去留言互动吧！
             template(v-else)
               .msg-header
@@ -28,9 +28,9 @@
                     | {{mg.content}}
                 a.btn.load-more.js-load-more.hidden(href="javascript:;") 加载更多
                 span.hidden 没有更多消息了..
-        .username.dib#user-avatar(@click="dropmenu")
+        .username.dib#user-avatar(@click="userMenu = !userMenu" ref='userActions')
           img(:src="userInfo.avatar_url")
-          ul#user_actions.subpanel.usermenu
+          ul#user_actions.subpanel.usermenu(:class="{ expand: userMenu }")
             li
               a(href="/liked")
                 | 我的喜欢
@@ -77,34 +77,11 @@ export default {
       showsearch: false,
       activeIndex: "1",
       message: [],
+      userMenu: false,
+      messageMenu: false
     }
   },
   methods: {
-    dropmenu() {
-      const $dom = $('#user-avatar')
-      $dom.toggleClass('expand')
-      // $('body').css('cursor', 'pointer')
-      const cancle = clickAtOutside(
-        $dom.get(0),
-        () => {
-          $dom.removeClass('expand')
-          cancle()
-        }
-      )
-    },
-    dropmessage() {
-      const $dom = $('#js-message')
-      $dom.toggleClass('expand')
-      // $('body').css('cursor', 'pointer')
-      const cancle = clickAtOutside(
-        $dom.get(0),
-        () => {
-          $dom.removeClass('expand')
-          cancle()
-        }
-      )
-    },
-
     cleanUser() {
       localStorage.removeItem('userInfo')
       localStorage.removeItem('access_key')
@@ -159,6 +136,17 @@ export default {
     }
   },
   mounted () {
+    let _this = this
+    document.addEventListener('click', function(e) {
+      if (e && e.target) {
+        if (!_this.$refs.userActions.contains(e.target)) {
+          _this.userMenu = false
+        }
+        if (!_this.$refs.userMessage.contains(e.target)) {
+          _this.messageMenu = false
+        }
+      }
+    })
     api.account.get('/my/access_key?roles=dev').then((result) => {
       if (result.status === 200 && result.data.access_key) {
         // console.log(result.data)
@@ -376,8 +364,7 @@ triangleDown($color = #fff)
         text-align center
         &:last-child
           border none
-    &.expand
-      .subpanel
+      &.expand
         opacity 1
         visibility visible
         transform translateY(0)
@@ -399,13 +386,12 @@ triangleDown($color = #fff)
     cursor pointer
     i
       font-size 1.2em
-    &.expand
-      .subpanel
-        opacity 1
-        visibility visible
-        transform translateY(0)
-        transition all 0.3s ease
-        text-align left
+    .subpanel.expand
+      opacity 1
+      visibility visible
+      transform translateY(0)
+      transition all 0.3s ease
+      text-align left
     .icon-notice
       position relative
       font-size 20px

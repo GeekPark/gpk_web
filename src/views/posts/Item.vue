@@ -157,8 +157,9 @@ export default {
     display inline-block
     width 63%
     overflow hidden
-    .multiline-text-overflow
-      max-height 3em
+    p.multiline-text-overflow
+      max-height 4.5em
+      -webkit-line-clamp 3
   &.tushang
     .img-cover
       padding-bottom 100%
