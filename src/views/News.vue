@@ -12,7 +12,7 @@
             .article-time {{news.reading_time}}min read
           h1.topic-title {{news.title}}
           .user-info
-            a.author(v-for="author in news.authors", :href="`/users/${author.id}`")
+            a.author(v-for="author in news.authors.slice(0, 2)", :href="`/users/${author.id}`")
               img(:src="author.avatar_url")
               span {{author.nickname}}
             span.release-date {{news.published_timestamp | formatDate}}

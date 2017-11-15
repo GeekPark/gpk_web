@@ -3,7 +3,7 @@
   h3 专题精选
   article.news-item
     a.topic-card(v-for="topic, index in data.topics", :key="topic.id", :href="`/topic/${topic.id}`", :target="$store.state.target")
-      img(v-lazy="topic.app_banner_url" w=233 h=150)
+      img(v-lazy="topic.app_banner_url" w=241 h=150)
       .mask
         h4.multiline-text-overflow {{topic.title}}
         p {{topic.post_count}}篇文章
@@ -42,7 +42,7 @@ export default {
 <style lang="stylus" scoped>
 .topics
   border 1px solid #E4E4E4
-  padding 20px
+  padding 16px
   margin-bottom 50px
   h3
     font-size 22px

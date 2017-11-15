@@ -278,6 +278,7 @@ export default {
       border-radius 50%
       width 40px
       height 40px
+      border 1px solid #efefef
   .like-box
     float right
     margin-top -30px

@@ -45,7 +45,7 @@
                 | 退出登录
       a.signin(v-else, @click="login") 登录
 
-  header.m-header(class="hidden-notxs")
+  header.m-header.hidden-notxs(:class="{'hide-header': hideHeader}")
     a.m-button.sidebar-button.open#open(:class="showmenu ? 'opened' : ''", @click="showmenu = !showmenu")
       i.iconfont.icon-menu(v-if="!showmenu")
       i.iconfont.icon-close(v-else)
@@ -77,6 +77,7 @@ export default {
       showsearch: false,
       activeIndex: "1",
       message: [],
+      hideHeader: false,
       userMenu: false,
       messageMenu: false
     }
@@ -147,6 +148,14 @@ export default {
         }
       }
     })
+    if (this.$device.isMobile()) {
+      let beforeT = 0, afterT = 0
+      window.addEventListener('scroll', () => {
+        afterT = document.body.scrollTop || document.documentElement.scrollTop
+        this.hideHeader = beforeT < afterT
+        beforeT = afterT
+      })
+    }
     api.account.get('/my/access_key?roles=dev').then((result) => {
       if (result.status === 200 && result.data.access_key) {
         // console.log(result.data)
@@ -515,6 +524,11 @@ triangleDown($color = #fff)
   text-align center
   font-size 18px
   background #fff
+  transition all .3s
+  &.hide-header
+    transform-origin top
+    transform scale(0, 0)
+    opacity 0
   .logo-img
     height 25px
     display inline-block
