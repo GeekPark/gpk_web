@@ -18,18 +18,21 @@ export function createAPI ({ config, version }) {
         //   return res.json()
         // })
         return new Promise((resolve, reject) => {
-          client.get(url, function (err, reply) {
-            // reply is null when the key is missing
-            if (reply !== null) {
-              // console.log('load cache')
-              resolve(JSON.parse(reply))
-              return
-            }
-            Axios.get(url).then(res => {
-              client.set(url, JSON.stringify(res.data), 'EX', 120)
-              resolve(res.data)
-            }).catch(reject)
-          })
+          Axios.get(url).then(res => {
+            resolve(res.data)
+          }).catch(reject)
+          // client.get(url, function (err, reply) {
+          //   // reply is null when the key is missing
+          //   if (reply !== null) {
+          //     // console.log('load cache')
+          //     resolve(JSON.parse(reply))
+          //     return
+          //   }
+          //   Axios.get(url).then(res => {
+          //     client.set(url, JSON.stringify(res.data), 'EX', 120)
+          //     resolve(res.data)
+          //   }).catch(reject)
+          // })
         })
       },
       '$post': function (url, data) {
