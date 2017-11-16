@@ -1,7 +1,7 @@
 <template lang="pug">
 #column
   subnav
-  .header-banner
+  .header-banner(:style="{'backgroundImage': column.banner_url ? `url(${column.banner_url})` : ''}")
     h3 {{column.title}}
     .desc {{column.description}}
   .main-content

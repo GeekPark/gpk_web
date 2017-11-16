@@ -13,7 +13,7 @@
               h3.multiline-text-overflow
                 span {{item.title}}
               p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
-  el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="never" indicator-position="none")
+  el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="always" indicator-position="none")
     el-carousel-item(v-for="item, index in homepage.slider.posts" :key="item.id")
       a.link(:href="`/news/${item.id}`")
         .img-cover
