@@ -8,13 +8,15 @@ import metaMixin from './util/meta'
 import * as filters from './util/filters'
 import Device from './util/device.js'
 
-import {Button, Dialog} from 'element-ui'
+import {Button, Dialog, Carousel, CarouselItem} from 'element-ui'
 import Vheader from 'components/Vheader.vue'
 import Vfooter from 'components/Vfooter.vue'
 import Feedback from 'components/Feedback.vue'
 
 Vue.component(Button.name, Button)
 Vue.component(Dialog.name, Dialog)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 Vue.component(Vheader.name, Vheader)
 Vue.component(Vfooter.name, Vfooter)
 Vue.component(Feedback.name, Feedback)

@@ -152,7 +152,7 @@ export default {
       let beforeT = 0, afterT = 0
       window.addEventListener('scroll', () => {
         afterT = document.body.scrollTop || document.documentElement.scrollTop
-        this.hideHeader = beforeT < afterT
+        this.hideHeader = afterT > 80 && beforeT < afterT
         beforeT = afterT
       })
     }
@@ -527,8 +527,8 @@ triangleDown($color = #fff)
   transition all .3s
   &.hide-header
     transform-origin top
-    transform scale(0, 0)
     opacity 0
+    transform translateY(-100%)
   .logo-img
     height 25px
     display inline-block

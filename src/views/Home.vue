@@ -13,15 +13,14 @@
               h3.multiline-text-overflow
                 span {{item.title}}
               p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
-  .swiper-container#breakding-news-slider.breakding-news-slider(v-else)
-    .swiper-wrapper
-      .news-item.swiper-slide(v-for='item, index in homepage.slider.posts', :key='item.id')
-        a.link(:href="`/news/${item.id}`")
-          .img-cover
-            img(:srcset="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/q/88/interlace/1/`")
-          .info-cover
-            h3.multiline-text-overflow
-              span {{item.title}}
+  el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="never" indicator-position="none")
+    el-carousel-item(v-for="item, index in homepage.slider.posts" :key="item.id")
+      a.link(:href="`/news/${item.id}`")
+        .img-cover
+          img(:srcset="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/q/88/interlace/1/`")
+        .info-cover
+          h3.multiline-text-overflow
+            span {{item.title}}
   .main-content
     .container
       .article-list
@@ -109,13 +108,13 @@ export default {
   },
   mounted () {
     // this.getAds()
-    // if (this.$device.isMobile()) {
-    //   this.isMobile = true
-    //   new Swiper('#breakding-news-slider', {
-    //     autoplay: 5000,
-    //     loop: true
-    //   })
-    // }
+    if (this.$device.isMobile()) {
+      this.isMobile = true
+      // new Swiper('#breakding-news-slider', {
+      //   autoplay: 5000,
+      //   loop: true
+      // })
+    }
 
     window.addEventListener('scroll', () => {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop

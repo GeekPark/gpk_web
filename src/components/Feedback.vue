@@ -165,10 +165,12 @@ export default {
   position fixed
   top 60%
   z-index 50
-  // display none
+  display none
   opacity 0
+  transition all .3s
   &.show
     opacity 1
+    display block
   .tools-item
     margin 12px 0
     color #5B5B5B
