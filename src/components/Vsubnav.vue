@@ -7,14 +7,16 @@
       span(data-hover="产品观察") 产品观察
     a(href="/column/250")
       span(data-hover="极客出行") 极客出行
+    a(href="/column/177")
+      span(data-hover="深度报道") 深度报道
     a(href="/column/170")
       span(data-hover="挖App") 挖App
     a(href="/column/251")
       span(data-hover="图赏") 图赏
     a(href="/column/91")
       span(data-hover="极客指南") 极客指南
-    a(href="/column/217")
-      span(data-hover="极客制造") 极客制造
+    //- a(href="/column/217")
+    //-   span(data-hover="极客制造") 极客制造
 </template>
 
 <script>
