@@ -8,7 +8,7 @@ import metaMixin from './util/meta'
 import * as filters from './util/filters'
 import Device from './util/device.js'
 
-import {Button, Dialog, Carousel, CarouselItem} from 'element-ui'
+import {Button, Dialog, Message, Carousel, CarouselItem} from 'element-ui'
 import Vheader from 'components/Vheader.vue'
 import Vfooter from 'components/Vfooter.vue'
 import Feedback from 'components/Feedback.vue'
@@ -20,6 +20,7 @@ Vue.use(CarouselItem)
 Vue.component(Vheader.name, Vheader)
 Vue.component(Vfooter.name, Vfooter)
 Vue.component(Feedback.name, Feedback)
+Vue.prototype.$message = Message
 
 Vue.use(VueLazyload, {
   preLoad: 1.33333,
