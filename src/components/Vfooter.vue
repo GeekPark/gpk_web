@@ -39,13 +39,13 @@ footer.page-footer#footer(v-once)
         h4 云服务支持
         ul.list
           li
-            a(href="http://www.qiniu.com/" target="_blank")
+            a(href="http://www.qiniu.com/" target="_blank" rel="nofollow")
               img(height="30" src='http://imgslim.geekpark.net/image/newgeekpark/qiniu.png')
           li
-            a(href="https://www.qingcloud.com/" target="_blank")
+            a(href="https://www.qingcloud.com/" target="_blank" rel="nofollow")
               img(height="25" src='http://imgslim.geekpark.net/image/newgeekpark/qingyun.png')
           li
-            a(href="http://www.bokecc.com/" target="_blank")
+            a(href="http://www.bokecc.com/" target="_blank" rel="nofollow")
               img(height="25" src='http://imgslim.geekpark.net/image/newgeekpark/cc.png')
 
       section.down
@@ -57,9 +57,9 @@ footer.page-footer#footer(v-once)
   .footer-copyright
     .container
       .info-icp
-        a(href="http://www.miitbeian.gov.cn/" target="_blank") 京ICP备13016923号-2
+        a(href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow") 京ICP备13016923号-2
         | &nbsp;&nbsp;|&nbsp;&nbsp;
-        a(href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502034250" target="_blank") 京公网安备11010502034250号
+        a(href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502034250" target="_blank" rel="nofollow") 京公网安备11010502034250号
       .info-copyright
         | 北京传奇极客管理咨询有限公司 &nbsp; Copyright ©&nbsp;
         span.hidden-sm 2009 - {{year}}

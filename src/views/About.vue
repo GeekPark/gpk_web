@@ -197,8 +197,6 @@
             li
               a.btn.inverse(target="_blank" title="网易科技-有态度的科技门户" href="http://tech.163.com/") 网易科技
             li
-              a.btn.inverse(target="_blank" title="小众软件，分享免费、小巧、实用、有趣、绿色的软件。" href="http://www.appinn.com/") 小众软件
-            li
               a.btn.inverse(target="_blank" title="界面新闻-只服务于独立思考的人群" href="http://www.jiemian.com/") 界面
             li
               a.btn.inverse(target="_blank" title="全球酷玩试用导购平台" href="http://www.jiguo.com/") 极果
@@ -207,23 +205,15 @@
             li
               a.btn.inverse(target="_blank" title="凤凰科技 让科技更性感" href="http://tech.ifeng.com/") 凤凰科技
             li
-              a.btn.inverse(target="_blank" title="和讯科技" href="http://tech.hexun.com/") 和讯科技
-            li
               a.btn.inverse(target="_blank" title="i 黑马 创业者都在这儿" href="http://www.iheima.com/") i黑马
             li
               a.btn.inverse(target="_blank" title="PingWest品玩" href="http://www.pingwest.com/") PingWest
-            li
-              a.btn.inverse(target="_blank" title="雷锋网 读懂智能&未来" href="http://www.leiphone.com/") 雷锋网
             li
               a.btn.inverse(target="_blank" title="虎嗅网是一个用户可参与的商业资讯与观点交流平台。这个资 讯及观点平台的核心，是关注互联网与移动互联网一系列明星 公司（包括公众公司与创业型企业）的起落轨迹、产业潮汐的 动力与趋势，以及互联网与移动互联网如何改造传统产业。" href="http://www.huxiu.com/") 虎嗅
             li
               a.btn.inverse(target="_blank" title="新浪VR是专注于VR行业国内外资讯的门户媒体，每天会定时推送VR资讯，VR游戏评测，设备评测，开发者资讯等独家内容。" href="http://vr.sina.com.cn/") 新浪VR
             li
-              a.btn.inverse(target="_blank" title="探秘全球科技精华" href="http://www.svinsight.com/") 硅谷密探
-            li
               a.btn.inverse(target="_blank" title="人民创投" href="http://capital.people.cn/") 人民创投
-            li
-              a.btn.inverse(target="_blank" title="蜻蜓fm在线收听_最好的网络收音机|广播电台在线收听平台" href="http://www.qingting.fm/") 蜻蜓FM
             li
               a.btn.inverse(target="_blank" title="最有看点的互联网金融门户" href="http://www.weiyangx.com/") 未央网
             li
