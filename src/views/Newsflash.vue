@@ -11,7 +11,7 @@
           a.share-btn.wechat.relative(href="javascript:;" data-type="wechat")
             i.iconfont.icon-wechat
             img.wx-qrcode(:src="post.id | qr")
-          a.share-btn.weibo(href="javascript:;" @click="shared(post)" title="新浪微博" data-type="weibo")
+          a.share-btn.weibo(:href="post | weiboShare" title="新浪微博" data-type="weibo" target="_blank")
             i.iconfont.icon-weibo
       .tac(v-if="!nomore")
         a.load-more(@click="fetch", :class="{'loading-in': loading}")
@@ -45,6 +45,12 @@ export default {
   filters: {
     qr (id) {
       return new QRious({ value: document.location.href+'/'+id }).toDataURL()
+    },
+    weiboShare (post) {
+      let url = encodeURIComponent(`${document.location}/${post.id}`),
+          text = encodeURIComponent(post.summary),
+          appkey = '3896321144';
+      return `https://service.weibo.com/share/share.php?url=${url}&appkey=${appkey}&title=${text}&searchPic=false&ralateUid=1735559201`;
     }
   },
   methods: {
@@ -58,9 +64,6 @@ export default {
       }).catch((err) => {
         this.$message.error(err.toString())
       })
-    },
-    shared (post) {
-      share.run(post)
     }
   },
 
@@ -68,33 +71,6 @@ export default {
     this.fetch()
   }
 }
-
-var share = {
-  setting: {
-    width: 700,
-    height: 400
-  },
-  getCoords: (type) => {
-    if (type === 'top') return (window.innerHeight - share.setting.height) / 2;
-    if (type === 'left') return (window.innerWidth - share.setting.width) / 2;
-  },
-  openWindow(url) {
-    window.open(
-      url,
-      '',
-      `width=${this.setting.width}, height=${this.setting.height}, top=${this.getCoords('top')}, left=${this.getCoords('left')}, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no`
-    );
-  },
-  run(post) {
-    let url = encodeURIComponent(`${document.location}/${post.id}`),
-        text = encodeURIComponent(post.title),
-        des = encodeURIComponent(post.summary),
-        thumb = '',
-        appkey = '3896321144';
-    let jump = `http://service.weibo.com/share/share.php?url=${url}&appkey=${appkey}&title=${text}&pic=${thumb}&ralateUid=1735559201`;
-    share.openWindow(jump);
-  }
-};
 </script>
 
 <style lang="stylus" scoped>
