@@ -1,7 +1,7 @@
 <template lang="pug">
 .hot-news
   h3 七日热门
-  article.news-item(v-for='post, index in posts', :key='post.id')
+  article.news-item(v-for='post, index in posts' :key='post.id' data-track-category="hot-news" data-track-item="a")
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .news-cover
         span {{index + 1}}

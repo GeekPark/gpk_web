@@ -3,14 +3,14 @@
   header.header(class="hidden-xs")
     .container.relative
       .logo
-        a.active(href="/")
+        a.active(href="/" data-track-category="site.logo")
           img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
         //- = render 'shared/v2/doodle'
-      nav.nav
+      nav.nav(data-track-category="nav.global" data-track-item="a")
         a.active(href="/") 资讯
         a(href="//events.geekpark.net" target="_blank") 活动
         a(href="http://f.geekpark.net" target="_blank") 前沿社
-      a#search-btn.search-btn(href="javascript:;", :class="showsearch ? 'is-open' : ''", @click="showsearch = !showsearch")
+      a#search-btn.search-btn(href="javascript:;" :class="showsearch ? 'is-open' : ''" @click="showsearch = !showsearch" data-action="search" data-track-category="site.search")
         i.iconfont.icon-search(v-if="!showsearch" key="search-icon")
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")

@@ -11,17 +11,17 @@ footer.page-footer#footer(v-once)
           | 公司地址：北京市朝阳区酒仙桥路4号751 D·Park
           br
           | 　　　　　正东集团院内 C8座105室 极客公园
-        div
+        div(data-track-category="follow" data-track-item="a.share-btn")
           span(style="color: #DCD900") 关注我们：
-          a.share-btn.weibo(href="//weibo.com/geekpark" target="_blank")
+          a.share-btn.weibo(href="//weibo.com/geekpark" target="_blank" data-track-label="weibo")
             .iconfont.icon-weibo
-          a.share-btn.twitter(href="//twitter.com/geekparknet" target="_blank")
+          a.share-btn.twitter(href="//twitter.com/geekparknet" target="_blank" data-track-label="twitter")
             .iconfont.icon-twitter
-          a.share-btn.wechat.relative(href="javascript:;")
+          a.share-btn.wechat.relative(href="javascript:;" data-track-label="wechat")
             .iconfont.icon-wechat
             .wechat-qr.triangle-down
               img(src='http://imgslim.geekpark.net/image/newgeekpark/qr_geekpark.jpg' alt="极客公园微信公众平台" width="120" height="120")
-          a.share-btn.rss(href="http://feed.geekpark.net" target="_blank")
+          a.share-btn.rss(href="http://feed.geekpark.net" target="_blank" data-track-label="rss")
             .iconfont.icon-rss
 
       section.about

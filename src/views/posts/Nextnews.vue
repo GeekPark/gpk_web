@@ -1,8 +1,8 @@
 <template lang="pug">
 .next-news(v-if="post")
   h4 →下一篇
-  article.news-item
-    a(:href="`/news/${post.id}`")
+  article.news-item(data-track-category="article.paging" data-track-item="a")
+    a(:href="`/news/${post.id}`" data-track-action="next")
       .news-cover
         img(v-lazy="post.cover_url" w=245 h=150)
       p.multiline-text-overflow {{post.title}}

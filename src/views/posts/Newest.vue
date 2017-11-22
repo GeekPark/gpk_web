@@ -3,7 +3,7 @@
   h4
     i.iconfont.icon-double-slash
     | 最新文章
-  .news-list
+  .news-list(data-track-category="more-news" data-track-item=".news-item")
     article.news-item(v-for='post, index in posts', :key='post.id')
       .img-cover-wrap
         a(:href="`/news/${post.id}`", :target="$store.state.target")

@@ -1,47 +1,47 @@
 <template lang="pug">
 article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, 'video': post.post_type=='video'}")
   template(v-if="(columnId || post.column.id) === 251")
-    a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
+    a.img-cover-wrap(:href="`/news/${post.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
       .img-cover
         img(v-lazy="post.cover_url" w=285 h=214)
-    a(:href="`/news/${post.id}`", :target="$store.state.target")
+    a(:href="`/news/${post.id}`", :target="$store.state.target" data-event-action="view" data-event-category="home.article-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
       .ts-item(v-for="(img, index) in post.img_list.slice(0, 2)")
         .img-cover
           img(v-lazy="img" w=255 h=129)
         .img-count(v-if="index == 1") {{post.img_list.length}}张图片
 
     .article-info
-      a.category-tag(:href="`/column/${columnId || post.column.id}`", :target="$store.state.target") {{columnTitle || post.column.title}}
+      a.category-tag(:href="`/column/${columnId || post.column.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.category-link" :data-event-label="columnTitle || post.column.title") {{columnTitle || post.column.title}}
       .article-time {{post.published_timestamp | fromNow}}
-      a(v-bind:href="`/news/${post.id}`", :target="$store.state.target")
+      a(v-bind:href="`/news/${post.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.title" :data-event-label="`${post.title} /news/${post.id}`")
         h3.multiline-text-overflow {{post.title}}
 
   template(v-else)
-    a.img-cover-wrap(:href="`/news/${post.id}`", :target="$store.state.target")
+    a.img-cover-wrap(:href="`/news/${post.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
       .img-cover
         img(v-lazy="post.cover_url" w=285 h=214)
         .play(v-show="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}
     .article-info
-      a.category-tag(:href="`/column/${columnId || post.column.id}`", :target="$store.state.target") {{columnTitle || post.column.title}}
+      a.category-tag(:href="`/column/${columnId || post.column.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.category-link" :data-event-label="columnTitle || post.column.title") {{columnTitle || post.column.title}}
       .article-time {{post.published_timestamp | fromNow}}
-      a(v-bind:href="`/news/${post.id}`", :target="$store.state.target")
+      a(v-bind:href="`/news/${post.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.title" :data-event-label="`${post.title} /news/${post.id}`")
         h3.multiline-text-overflow {{post.title}}
       p.multiline-text-overflow {{post.abstract}}
 
   .article-meta.hidden-xs
-    a.article-author(v-for="author in post.authors", :href="`/users/${author.id}`", :target="$store.state.target") {{author.nickname}}
+    a.article-author(v-for="author in post.authors" :href="`/users/${author.id}`" :target="$store.state.target"  data-event-action="view" data-event-category="article-list.author" :data-event-label="author.nickname") {{author.nickname}}
     .source-right
       template(v-if="post.comments_count > 0")
-        a.btn-comment(:href="`/news/${post.id}#comment`", :target="$store.state.target")
+        a.btn-comment(:href="`/news/${post.id}#comment`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.comment" :data-event-label="`评论数：${post.comments_count} 文章：${post.title}`")
           i.iconfont.icon-comment
           span {{post.comments_count}}
       template(v-if="post.like_count > 0")
         i.iconfont.icon-like
         span {{post.like_count}}
   .article-meta.hidden-notxs
-    a(v-show="post.comments_count > 0", :href="`/news/${post.id}#comment`")
+    a(v-show="post.comments_count > 0" :href="`/news/${post.id}#comment`" data-event-action="view" data-event-category="article-list.comment" :data-event-label="`评论数：${post.comments_count} 文章：${post.title}`")
       | {{post.comments_count}}条评论
   .clearfix
 </template>

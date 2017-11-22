@@ -1,7 +1,7 @@
 <template lang="pug">
 .topics
   h3 专题精选
-  article.news-item
+  article.news-item(data-track-category="topics" data-track-item="a.topic-card")
     a.topic-card(v-for="topic, index in data.topics", :key="topic.id", :href="`/topic/${topic.id}`", :target="$store.state.target")
       img(v-lazy="topic.app_banner_url" w=241 h=150)
       .mask

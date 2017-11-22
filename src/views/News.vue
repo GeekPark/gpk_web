@@ -8,11 +8,11 @@
         #play-room(:class="{'video-player': news.post_type == 'video'}")
         header.post-header(:class="{'video': news.post_type == 'video'}")
           .label.article-info(v-if="news.post_type !== 'video' && news.column && !promotion[news.column.id]")
-            a.category-tag(:href="`/column/${news.column && news.column.id}`" target="_blank")  {{news.column && news.column.title}}
+            a.category-tag(:href="`/column/${news.column && news.column.id}`" target="_blank" data-track-category="article.category-link")  {{news.column && news.column.title}}
             .article-time {{news.reading_time}}min read
           h1.topic-title {{news.title}}
           .user-info
-            a.author(v-for="author in news.authors.slice(0, 2)", :href="`/users/${author.id}`")
+            a.author(v-for="author in news.authors.slice(0, 2)" :href="`/users/${author.id}`" data-track-category="article.author" :data-track-label="`${author.nickname} ${news.title}`")
               img(:src="author.avatar_url")
               span {{author.nickname}}
             span.release-date {{news.published_timestamp | formatDate}}
@@ -26,13 +26,13 @@
             p {{news.abstract}}
           .article-content(v-html="news.content")
         .article-source
-        section.tags
-          a.article-tag(v-for="tag in news.tags", :href="`/tags/${tag}`") {{tag}}
-        .share-wrap
+        section.tags(data-track-category="article.tag" data-track-item="a")
+          a.article-tag(v-for="tag in news.tags" :href="`/tags/${tag}`") {{tag}}
+        .share-wrap(data-track-category="article.share" data-track-item=".js-share-btn")
           share(:title="news.title")
       template(v-if="show")
         .like-wrap.hidden-xs
-          .like-button(@click="toggleLike(news.id)", :class="{liked: news.liked}")
+          .like-button(@click="toggleLike(news.id)" :class="{liked: news.liked}"  data-track-action="click" data-track-label="like")
             span.like-icon
           p(v-if="news.like_count > 0") {{news.like_count}}
         a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")

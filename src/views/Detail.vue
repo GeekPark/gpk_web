@@ -27,7 +27,7 @@ export default {
   },
   meta () {
     return {
-      title: "专题精选"
+      title: "极客快讯"
     }
   },
   methods: {
@@ -44,7 +44,6 @@ export default {
 
   beforeMount () {
     this.fetch()
-    document.title = '极客快讯 | 极客公园'
   }
 }
 
@@ -62,7 +61,7 @@ export default {
     font-weight bold
     margin-bottom .8em
   .summary
-    color rgba(0, 0, 0, .6)
+    color rgba(0, 0, 0, .5)
     margin .5em 0
     transition all .4s
   .meta

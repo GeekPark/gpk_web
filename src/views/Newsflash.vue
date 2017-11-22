@@ -39,7 +39,7 @@ export default {
   },
   meta () {
     return {
-      title: "专题精选"
+      title: "极客快讯"
     }
   },
   filters: {
@@ -66,7 +66,6 @@ export default {
 
   beforeMount () {
     this.fetch()
-    document.title = '极客快讯 | 极客公园'
   }
 }
 
@@ -110,7 +109,7 @@ var share = {
     font-weight bold
     margin-bottom .8em
   .summary
-    color rgba(0, 0, 0, .6)
+    color rgba(0, 0, 0, .5)
     margin .5em 0
     transition all .4s
   .meta
@@ -119,6 +118,7 @@ var share = {
     .link
       float right
       color #0185F2
+      line-height 35px
 .share-btn
   display inline-block
   width 35px

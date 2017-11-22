@@ -1,7 +1,7 @@
 <template lang="pug">
 .idle-news
   h3 行业资讯
-  article.news-item(v-for="post in posts.slice(0, 5)", :key="post.id")
+  article.news-item(v-for="post in posts.slice(0, 5)" :key="post.id" data-track-category="idle-news" data-track-item="a")
     a(:href="`/news/${post.id}`", :target="$store.state.target")
       .img-wrapper
         .img-cover

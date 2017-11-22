@@ -1,12 +1,12 @@
 <template lang="pug">
 .news-flash
   h3 极客快讯
-  ul
-    li.news-item(v-for="post in posts", :key="post.id", :class="{'active': post.display}")
+  ul(data-track-category="news-flash" data-track-item="li")
+    li.news-item(v-for="post in posts" :key="post.id" :class="{'active': post.display}")
       .title(@click='unwind(post)') {{post.title}}
       .summary {{post.summary}}
       .time {{post.published_at | fromNow}}
-  a.more(href="/newsflash", :target="$store.state.target") 加载更多
+  a.more(href="/newsflash", :target="$store.state.target") 查看更多
 </template>
 
 <script>
@@ -64,13 +64,13 @@ export default {
       font-size 14px
       cursor pointer
     .summary
-      color rgba(0, 0, 0, .6)
+      color rgba(0, 0, 0, .5)
       margin .5em 0
       max-height 0
       overflow hidden
       transition all .1s
     .time
-      color rgba(0, 0, 0, .3)
+      color rgba(0, 0, 0, .5)
     &.active
       .summary
         max-height 500px

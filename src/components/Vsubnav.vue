@@ -1,5 +1,5 @@
 <template lang="pug">
-.sub-nav(v-once)
+.sub-nav(v-once data-track-category="nav.category" data-track-item="a")
   .container
     a(href="/column/81")
       span(data-hover="极客之选") 极客之选

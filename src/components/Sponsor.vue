@@ -3,10 +3,10 @@
   .ads-container.swiper-container(:class="position")
     .swiper-wrapper
       .swiper-slide(v-for="item in ads")
-        a(@click="saveClick(item.ad.id)", :href="item.ad.link", target="_blank")
+        a(@click="saveClick(item.ad.id)" :href="item.ad.link" target="_blank" data-track-category="ad" :data-track-label="`${position} ${item.ad.title} ${item.ad.link}`")
           img(:src="item.ad.cover_url")
   i.icon-ad 广告
-  i.iconfont.icon-close(@click="closeAd", title="不再显示")
+  i.iconfont.icon-close(@click="closeAd" title="不再显示" data-track-category="ad.close" :data-track-label="`${position}`")
     span 不再显示
 </template>
 
