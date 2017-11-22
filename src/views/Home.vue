@@ -35,6 +35,7 @@
             .loading-article
             span 加载更多
       .article-sidebar
+        newsflash
         sponsor(position="medium_up", v-once)
         hotnews(v-once)
         idlenews(v-once)
@@ -46,6 +47,7 @@
 import Subnav from '../components/Vsubnav.vue'
 import Sponsor from '../components/Sponsor.vue'
 import Item from './posts/Item.vue'
+import Newsflash from './posts/Newsflash.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Idlenews from './posts/Idlenews.vue'
 import Topics from './posts/Topics.vue'
@@ -54,7 +56,7 @@ import api from 'store/api'
 
 let page = 1
 export default {
-  components: { Subnav, Sponsor, Item, Idlenews, Hotnews, Topics },
+  components: { Subnav, Sponsor, Item, Newsflash, Idlenews, Hotnews, Topics },
   data () {
     return {
       page: page,

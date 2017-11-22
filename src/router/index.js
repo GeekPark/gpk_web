@@ -4,6 +4,8 @@ import config          from '../config.js'
 
 import Home            from '../views/Home.vue'
 import News            from '../views/News.vue'
+import Newsflash       from '../views/Newsflash.vue'
+import Detail          from '../views/Detail.vue'
 import Column          from '../views/Column.vue'
 import Topics          from '../views/Topics.vue'
 import Tag             from '../views/Tag.vue'
@@ -34,9 +36,13 @@ export function createRouter () {
         name: 'column',
         component: Column
       },
-      { path: '/topic/:id',
-        name: 'topics',
-        component: Topics
+      { path: '/newsflash',
+        name: 'newsflash',
+        component: Newsflash
+      },
+      { path: '/newsflash/:id',
+        name: 'detail',
+        component: Detail
       },
       { path: '/tags/:tag',
         name: 'tags',

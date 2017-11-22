@@ -20,6 +20,7 @@ Vue.mixin({
 const { app, router, store } = createApp()
 
 if (window.__INITIAL_STATE__) {
+  window.__INITIAL_STATE__.route.hash = window.location.hash
   store.replaceState(window.__INITIAL_STATE__)
 }
 

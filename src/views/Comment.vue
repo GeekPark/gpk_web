@@ -207,7 +207,7 @@ export default {
       });
       setTimeout(function() {
         $target.css('background-color', '');
-      }, 3000);
+      }, 1000);
     },
   },
   beforeMount () {
