@@ -2,6 +2,7 @@ import {
   fetchAccessKey,
   fetchAd,
   fetchHome,
+  fetchBreakingNews,
   fetchNews,
   fetchPreview,
   fetchColumn,
@@ -26,6 +27,12 @@ export default {
     return fetchHome(page)
       .then(data => commit('SET_HOME', { data }))
       .then(() => dispatch('FETCH_AD'))
+  },
+
+  FETCH_BREAKINGNEWS: ({ commit, state }, { id }) => {
+    return fetchBreakingNews(id)
+      .then(data => commit('SET_BREAKINGNEWS', { data }))
+      .catch(err => Promise.reject({ code: 404 }))
   },
 
   FETCH_NEWS: ({ commit, state }, { id }) => {

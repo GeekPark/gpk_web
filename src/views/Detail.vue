@@ -20,9 +20,15 @@ export default {
   components: { Hotnews },
   data () {
     return {
-      loading: true,
-      nomore: false,
-      post: {}
+      loading: true
+    }
+  },
+  asyncData ({ store, route: { params: { id } } }) {
+    return store.dispatch('FETCH_BREAKINGNEWS', { id })
+  },
+  computed: {
+    post () {
+      return this.$store.state.breakingnews.new
     }
   },
   meta () {
@@ -43,7 +49,7 @@ export default {
   },
 
   beforeMount () {
-    this.fetch()
+    // this.fetch()
   }
 }
 

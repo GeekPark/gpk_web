@@ -44,6 +44,10 @@ export function fetchHome (page) {
   return fetch(`?page=${page}`)
 }
 
+export function fetchBreakingNews (id) {
+  return fetch(`news/${id}`)
+}
+
 export function fetchNews (id, access_key) {
   return fetch(`posts/${id}?access_key=${access_key}`)
 }

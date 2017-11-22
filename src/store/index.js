@@ -26,7 +26,8 @@ export function createStore () {
       },
       news: {
         post: []
-      }
+      },
+      post: {}
     },
     mutations,
     actions

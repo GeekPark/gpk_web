@@ -13,6 +13,10 @@ export default {
     state.ads = data
   },
 
+  SET_BREAKINGNEWS: (state, { data }) => {
+    state.breakingnews = data
+  },
+
   SET_NEWS: (state, { data }) => {
     state.news = data
   },

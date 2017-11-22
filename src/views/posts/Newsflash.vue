@@ -6,7 +6,7 @@
       .title(@click='unwind(post)') {{post.title}}
       .summary {{post.summary}}
       .time {{post.published_at | fromNow}}
-  a.more(href="/newsflash", :target="$store.state.target") 查看更多
+  a.more(href="/breakingnews", :target="$store.state.target") 查看更多
 </template>
 
 <script>
