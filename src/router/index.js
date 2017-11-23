@@ -44,6 +44,10 @@ export function createRouter () {
         name: 'detail',
         component: Detail
       },
+      { path: '/topic/:id',
+        name: 'topics',
+        component: Topics
+      },
       { path: '/tags/:tag',
         name: 'tags',
         component: Tag
