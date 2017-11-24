@@ -195,15 +195,17 @@
             li
               a.btn.inverse(target="_blank" title="24小时滚动报道互联网，IT，通信、家电及科学探索行业新闻，腾讯科技频道致力于提供最快捷、最鲜活的IT产业资讯，第一时间报道行业重大事件，重点解读产业背后人物故事，全面关注新闻热点话题。以独特的视角、犀利的报道风格，揭示IT产业走向。" href="http://tech.qq.com/") 腾讯科技
             li
+              a.btn.inverse(target="_blank" title="凤凰科技 让科技更性感" href="http://tech.ifeng.com/") 凤凰科技
+            li
               a.btn.inverse(target="_blank" title="网易科技-有态度的科技门户" href="http://tech.163.com/") 网易科技
+            li
+              a.btn.inverse(target="_blank" title="搜狐科技" href="http://it.sohu.com/") 搜狐科技
             li
               a.btn.inverse(target="_blank" title="界面新闻-只服务于独立思考的人群" href="http://www.jiemian.com/") 界面
             li
               a.btn.inverse(target="_blank" title="全球酷玩试用导购平台" href="http://www.jiguo.com/") 极果
             li
               a.btn.inverse(target="_blank" title="品途商业评论" href="http://www.pintu360.com/") 品途
-            li
-              a.btn.inverse(target="_blank" title="凤凰科技 让科技更性感" href="http://tech.ifeng.com/") 凤凰科技
             li
               a.btn.inverse(target="_blank" title="i 黑马 创业者都在这儿" href="http://www.iheima.com/") i黑马
             li
@@ -218,6 +220,8 @@
               a.btn.inverse(target="_blank" title="最有看点的互联网金融门户" href="http://www.weiyangx.com/") 未央网
             li
               a.btn.inverse(target="_blank" title="提供信息最快最全的中国飞机网站" href="http://xtopfly.com/") 霄云网
+            li
+              a.btn.inverse(target="_blank" title="技术成就梦想" href="http://www.51cto.com/") 51CTO
 
         //- 联系方式
         section.page.contact
