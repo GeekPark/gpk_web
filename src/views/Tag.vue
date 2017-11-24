@@ -44,6 +44,11 @@ export default {
         this.total_count = result.data.meta.total_count
         this.posts = this.posts.concat(result.data.posts)
         this.loading = false
+        window.ga('send', 'event', {
+          eventCategory: 'Tag',
+          eventAction: 'loadmore',
+          eventLabel: '加载更多',
+        });
         if (result.data.meta.total_pages <= this.page) this.nomore = true
       }).catch((err) => {
         this.$message.error(err.toString())

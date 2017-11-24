@@ -90,6 +90,11 @@ export default {
       api.get(`?page=${page}`).then((result) => {
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false
+        window.ga('send', 'event', {
+          eventCategory: 'Home',
+          eventAction: 'loadmore',
+          eventLabel: '加载更多',
+        });
       }).catch((err) => {
         this.$message.error(err.toString())
       })

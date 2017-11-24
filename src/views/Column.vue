@@ -57,6 +57,11 @@ export default {
         this.nomore = !result.data.column.posts.length
         this.posts = this.posts.concat(result.data.column.posts)
         this.loading = false
+        window.ga('send', 'event', {
+          eventCategory: 'Column',
+          eventAction: 'loadmore',
+          eventLabel: `columns/${this.$route.params.id} 加载更多`,
+        });
       }).catch((err) => {
         this.$message.error(err.toString())
       })

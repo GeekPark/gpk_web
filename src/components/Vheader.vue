@@ -138,16 +138,6 @@ export default {
   },
   mounted () {
     let _this = this
-    document.addEventListener('click', function(e) {
-      if (e && e.target) {
-        if (!_this.$refs.userActions.contains(e.target)) {
-          _this.userMenu = false
-        }
-        if (!_this.$refs.userMessage.contains(e.target)) {
-          _this.messageMenu = false
-        }
-      }
-    })
     if (this.$device.isMobile()) {
       let beforeT = 0, afterT = 0
       window.addEventListener('scroll', () => {
@@ -165,6 +155,16 @@ export default {
         if (result.data.access_key) {
           this.getUser()
           this.getMessage()
+          document.addEventListener('click', function(e) {
+            if (e && e.target) {
+              if (!_this.$refs.userActions.contains(e.target)) {
+                _this.userMenu = false
+              }
+              if (!_this.$refs.userMessage.contains(e.target)) {
+                _this.messageMenu = false
+              }
+            }
+          })
         } else {
           this.cleanUser()
         }

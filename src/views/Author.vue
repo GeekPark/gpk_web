@@ -54,6 +54,11 @@ export default {
         this.posts = this.posts.concat(result.data.posts)
         if (result.data.meta.total_pages <= this.page) this.nomore = true
         this.loading = false
+        window.ga('send', 'event', {
+          eventCategory: 'Author',
+          eventAction: 'loadmore',
+          eventLabel: `author/${this.$route.params.id} 加载更多`,
+        });
       }).catch((err) => {
         this.$message.error(err.toString())
       })
