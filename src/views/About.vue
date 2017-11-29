@@ -222,6 +222,8 @@
               a.btn.inverse(target="_blank" title="提供信息最快最全的中国飞机网站" href="http://xtopfly.com/") 霄云网
             li
               a.btn.inverse(target="_blank" title="技术成就梦想" href="http://www.51cto.com/") 51CTO
+            li
+              a.btn.inverse(target="_blank" title="知名科技媒体" href="http://www.ikanchai.com/") 砍柴网
 
         //- 联系方式
         section.page.contact
