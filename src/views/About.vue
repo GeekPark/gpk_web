@@ -224,6 +224,8 @@
               a.btn.inverse(target="_blank" title="技术成就梦想" href="http://www.51cto.com/") 51CTO
             li
               a.btn.inverse(target="_blank" title="知名科技媒体" href="http://www.ikanchai.com/") 砍柴网
+            li
+              a.btn.inverse(target="_blank" title="和讯科技" href="http://tech.hexun.com/") 和讯科技
 
         //- 联系方式
         section.page.contact
