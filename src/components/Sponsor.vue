@@ -5,7 +5,7 @@
       .swiper-slide(v-for="item in ads")
         a(@click="saveClick(item.ad.id)" :href="item.ad.link" target="_blank" data-track-category="ad" :data-track-label="`${position} ${item.ad.title} ${item.ad.link}`")
           img(:src="item.ad.cover_url")
-  i.icon-ad 广告
+  //- i.icon-ad 广告
   i.iconfont.icon-close(@click="closeAd" title="不再显示" data-track-category="ad.close" :data-track-label="`${position}`")
     span 不再显示
 </template>
@@ -95,7 +95,6 @@ export default {
     bottom 0
     padding 0 .5em
     background rgba(0,133,242,.2)
-    display none
   i.icon-close
     background rgba(0,0,0,.2)
     cursor pointer

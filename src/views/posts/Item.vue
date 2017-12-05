@@ -31,7 +31,10 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
       p.multiline-text-overflow {{post.abstract}}
 
   .article-meta.hidden-xs
-    a.article-author(v-for="author in post.authors" :href="`/users/${author.id}`" :target="$store.state.target"  data-event-action="view" data-event-category="article-list.author" :data-event-label="author.nickname") {{author.nickname}}
+    a.article-author(v-for="author in post.authors" :href="`/users/${author.id}`" :target="$store.state.target"  data-event-action="view" data-event-category="article-list.author" :data-event-label="author.nickname")
+      .img-box
+        img(:src="author.avatar_url")
+      | {{author.nickname}}
     .source-right
       template(v-if="post.comments_count > 0")
         a.btn-comment(:href="`/news/${post.id}#comment`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.comment" :data-event-label="`评论数：${post.comments_count} 文章：${post.title}`")
@@ -106,6 +109,17 @@ export default {
       color rgba(0,0,0,.5)
     .article-author
       margin-right .5em
+      .img-box
+        width 30px
+        height 30px
+        border-radius 50%
+        overflow hidden
+        display inline-block
+        margin-right .5em
+        vertical-align middle
+        img
+          width 100%
+          vertical-align top
     .icon-like
       margin-left 20px
     .source-right
