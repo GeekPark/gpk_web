@@ -95,6 +95,7 @@ export default {
     bottom 0
     padding 0 .5em
     background rgba(0,133,242,.2)
+    display none
   i.icon-close
     background rgba(0,0,0,.2)
     cursor pointer
