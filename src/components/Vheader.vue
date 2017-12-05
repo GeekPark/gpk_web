@@ -29,7 +29,7 @@
                 a.btn.load-more.js-load-more.hidden(href="javascript:;") 加载更多
                 span.hidden 没有更多消息了..
         .username.dib#user-avatar(@click="userMenu = !userMenu" ref='userActions')
-          img(:src="userInfo.avatar_url")
+          img(v-lazy="userInfo.avatar_url" w=40 h=40)
           ul#user_actions.subpanel.usermenu(:class="{ expand: userMenu }")
             li
               a(href="/liked")

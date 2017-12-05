@@ -13,7 +13,7 @@
           h1.topic-title {{news.title}}
           .user-info
             a.author(v-for="author in news.authors.slice(0, 2)" :href="`/users/${author.id}`" data-track-category="article.author" :data-track-label="`${author.nickname} ${news.title}`")
-              img(:src="author.avatar_url")
+              img(v-lazy="author.avatar_url" w=40 h=40)
               span {{author.nickname}}
             span.release-date {{news.published_timestamp | formatDate}}
             a.edit(v-if="userInfo && userInfo.roles && userInfo.roles.indexOf('admin') > -1", :href="`http://admin.geekpark.net/posts/new?id=${news.id}`") 编辑

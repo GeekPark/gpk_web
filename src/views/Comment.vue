@@ -2,7 +2,7 @@
 #comment
   textarea.heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
   .input-box
-    button.submit-comment(@click="submitComment") 发表评论
+    button.submit-comment(@click="submitComment") 发表111评论
   .comment-wrap(v-if="comments.length")
     h4
       i.iconfont.icon-double-slash
@@ -11,7 +11,7 @@
       .comment-item(:id="'comment-' + item.id", v-if="item.commenter_info && item.commenter_info.length > 0")
         .c-header
           .avatar-box
-            img(:src="item.commenter_info[0].avatar_url")
+            img(v-lazy="item.commenter_info[0].avatar_url" w=40 h=40)
             | {{item.commenter_info[0].nickname}}
           .like-box(@click="toggleLike(item, itemIndex)", :class="{'liked animated bounceIn': item.liked}")
             i.iconfont(:class="item.liked ? 'icon-thumbs-up' : 'icon-thumbs-o-up'")

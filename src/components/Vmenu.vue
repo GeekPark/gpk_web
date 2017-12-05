@@ -34,7 +34,7 @@
       a(href="http://f.geekpark.net" target="_blank") 前沿社
   .users
     .username#user-avatar(v-if="userInfo")
-      img(:src="userInfo.avatar_url")
+      img(v-lazy="userInfo.avatar_url" w=48 h=48)
       a.logout(@click="logout") 退出登录
     a.signin(v-else, @click="login") 登录
 </template>

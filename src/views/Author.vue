@@ -9,7 +9,7 @@
         p
           a(:href="'mailto:' + users.email") {{users.email}}
       .avatar
-        img(:src="users.avatar_url")
+        img(v-lazy="users.avatar_url" w=120 h=120)
   .main-content.gray-bg
     .container
       .article-list
