@@ -306,7 +306,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       font-size 18px
       margin 30px 0 15px
     img
-      display block
+      // display block
       max-width 100%
       margin 0 auto
       height auto
@@ -314,6 +314,10 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       width 100%
     img.loading
       cursor wait
+    .img-label
+      font-size 12px
+      text-align center
+      margin-top -8px
     blockquote
       color rgba(0, 0, 0, .6)
       margin 0
