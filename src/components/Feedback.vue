@@ -3,6 +3,8 @@
   .container.clear
     .wr-fx
       .fixed-tools
+        a.if2018-gif(href="http://if.geekpark.net" target="_blank")
+          img(src='../assets/imgs/if2018.gif')
         a.tools-item.tools-erweima
           i.iconfont.icon-qrcode
         .qr-group
@@ -58,6 +60,7 @@ export default {
     }
   },
   mounted(){
+    if (this.$route.path === '/') document.querySelector(".if2018-gif").classList.add("show")
     window.addEventListener('scroll', () => {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       scrollTop > 800 ?
@@ -156,6 +159,19 @@ export default {
     border-radius 4px
     box-shadow inset 0 1px 1px rgba(0,0,0,0.075)
     transition border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
+.if2018-gif
+  width 100px
+  height 100px
+  border-radius 50%
+  position absolute
+  right 45px
+  top 10px
+  box-shadow 1px 5px 5px rgba(0,0,0,.3)
+  display none
+  &.show
+    display block
+  img
+    width 100%
 .wr-fx
   float right
   margin-right -15px

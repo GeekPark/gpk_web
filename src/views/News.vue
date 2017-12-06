@@ -314,7 +314,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       width 100%
     img.loading
       cursor wait
-    .img-label
+    .img-label:not(:empty)
       font-size 12px
       text-align center
       margin-top -8px
