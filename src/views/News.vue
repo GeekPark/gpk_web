@@ -25,7 +25,13 @@
               span 摘要
             p {{news.abstract}}
           .article-content(v-html="news.content")
-        .article-source
+        //- .article-source
+        .ad-if
+          a(href="http://if.geekpark.net" target="_blank")
+            .hidden-xs
+              img(src='../assets/imgs/ad-if-news.jpg')
+            .hidden-notxs
+              img(src='../assets/imgs/ad-if-news-m.jpg')
         section.tags(data-track-category="article.tag" data-track-item="a")
           a.article-tag(v-for="tag in news.tags" :href="`/tags/${tag}`") {{tag}}
         .share-wrap(data-track-category="article.share" data-track-item=".js-share-btn")
@@ -226,6 +232,9 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
   margin 40px auto 0 auto
   color #353535
   min-height 60vh
+  .ad-if
+    img
+      width 100%
   .container
     text-align center
   .main-wrap
@@ -237,6 +246,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     text-align left
     @media screen and (max-width: 1130px)
       max-width 100%
+    @media screen and (max-width: 767px)
+      padding-bottom 20px
   .article-sidebar
     display inline-block
     vertical-align top
@@ -306,7 +317,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       font-size 18px
       margin 30px 0 15px
     img
-      // display block
+      display block
       max-width 100%
       margin 0 auto
       height auto
@@ -342,6 +353,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
         color rgba(0, 0, 0, .6)
         font-size 14px
         font-style normal
+        display block
+        text-align center
     a, a:visited
       color #333
       text-decoration none

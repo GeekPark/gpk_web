@@ -2,9 +2,12 @@
 #feedback
   .container.clear
     .wr-fx
-      .fixed-tools
-        a.if2018-gif(href="http://if.geekpark.net" target="_blank")
-          img(src='../assets/imgs/if2018.gif')
+      .fixed-tools(:class="{'show': tools}")
+        .if2018-entry(:class="{'hide': if_entry}")
+          a.if2018-gif(href="http://if.geekpark.net" target="_blank")
+            img(src='../assets/imgs/if2018.gif')
+          .entry-close(@click="if_entry = true")
+            i.iconfont.icon-close
         a.tools-item.tools-erweima
           i.iconfont.icon-qrcode
         .qr-group
@@ -56,16 +59,15 @@ export default {
       dialogFormVisible: false,
       nowPanel: false,
       fb_content: '',
-      fb_email: ''
+      fb_email: '',
+      if_entry: false,
+      tools: false
     }
   },
   mounted(){
-    if (this.$route.path === '/') document.querySelector(".if2018-gif").classList.add("show")
     window.addEventListener('scroll', () => {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
-      scrollTop > 800 ?
-        document.querySelector(".fixed-tools").classList.add("show") :
-        document.querySelector(".fixed-tools").classList.remove("show")
+      this.tools = scrollTop > 800
     })
   },
   methods: {
@@ -159,19 +161,36 @@ export default {
     border-radius 4px
     box-shadow inset 0 1px 1px rgba(0,0,0,0.075)
     transition border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
-.if2018-gif
-  width 100px
-  height 100px
-  border-radius 50%
+
+.if2018-entry
   position absolute
   right 45px
   top 10px
-  box-shadow 1px 5px 5px rgba(0,0,0,.3)
-  display none
-  &.show
-    display block
-  img
+  width 100px
+  transition all .2s ease
+  &.hide
+    transform translateY(150%) scale(0)
+  .if2018-gif
     width 100%
+    height 100px
+    display block
+    border-radius 50%
+    box-shadow 1px 5px 5px rgba(0,0,0,.3)
+    img
+      width 100%
+  .entry-close
+    background #ccc
+    position absolute
+    left -20px
+    width 22px
+    height 22px
+    top 0
+    border-radius 50%
+    color #fff
+    line-height 22px
+    text-align center
+    font-size 10px
+    cursor pointer
 .wr-fx
   float right
   margin-right -15px
