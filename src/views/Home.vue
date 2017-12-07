@@ -15,7 +15,7 @@
               p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
   el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="always" indicator-position="none" data-track-category="home.breaking-news" data-track-item=".item a")
     el-carousel-item(v-for="item, index in homepage.slider.posts" :key="item.id")
-      a.link(:href="`/news/${item.id}`" :data-track-title="item.title")
+      a.link(@click="saveClick(item)" class="link" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
         .img-cover
           img(:srcset="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/q/88/interlace/1/`")
         .info-cover
