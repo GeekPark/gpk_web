@@ -26,12 +26,9 @@
             p {{news.abstract}}
           .article-content(v-html="news.content")
         //- .article-source
-        //- .ad-if
-          a(href="http://if.geekpark.net" target="_blank")
-            .hidden-xs
-              img(src='../assets/imgs/ad-if-news.jpg')
-            .hidden-notxs
-              img(src='../assets/imgs/ad-if-news-m.jpg')
+        .ad-if
+          a(href="http://if.geekpark.net/hot" target="_blank")
+            img(src='../assets/imgs/ad-if-news.jpg')
         section.tags(data-track-category="article.tag" data-track-item="a")
           a.article-tag(v-for="tag in news.tags" :href="`/tags/${tag}`") {{tag}}
         .share-wrap(data-track-category="article.share" data-track-item=".js-share-btn")
