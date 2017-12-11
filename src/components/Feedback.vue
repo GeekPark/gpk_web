@@ -3,10 +3,10 @@
   .container.clear
     .wr-fx
       .fixed-tools(:class="{'show': tools}")
-        .if2018-entry(:class="{'hide': if_entry}")
+        .if2018-entry(v-show="!if_session" :class="{'hide': if_entry}")
           a.if2018-gif(href="http://if.geekpark.net" target="_blank")
             img(src='../assets/imgs/if2018.gif')
-          .entry-close(@click="if_entry = true")
+          .entry-close(@click="hideIf")
             i.iconfont.icon-close
         a.tools-item.tools-erweima
           i.iconfont.icon-qrcode
@@ -61,16 +61,22 @@ export default {
       fb_content: '',
       fb_email: '',
       if_entry: false,
-      tools: false
+      tools: false,
+      if_session: false
     }
   },
   mounted(){
+    this.if_session = sessionStorage && sessionStorage.getItem('if_entry')
     window.addEventListener('scroll', () => {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       this.tools = scrollTop > 800
     })
   },
   methods: {
+    hideIf () {
+      this.if_entry = true
+      window.sessionStorage.setItem('if_entry', true)
+    },
     changeTab (index) {
       this.qrindex = index
     },

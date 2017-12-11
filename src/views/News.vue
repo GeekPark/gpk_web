@@ -26,7 +26,7 @@
             p {{news.abstract}}
           .article-content(v-html="news.content")
         //- .article-source
-        .ad-if
+        //- .ad-if
           a(href="http://if.geekpark.net" target="_blank")
             .hidden-xs
               img(src='../assets/imgs/ad-if-news.jpg')
