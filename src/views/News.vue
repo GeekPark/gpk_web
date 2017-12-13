@@ -62,8 +62,6 @@ import Share from '../components/Share.vue'
 import Comment from './Comment.vue'
 import mediumZoom from 'medium-zoom'
 
-let access_key
-
 export default {
   components: { Hotnews, Nextnews, Share, Comment, Sponsor, Related, Newest },
   data () {
@@ -101,7 +99,7 @@ export default {
   },
   methods: {
     fetchLike () {
-      api.get(`posts/${this.$route.params.id}/status?access_key=${access_key}&roles=dev`).then(result => {
+      api.get(`posts/${this.$route.params.id}/status?access_key=${this.$store.state.access_key}&roles=dev`).then(result => {
         this.news.like_count = result.data.post.like_count
         this.news.liked = result.data.post.liked
       })
@@ -112,7 +110,7 @@ export default {
         return;
       }
       let like = this.news.liked ? 'unlike' : 'like'
-      api.post(`posts/${id}/${like}?access_key=${access_key}`).then((res) => {
+      api.post(`posts/${id}/${like}?access_key=${this.$store.state.access_key}`).then((res) => {
         this.news.liked = !this.news.liked;
         this.news.like_count += like === 'unlike' ? -1 : 1
       }).catch((err) => {
@@ -180,12 +178,11 @@ export default {
       el.innerHTML = '';
       el.appendChild(videoScript);
     }
+    this.$store.watch(this.$store.getters.getAccessKey, access_key => {
+      this.fetchLike()
+    })
   },
   beforeMount () {
-    access_key = this.$store.state.access_key || localStorage.getItem('access_key')
-    if (access_key) {
-      this.fetchLike()
-    }
   }
 }
 

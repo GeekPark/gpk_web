@@ -29,6 +29,9 @@ export function createStore () {
       },
       post: {}
     },
+    getters: {
+      getAccessKey: state => () => state.access_key
+    },
     mutations,
     actions
   })
