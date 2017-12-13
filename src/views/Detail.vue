@@ -6,7 +6,7 @@
         .title {{post.title}}
         .summary {{post.summary}}
         .meta
-          a.link(:href="`${post.source_link}`", :target="$store.state.target") 阅读原文
+          a.link(v-if="post.source_link" :href="`${post.source_link}`", :target="$store.state.target") 阅读原文
           .date {{post.published_at | fromNow}}
     .article-sidebar
       hotnews(v-once)
