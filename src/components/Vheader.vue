@@ -14,7 +14,7 @@
         i.iconfont.icon-search(v-if="!showsearch" key="search-icon")
         i.iconfont.icon-close(v-else)
       template(v-if="userInfo")
-        #js-message.message.dib(@click="messageMenu = !messageMenu" ref='userMessage')
+        #js-message.message.dib(:class="{high: num > 0}" @click="messageMenu = !messageMenu" ref='userMessage')
           i.iconfont.icon-notice
           .subpanel.msg-content.js-msg-content(:class="{ expand: messageMenu }")
             .no-message(v-if="message.length < 1" key="message-null") 您还没有消息呢，快去留言互动吧！
@@ -24,8 +24,8 @@
                 a.btn.read-all.js-read-all.hidden(href="javascript:;") 标记为已读
               .msg-menu.js-msg-menu
                 ul.msg-list
-                  li(v-for="mg in message")
-                    | {{mg.content}}
+                  li(:class="{new: mg.unread}" v-for="mg in message")
+                    a(@click="readMessage(mg.id, `/news/${mg.direct_id}#comment`, mg.unread)") {{mg.content}}
                 a.btn.load-more.js-load-more.hidden(href="javascript:;") 加载更多
                 span.hidden 没有更多消息了..
         .username.dib#user-avatar(@click="userMenu = !userMenu" ref='userActions')
@@ -77,6 +77,7 @@ export default {
       showsearch: false,
       activeIndex: "1",
       message: [],
+      num: 1,
       hideHeader: false,
       userMenu: false,
       messageMenu: false
@@ -115,15 +116,21 @@ export default {
       window.location.href = url
     },
     getMessage() {
+      let num = 0
       api.account.get(`api/v1/notifications/all?access_key=${access_key}`).then((result) => {
-        this.message = result.data
+        this.message = result.data.filter(item => ['comment_post', 'comment'].indexOf(item.content_type) > -1 && item.parent_type !== 'question')
+        this.num = this.message.filter(item => item.unread).length
+        console.log('getMessage', result.data)
       }).catch((err) => {
         // this.$message.error(err.toString())
       })
     },
-    readMessage() {
-      api.account.post(`api/v1/notifications/read?access_key=${access_key}`).then((result) => {
-        console.log('readMessage', result.data)
+    readMessage(id, url, unread) {
+      api.account.post(`api/v1/notifications/${id}/read?access_key=${access_key}`).then((result) => {
+        if (unread) {
+          this.num--
+        }
+        window.location.replace(url);
       }).catch((err) => {
         this.$message.error(err.toString())
       })
@@ -155,7 +162,8 @@ export default {
         if (result.data.access_key) {
           this.getUser()
           this.getMessage()
-          document.addEventListener('click', function(e) {
+          setTimeout(()=>{
+            document.addEventListener('click', function(e) {
             if (e && e.target) {
               if (!_this.$refs.userActions.contains(e.target)) {
                 _this.userMenu = false
@@ -164,7 +172,8 @@ export default {
                 _this.messageMenu = false
               }
             }
-          })
+          })}, 1000)
+
         } else {
           this.cleanUser()
         }
@@ -414,16 +423,16 @@ triangleDown($color = #fff)
       cursor default
       &::after
         right 15px
-  .message.high
-    .icon-message::after
-      content: ''
-      width: 6px
-      height: 6px
-      position: absolute
-      top: -3px
-      right: -3px
-      background-color: #f00
-      border-radius: 100%
+    &.high
+      .icon-notice::after
+        content: ''
+        width: 6px
+        height: 6px
+        position: absolute
+        top: -3px
+        right: -3px
+        background-color: #f00
+        border-radius: 100%
   .msg-header
     padding 10px 8px
     border-bottom 1px solid rgba(0, 0, 0, 0.12)
@@ -461,10 +470,9 @@ triangleDown($color = #fff)
     scrollbar()
     li
       position relative
-      min-height 40px
       border-bottom 1px solid #efefef
-      padding-bottom 8px
-      margin-bottom 8px
+      padding 8px
+      line-height 1.5
       text-align left
     .avatar
       width 35px
@@ -482,13 +490,13 @@ triangleDown($color = #fff)
       a
         color #7d7d7d
     li.new
-      .avatar::after
+      &::before
         content ''
-        width 6px
-        height 6px
+        width 4px
+        height 4px
         position absolute
-        top -3px
-        right -3px
+        left -1px
+        top 40%
         background-color #f00
         border-radius 100%
     .load-more
