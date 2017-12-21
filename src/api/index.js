@@ -48,8 +48,8 @@ export function fetchBreakingNews (id) {
   return fetch(`news/${id}`)
 }
 
-export function fetchNews (id, access_key) {
-  return fetch(`posts/${id}?access_key=${access_key}`)
+export function fetchNews (id) {
+  return fetch(`posts/${id}`)
 }
 
 export function fetchPreview (id, key) {
