@@ -41,11 +41,13 @@
         idlenews(v-once)
         topics(v-once)
         sponsor(position="medium_below", v-once)
+  vapp
 </template>
 
 <script>
 import Subnav from '../components/Vsubnav.vue'
 import Sponsor from '../components/Sponsor.vue'
+import Vapp from '../components/Vapp.vue'
 import Item from './posts/Item.vue'
 import Newsflash from './posts/Newsflash.vue'
 import Hotnews from './posts/Hotnews.vue'
@@ -56,7 +58,7 @@ import api from 'store/api'
 
 let page = 1
 export default {
-  components: { Subnav, Sponsor, Item, Newsflash, Idlenews, Hotnews, Topics },
+  components: { Subnav, Vapp, Sponsor, Item, Newsflash, Idlenews, Hotnews, Topics },
   data () {
     return {
       page: page,

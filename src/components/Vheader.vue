@@ -162,17 +162,18 @@ export default {
         if (result.data.access_key) {
           this.getUser()
           this.getMessage()
-          setTimeout(()=>{
+          if (!this.$device.isMobile()) {
             document.addEventListener('click', function(e) {
-            if (e && e.target) {
-              if (!_this.$refs.userActions.contains(e.target)) {
-                _this.userMenu = false
+              if (e && e.target) {
+                if (!_this.$refs.userActions.contains(e.target)) {
+                  _this.userMenu = false
+                }
+                if (!_this.$refs.userMessage.contains(e.target)) {
+                  _this.messageMenu = false
+                }
               }
-              if (!_this.$refs.userMessage.contains(e.target)) {
-                _this.messageMenu = false
-              }
-            }
-          })}, 1000)
+            })
+          }
 
         } else {
           this.cleanUser()

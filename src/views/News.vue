@@ -38,7 +38,7 @@
           .like-button(@click="toggleLike(news.id)" :class="{liked: news.liked}"  data-track-action="click" data-track-label="like")
             span.like-icon
           p(v-if="news.like_count > 0") {{news.like_count}}
-        a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
+        //- a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
           | 打开极客公园App阅读更多内容
         comment(:postid="$route.params.id")
         related(v-if="news.column && !promotion[news.column.id]", v-once)
@@ -49,11 +49,13 @@
       hotnews(v-once)
       template(v-if="show")
         nextnews(v-once)
+  vapp
 </template>
 
 <script>
 import api from 'store/api'
 import Sponsor from '../components/Sponsor.vue'
+import Vapp from '../components/Vapp.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Related from './posts/Related.vue'
 import Newest from './posts/Newest.vue'
@@ -63,7 +65,7 @@ import Comment from './Comment.vue'
 import mediumZoom from 'medium-zoom'
 
 export default {
-  components: { Hotnews, Nextnews, Share, Comment, Sponsor, Related, Newest },
+  components: { Hotnews, Vapp, Nextnews, Share, Comment, Sponsor, Related, Newest },
   data () {
     return {
       show: true,
