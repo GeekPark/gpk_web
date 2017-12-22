@@ -19,7 +19,7 @@ export default context => {
     const { fullPath } = router.resolve(url).route
 
     if (fullPath !== url) {
-      reject({ url: fullPath })
+      return reject({ url: fullPath })
     }
 
     // 设置服务器端 router 的位置

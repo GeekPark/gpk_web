@@ -93,7 +93,8 @@ export default {
         this.$message.error('请填写评论内容')
         return
       }
-      api.post(`posts/${this.postid}/comments?access_key=${access_key}`, {
+      let query_access_key = access_key ? `?access_key=${access_key}` : ''
+      api.post(`posts/${this.postid}/comments${query_access_key}`, {
         content: this.message
       }).then(result => {
         var comment = result.data
