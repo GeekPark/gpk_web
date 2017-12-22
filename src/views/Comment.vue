@@ -67,7 +67,8 @@ export default {
   },
   methods: {
     fetch () {
-      api.get(`posts/${this.postid}/comments?access_key=${access_key}`).then(result => {
+      let query_access_key = access_key ? `?access_key=${access_key}` : ''
+      api.get(`posts/${this.postid}/comments${query_access_key}`).then(result => {
         this.comments = result.data.comments
         this.commentLoaded = true;
 
