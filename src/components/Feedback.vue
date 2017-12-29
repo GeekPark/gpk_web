@@ -3,7 +3,7 @@
   .container.clear
     .wr-fx
       .fixed-tools(:class="{'show': tools}")
-        .if2018-entry(v-show="!if_session" :class="{'hide': if_entry}")
+        //- .if2018-entry(v-show="!if_session" :class="{'hide': if_entry}")
           a.if2018-gif(href="http://if.geekpark.net" target="_blank")
             img(src='../assets/imgs/if2018.gif')
           .entry-close(@click="hideIf")

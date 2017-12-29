@@ -43,7 +43,7 @@ export default {
         let data = result.data[this.position] || []
         this.ads = data.filter(item => !localStorage.getItem(`ad_${item.ad.id}`))
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
     saveClick (id) {

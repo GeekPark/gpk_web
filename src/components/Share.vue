@@ -77,7 +77,7 @@ export default {
       api.patch(`topic/${id}/add_count`, { name: type }).then(result => {
         this.postsData = result.data.post
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     };
   }

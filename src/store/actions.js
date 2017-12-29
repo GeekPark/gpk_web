@@ -36,7 +36,7 @@ export default {
   },
 
   FETCH_NEWS: ({ commit, state }, { id }) => {
-    return fetchNews(id, state.access_key)
+    return fetchNews(id)
       .then(data => commit('SET_NEWS', { data }))
       .catch(err => Promise.reject({ code: 404 }))
   },

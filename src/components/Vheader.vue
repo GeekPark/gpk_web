@@ -132,14 +132,14 @@ export default {
         }
         window.location.replace(url);
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     },
     readAllMessage() {
       api.account.post(`api/v1/notifications/read_all?access_key=${access_key}`).then((result) => {
         console.log('readAllMessage', result.data)
       }).catch((err) => {
-        this.$message.error(err.toString())
+        // this.$message.error(err.toString())
       })
     }
   },
