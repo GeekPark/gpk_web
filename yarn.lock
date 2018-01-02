@@ -4585,8 +4585,8 @@ vue-lazyload@^1.1.4:
   resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-1.1.4.tgz#94dbb3fcb047f147f37900c0e22ad4fd478e31c4"
 
 vue-loader@^13.3.0:
-  version "13.3.0"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-13.3.0.tgz#3bf837d490ba5dea6fc07e0835ffa6c688c8af33"
+  version "13.6.1"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-13.6.1.tgz#3ad365271b3db382722ab2eb0d6936d8d52ec2ce"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
