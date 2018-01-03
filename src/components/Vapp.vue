@@ -1,10 +1,9 @@
 <template lang="pug">
-a.OpenInAppButton(:href="url" @click="getUrl" data-track-category="app" data-track-label="App 内打开")
+a.OpenInAppButton.linkedme(:href="url" data-track-category="app" data-track-label="App 内打开")
   | App 内打开
 </template>
 
 <script>
-
 export default {
   name: 'vapp',
   data () {
@@ -36,7 +35,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="stylus">
   .OpenInAppButton
