@@ -1,5 +1,5 @@
 <template lang="pug">
-a.OpenInAppButton(@click="getUrl" data-track-category="app" data-track-label="App 内打开")
+a.OpenInAppButton(:href="url" @click="getUrl" data-track-category="app" data-track-label="App 内打开")
   | App 内打开
 </template>
 
@@ -8,11 +8,17 @@ a.OpenInAppButton(@click="getUrl" data-track-category="app" data-track-label="Ap
 export default {
   name: 'vapp',
   data () {
-    return {}
+    return {
+      url: 'http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark'
+    }
+  },
+  mounted() {
+    this.getUrl()
   },
   methods: {
     getUrl () {
-      linkedme.init("0bd47e7101366093a027cc6ea662d018", {type: "live"}, null);
+      var _this = this
+      linkedme.init("0bd47e7101366093a027cc6ea662d018", {type: "live"}, null)
       var initData = {}
       initData.type = "live"
       var value1 = this.$route.path === '/' ? 'index' : 'detail'
@@ -22,9 +28,10 @@ export default {
         if(err){
           // console.log('linkedme err', err)
         } else {
+          _this.url = response.url
           // console.log('linkedme ok', response, response.url)
         }
-      }, true)
+      }, false)
     }
   }
 }
