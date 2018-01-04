@@ -100,6 +100,9 @@ export default {
     }
   },
   methods: {
+    getClick () {
+      api.get(`posts/${this.$route.params.id}/click?type=web`)
+    },
     fetchLike () {
       api.get(`posts/${this.$route.params.id}/status?access_key=${this.$store.state.access_key}&roles=dev`).then(result => {
         this.news.like_count = result.data.post.like_count
@@ -124,6 +127,8 @@ export default {
     let _this = this
     if (!this.news.published_timestamp) {
       this.show = false
+    } else {
+      this.getClick()
     }
 
     if (!this.$device.isMobile()) {
