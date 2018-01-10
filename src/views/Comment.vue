@@ -13,13 +13,13 @@
           .avatar-box
             img(v-lazy="item.commenter_info[0].avatar_url" w=40 h=40)
             | {{item.commenter_info[0].nickname}}
-            .from-type {{item.device | fromDevice}}
           .like-box(@click="toggleLike(item, itemIndex)", :class="{'liked animated bounceIn': item.liked}")
             i.iconfont(:class="item.liked ? 'icon-thumbs-up' : 'icon-thumbs-o-up'")
             | {{item.like_count}}
         .c-body {{item.content}}
         .c-rp
           .time {{item.created_at | fromNow}}
+          .from-type {{item.device | fromDevice}}
           span(@click="toggleReplyForm(item.commenter_info[0].nickname, item.id)")
             | {{ replyid == item.id ? '取消' : '回复'}}
         form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == item.id")
