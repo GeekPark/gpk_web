@@ -36,7 +36,7 @@
               | {{reply.content}}
             .c-rp
               .time {{reply.created_at | fromNow}}
-              .from-type {{item.device | fromDevice}}
+              .from-type {{reply.device | fromDevice}}
               span(@click="toggleReplyForm(reply.commenter_info[0].nickname, reply.id)")
                 | {{ replyid == reply.id ? '取消' : '回复'}}
           form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == reply.id")
