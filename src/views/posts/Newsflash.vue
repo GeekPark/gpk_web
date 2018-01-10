@@ -5,6 +5,7 @@
     li.news-item(v-for="post in posts" :key="post.id" :class="{'active': post.display}")
       .title(@click='unwind(post)') {{post.title}}
       .summary {{post.summary}}
+      a.link(v-if="post.source_link" :href="`${post.source_link}`", :target="$store.state.target") 阅读原文
       .time {{post.published_at | fromNow}}
   a.more(href="/breakingnews", :target="$store.state.target") 查看更多
 </template>
@@ -71,10 +72,20 @@ export default {
       transition all .1s
     .time
       color rgba(0, 0, 0, .5)
+    .link
+      float right
+      color #0185F2
+      opacity 0
+      height 0
+      overflow hidden
+      transition all .3s
     &.active
       .summary
         max-height 500px
         transition all .4s
+      .link
+        opacity 1
+        height auto
   .more
     text-align center
     border-top 1px solid #E4E4E4

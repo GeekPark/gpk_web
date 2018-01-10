@@ -13,6 +13,7 @@
           .avatar-box
             img(v-lazy="item.commenter_info[0].avatar_url" w=40 h=40)
             | {{item.commenter_info[0].nickname}}
+            .from-type {{item.device | fromDevice}}
           .like-box(@click="toggleLike(item, itemIndex)", :class="{'liked animated bounceIn': item.liked}")
             i.iconfont(:class="item.liked ? 'icon-thumbs-up' : 'icon-thumbs-o-up'")
             | {{item.like_count}}
@@ -35,6 +36,7 @@
               | {{reply.content}}
             .c-rp
               .time {{reply.created_at | fromNow}}
+              .from-type {{item.device | fromDevice}}
               span(@click="toggleReplyForm(reply.commenter_info[0].nickname, reply.id)")
                 | {{ replyid == reply.id ? '取消' : '回复'}}
           form.reply-form(@submit.prevent="submitReply($event, itemIndex)", v-show="replyid == reply.id")
@@ -212,6 +214,22 @@ export default {
       }, 1000);
     },
   },
+  filters: {
+    fromDevice: function(device) {
+      var text = '来自 '
+      switch (device) {
+        case 'ios':
+          text += 'iPhone 客户端'
+          break;
+        case 'android':
+          text += 'Android 客户端'
+          break;
+        default:
+          text = ''
+      }
+      return text
+    }
+  },
   beforeMount () {
     access_key = this.$store.state.access_key || localStorage.getItem('access_key')
     this.fetch()
@@ -282,6 +300,10 @@ export default {
       width 40px
       height 40px
       border 1px solid #efefef
+  .from-type
+    display inline-block
+    padding-left 1em
+    // color #999
   .like-box
     float right
     margin-top -30px
@@ -306,12 +328,13 @@ export default {
       color #F84B8D
       padding 0 .3em
   .c-rp
-    text-align right
+    text-align left
     margin-bottom 15px
     font-size 12px
     .time
-      float left
+      display inline-block
     span
+      float right
       cursor pointer
   .reply-form
     margin-right -15px
@@ -319,5 +342,6 @@ export default {
     // padding 10px
     .comment-wrap
       width 100%
-
+    .from-type
+      display none
 </style>
