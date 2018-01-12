@@ -6,7 +6,7 @@
       .bio {{users.bio}}
       .user-info
         h4 {{users.nickname}}
-        p
+        //- p
           a(:href="'mailto:' + users.email") {{users.email}}
       .avatar
         img(v-lazy="users.avatar_url" w=120 h=120)
