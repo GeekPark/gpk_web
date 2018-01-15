@@ -82,10 +82,10 @@
             label(for="other_service") 还想获得其他服务
             span.form-inputs
               label
-                input(type="checkbox" name="other_service_offline_activity")
+                input(type="checkbox" name="other_service_offline_activity" value="参加线下活动")
                 span 参加线下活动
               label
-                input(type="checkbox" name="other_service_get_invest")
+                input(type="checkbox" name="other_service_get_invest" value="获得融资")
                 span 获得融资
           .tac
             button#submit-button.button.submit-button
