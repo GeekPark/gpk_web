@@ -20,17 +20,18 @@ export function createAPI ({ config, version }) {
         return new Promise((resolve, reject) => {
           client.get(url, function (err, reply) {
             // reply is null when the key is missing
-            if (reply !== null) {
-              // console.log('load cache')
-              resolve(JSON.parse(reply))
-              return
-            }
-            Axios.get(url).then(res => {
-              if (url.indexOf('/preview') === -1) {
-                client.set(url, JSON.stringify(res.data), 'EX', 120)
-              }
+            reply = reply ? JSON.parse(reply) : {}
+            Axios.get(url, {headers: {'If-None-Match': reply.etag || ''}}).then(res => {
+              // client.set(url, JSON.stringify(res.data), 'EX', 120)
+              client.set(url, JSON.stringify({etag: res.headers.etag, data: res.data}), 'EX', 600)
               resolve(res.data)
-            }).catch(reject)
+            }).catch((e) => {
+              if (e.response.status === 304) {
+                resolve(reply.data)
+              } else {
+                reject(e)
+              }
+            })
           })
         })
       },

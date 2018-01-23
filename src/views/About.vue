@@ -226,6 +226,8 @@
               a.btn.inverse(target="_blank" title="知名科技媒体" href="http://www.ikanchai.com/") 砍柴网
             li
               a.btn.inverse(target="_blank" title="和讯科技" href="http://tech.hexun.com/") 和讯科技
+            li
+              a.btn.inverse(target="_blank" title="链闻 ChainNews" href="https://chainnews.com/") 链闻 ChainNews
 
         //- 联系方式
         section.page.contact
