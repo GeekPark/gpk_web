@@ -23,7 +23,7 @@ export function createAPI ({ config, version }) {
             reply = reply ? JSON.parse(reply) : {}
             Axios.get(url, {headers: {'If-None-Match': reply.etag || ''}}).then(res => {
               // client.set(url, JSON.stringify(res.data), 'EX', 120)
-              client.set(url, JSON.stringify({etag: res.headers.etag, data: res.data}), 'EX', 600)
+              client.set(url, JSON.stringify({etag: res.headers.etag, data: res.data}))
               resolve(res.data)
             }).catch((e) => {
               if (e.response.status === 304) {
