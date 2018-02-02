@@ -26,6 +26,8 @@
       a(title="加入我们" href="/zhuanti/job/") 加入我们
     dd
       a(title="友情链接" href="/about#links") 友情链接
+    dd
+      a(title="App下载" href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark" target="_blank") App下载
   dl
     dt 项目
     dd
@@ -36,7 +38,7 @@
     .username#user-avatar(v-if="userInfo")
       img(v-lazy="userInfo.avatar_url" w=48 h=48)
       a.logout(@click="logout") 退出登录
-    a.signin(v-else, @click="login") 登录
+    a.signin(v-else, @click="login") 登录/注册
 </template>
 
 <script>

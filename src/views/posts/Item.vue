@@ -19,7 +19,7 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   template(v-else)
     a.img-cover-wrap(:href="`/news/${post.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
       .img-cover
-        img(v-lazy="post.cover_url" w=285 h=214)
+        img(v-lazy="post.cover_url" w=450 h=214)
         .play(v-show="post.post_type=='video'")
           i.iconfont.icon-play
           span {{post.extra && post.extra.duration}}
@@ -277,6 +277,7 @@ export default {
     .article-time
       font-size 12px
     .article-meta
+      text-align right
       font-size 10px
       padding-left 32%
       line-height 1
