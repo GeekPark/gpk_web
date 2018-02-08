@@ -17,7 +17,7 @@
     el-carousel-item(v-for="item, index in homepage.slider.posts" :key="item.id")
       a.link(@click="saveClick(item)" class="link" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
         .img-cover
-          img(:srcset="`${item.cover_url}?imageView2/1/w/1500/h/720/interlace/1/q/88/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/q/88/interlace/1/`")
+          img(:srcset="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/q/88/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/375/h/180/interlace/1/q/88/interlace/1/`")
         .info-cover
           h3.multiline-text-overflow
             span {{item.title}}

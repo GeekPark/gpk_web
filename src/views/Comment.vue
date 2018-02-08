@@ -1,8 +1,14 @@
 <template lang="pug">
 #comment
-  textarea.heights(placeholder="你有什么看法...", name="textarea-io", v-model.trim="message")
-  .input-box
-    button.submit-comment(@click="submitComment") 发表评论
+  template(v-if="$store.state.access_key")
+    textarea.heights(placeholder="你有什么看法...", name="textarea-io", :value="message", @input="updateValue")
+    .input-box
+      button.submit-comment(@click="submitComment") 发表评论
+  template(v-else)
+    textarea.heights(placeholder="请登录后发表评论", disabled="disabled")
+    .input-box
+      a.submit-comment(:href="loginURL") 马上登录
+
   .comment-wrap(v-if="comments.length")
     h4
       i.iconfont.icon-double-slash
@@ -50,7 +56,6 @@
 <script>
 import api from 'store/api'
 
-let loginURL
 let access_key
 
 export default {
@@ -62,13 +67,18 @@ export default {
       nickname: "",
       replyid: "",
       commentLoaded: false,
+      loginURL: ''
     }
   },
   mounted() {
-    loginURL = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href)}`
+    this.loginURL = `${api.account.defaults.baseURL}login?callback_url=${encodeURIComponent(location.href + '#comment')}`
+    this.$store.watch(this.$store.getters.getAccessKey, access_key => {
+      this.fetch()
+    })
   },
   methods: {
     fetch () {
+      access_key = this.$store.state.access_key
       let query_access_key = access_key ? `?access_key=${access_key}` : ''
       api.get(`posts/${this.postid}/comments${query_access_key}`).then(result => {
         this.comments = result.data.comments
@@ -81,17 +91,21 @@ export default {
         this.$message.error(err.toString())
       })
     },
-    commentFocusHandler() {
+    checkLogin() {
       if (!this.$store.state.userInfo) {
         if (confirm('评论需要登录喔，点击确定去登录')) window.location.href = loginURL;
-        return;
+        return true
+      }
+    },
+    updateValue: function (e) {
+      if (this.checkLogin()) {
+        e.target.value = ''
+      } else {
+        this.message = e.target.value.trim()
       }
     },
     submitComment() {
-      if (!this.$store.state.userInfo) {
-        if (confirm('评论需要登录喔，点击确定去登录')) window.location.href = loginURL;
-        return;
-      }
+      if (this.checkLogin()) return
       if (!this.message) {
         this.$message.error('请填写评论内容')
         return
@@ -122,10 +136,7 @@ export default {
       })
     },
     toggleReplyForm: function(nickname, repId) {
-      if (!this.$store.state.userInfo) {
-        if (confirm('回复需要登录喔，点击确定去登录')) window.location.href = loginURL
-        return
-      }
+      if (this.checkLogin()) return
       if (this.replyid == repId) {
         this.replyid = ''
       } else {
@@ -183,7 +194,7 @@ export default {
     },
     toggleLike: function(item, index) {
       if (!this.$store.state.userInfo) {
-        if (confirm('点赞需要登录喔，点击确定去登录')) window.location.href = loginURL;
+        if (confirm('点赞需要登录喔，点击确定去登录')) window.location.href = this.loginURL;
         return;
       }
       let like = item.liked ? 'unlike' : 'like'
@@ -231,7 +242,6 @@ export default {
     }
   },
   beforeMount () {
-    access_key = this.$store.state.access_key || localStorage.getItem('access_key')
     this.fetch()
   }
 }
