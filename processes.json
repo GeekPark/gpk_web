@@ -1,6 +1,7 @@
 {
   "name": "gpk_web",
   "script" : "server.js",
+  "max_memory_restart": "300M",
   "instances" : "max",
   "exec_mode" : "cluster",
   "env": {

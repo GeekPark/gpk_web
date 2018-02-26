@@ -331,8 +331,31 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       text-align center
       margin-top -8px
     blockquote
-      color rgba(0, 0, 0, .6)
-      margin 0
+      border-left none
+      color #959595
+      position relative
+      padding .8em 1.5em
+      margin 5px 10px
+      &::before, &::after
+        position absolute
+        display inline-block
+        color #5b5b5b
+        font-size 1.8em
+        font-weight 500
+      &::before
+        content "{"
+        left 0
+        top 0
+      &::after
+        content "}"
+        right 0
+        bottom 0
+    ul, ol
+      list-style-type none
+    li
+      padding-left 1.5em
+      background url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAaCAYAAABsONZfAAAAAXNSR0IArs4c6QAAAOdJREFUOBGN1N+KQWEUBfDPvf/KS8hE5FlEIl7ENBF5FhGZpnmPERHewsGFWetut2/Wd2qVbZ+fva6EEMIf8jb5xWf5jPGGRS/MJaUqDvEHRgpxv0fstZ8Y9OnQE3NRwapDvDpUiPsDYit+x6Avh1ixoOCHQ7w6UIj7I2Ir7mLQxKEH5ryCNYd4ta8Q9yfEVtzGoKlDrJhTsO4Qr/YU4v6M2IqbGDRzKMGcVbDhEK92FeL+gtiK6xg0d+iOOaNg0yFe7SjE/RWxFVcxaOEQK6YVbDnEq22FuL8htuIyxW/Fw/+Psnkn+Qf1L3LI1UKpRAAAAABJRU5ErkJggg==') 0 .3em no-repeat
+      background-size auto 1em
     iframe
       width 100%
     .gp_media_video
