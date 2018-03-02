@@ -3,29 +3,24 @@
   .container
     .article-list
       .flash-item(v-for="post in posts", :key="post.id")
-        .title {{post.title}}
+        img.icon(:src='`${post.icon}?imageView2/1/w/32/h/32/interlace/1/q/88/interlace/1/`')
+        .title {{post.edited_title}}
         .summary {{post.summary}}
         .meta
-          a.link(v-if="post.source_link" :href="`${post.source_link}`", :target="$store.state.target") 阅读原文
-          .date {{post.published_at | fromNow}}
-          a.share-btn.wechat.relative(href="javascript:;" data-type="wechat")
-            i.iconfont.icon-wechat
-            img.wx-qrcode(:src="post.id | qr")
-          a.share-btn.weibo(:href="post | weiboShare" title="新浪微博" data-type="weibo" target="_blank")
-            i.iconfont.icon-weibo
+          a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
+          .date {{post.published | fromNow}}
       .tac(v-if="!nomore")
         a.load-more(@click="fetch", :class="{'loading-in': loading}")
           .loading-article
           span 加载更多
-      .tac(v-else) 没有更多内容了
+      .tac(v-else) 你已经全面了解过去24小时的科技圈
     .article-sidebar
       hotnews(v-once)
 </template>
 
 <script>
 import Hotnews from './posts/Hotnews.vue'
-import QRious from 'qrious'
-import api from 'store/api'
+import axios from 'axios'
 
 export default {
   components: { Hotnews },
@@ -33,34 +28,26 @@ export default {
     return {
       loading: true,
       nomore: false,
-      page: 0,
+      last: '',
       posts: []
     }
   },
   meta () {
     return {
-      title: "极客快讯"
-    }
-  },
-  filters: {
-    qr (id) {
-      return new QRious({ value: document.location.href+'/'+id }).toDataURL()
-    },
-    weiboShare (post) {
-      let url = encodeURIComponent(`${document.location}/${post.id}`),
-          text = encodeURIComponent(post.summary),
-          appkey = '3896321144';
-      return `https://service.weibo.com/share/share.php?url=${url}&appkey=${appkey}&title=${text}&searchPic=false&ralateUid=1735559201`;
+      title: "极客严选"
     }
   },
   methods: {
     fetch () {
       this.loading = true;
-      this.page += 1;
-      api.get(`news?page=${this.page}`).then((result) => {
-        this.posts = this.posts.concat(result.data.news)
+      axios.get(`https://apigo.holoread.news/api/v1/articles${this.last ? '?last=' + this.last : ''}`).then((result) => {
+        this.posts = this.posts.concat(result.data.data)
         this.loading = false
-        if (result.data.meta.total_pages <= this.page) this.nomore = true
+        if (result.data.data.length < 20) {
+          this.nomore = true
+        } else {
+          this.last = result.data.data.pop().updatedAt + 1
+        }
       }).catch((err) => {
         this.$message.error(err.toString())
       })
@@ -75,11 +62,19 @@ export default {
 
 <style lang="stylus" scoped>
 .flash-item
-  margin 15px 0 55px 15px
+  margin 15px 0 55px
   clear both
   line-height 1.5
   color rgba(0, 0, 0, .8)
   font-size 14px
+  padding-left 25px
+  position relative
+  .icon
+    position absolute
+    top .3em
+    left 0
+    width 16px
+    height 16px
   .title
     font-size 18px
     font-weight bold
