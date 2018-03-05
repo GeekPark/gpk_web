@@ -16,6 +16,7 @@ export function createStore () {
         return `'http://ovsnhdoi9.bkt.clouddn.com/image/newgeekpark/${name}`
       },
       homepage: {
+        homepage_posts_f: [],
         homepage_posts: []
       },
       ads: [],

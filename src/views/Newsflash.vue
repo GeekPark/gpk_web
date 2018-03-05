@@ -8,7 +8,7 @@
         .summary {{post.summary}}
         .meta
           a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
-          .date {{post.published | fromNow}}
+          .date {{post.updatedAt | fromNow}}
       .tac(v-if="!nomore")
         a.load-more(@click="fetch", :class="{'loading-in': loading}")
           .loading-article

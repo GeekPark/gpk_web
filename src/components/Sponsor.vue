@@ -108,6 +108,8 @@ export default {
     &:hover
       span
         display inline
+  &.ads-web_post
+    padding-bottom 26.38%
   &.ads-top_banner
     margin-bottom 10px
   &.ads-medium_up,

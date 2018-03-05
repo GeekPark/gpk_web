@@ -24,12 +24,9 @@
   .main-content
     .container
       .article-list
-        template(v-for="posts in homepage_posts")
-          .time
-            i.iconfont.icon-arrow-left
-            | {{posts.date | timeAt}}
-            i.iconfont.icon-arrow-right
-          item(v-for="item in posts.data", :key="item.post.id", :post="item.post")
+        item(v-for="item in homepage_posts_f", :key="item.post.id", :post="item.post")
+        sponsor(position="web_post", v-once)
+        item(v-for="item in homepage_posts", :key="item.post.id", :post="item.post")
         .tac
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
             .loading-article
@@ -63,6 +60,7 @@ export default {
     return {
       page: page,
       loading: false,
+      homepage_posts_f: [],
       homepage_posts: [],
       ads: [],
       isMobile: false
@@ -74,12 +72,12 @@ export default {
     }
   },
   asyncData ({ store, route }) {
-    // 触发 action 后，会返回 Promise
     return store.dispatch('FETCH_HOME', { page })
   },
   computed: {
     homepage () {
-      this.homepage_posts = this.$store.state.homepage.homepage_posts
+      this.homepage_posts_f = this.$store.state.homepage.homepage_posts.slice(0, 3)
+      this.homepage_posts = this.$store.state.homepage.homepage_posts.slice(3)
       if (this.$store.state.ads.post_left) this.$store.state.homepage.slider.posts[3] = this.$store.state.ads.post_left[0].ad
       if (this.$store.state.ads.post_right) this.$store.state.homepage.slider.posts[4] = this.$store.state.ads.post_right[0].ad
       return this.$store.state.homepage
@@ -89,7 +87,7 @@ export default {
     fetch () {
       this.loading = true
       page += 1
-      api.get(`?page=${page}`).then((result) => {
+      api.get(`http://main_test.geekpark.net/api/v2?page=${page}`).then((result) => {
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false
         window.ga('send', 'event', {

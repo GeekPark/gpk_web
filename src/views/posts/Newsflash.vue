@@ -7,7 +7,7 @@
       .title(@click='unwind(post)') {{post.edited_title}}
       .summary {{post.summary}}
       a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
-      .time {{post.published | fromNow}}
+      .time {{post.updatedAt | fromNow}}
   a.more(href="/breakingnews", :target="$store.state.target") 查看更多
 </template>
 

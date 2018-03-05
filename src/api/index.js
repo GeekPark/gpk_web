@@ -41,7 +41,12 @@ export function fetchAd() {
 }
 
 export function fetchHome (page) {
-  return fetch(`?page=${page}`)
+  return new Promise((resolve, reject) => {
+    api.$get(`${config.host}v2?page=${page}`).then(res => {
+      resolve(res)
+    }).catch(reject)
+  })
+  // return fetch(`?page=${page}`)
 }
 
 export function fetchBreakingNews (id) {
