@@ -3,11 +3,13 @@
   h3 极客严选
   ul(data-track-category="news-flash" data-track-item="li")
     li.news-item(v-for="post in posts" :key="post.id" :class="{'active': post.display}")
-      img.icon(:src='`${post.icon}?imageView2/1/w/32/h/32/interlace/1/q/88/interlace/1/`')
+      .icon
+        img(:src="post.icon")
+        .time {{post.updatedAt | fromHours}}
       .title(@click='unwind(post)') {{post.edited_title}}
       .summary {{post.summary}}
-      a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
-      .time {{post.updatedAt | fromNow}}
+      .footer
+        a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
   a.more(href="/breakingnews", :target="$store.state.target") 查看更多
 </template>
 
@@ -61,11 +63,18 @@ export default {
       position absolute
       top .2em
       left 0
-      width 16px
-      height 16px
+      width 18px
+      height 18px
+      text-align center
+      img
+        width 100%
+    .time
+      font-size 10px
+      padding-top .3em
+      color rgba(0, 0, 0, .5)
   .news-item
     margin 15px 0
-    padding-left 25px
+    padding-left 28px
     clear both
     line-height 1.5
     color rgba(0, 0, 0, .8)
@@ -76,24 +85,23 @@ export default {
       cursor pointer
     .summary
       color rgba(0, 0, 0, .5)
-      margin .5em 0
       max-height 0
       overflow hidden
       transition all .1s
-    .time
-      color rgba(0, 0, 0, .5)
-    .link
-      float right
-      color #0185F2
+    .footer
+      text-align right
       opacity 0
       height 0
       overflow hidden
       transition all .3s
+    .link
+      color #0185F2
     &.active
       .summary
         max-height 500px
         transition all .4s
-      .link
+        margin .5em 0
+      .footer
         opacity 1
         height auto
   .more

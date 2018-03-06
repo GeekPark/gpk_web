@@ -3,12 +3,13 @@
   .container
     .article-list
       .flash-item(v-for="post in posts", :key="post.id")
-        img.icon(:src='`${post.icon}?imageView2/1/w/32/h/32/interlace/1/q/88/interlace/1/`')
+        .icon
+          img(:src="post.icon")
+          .date {{post.updatedAt | fromHours}}
         .title {{post.edited_title}}
         .summary {{post.summary}}
         .meta
           a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
-          .date {{post.updatedAt | fromNow}}
       .tac(v-if="!nomore")
         a.load-more(@click="fetch", :class="{'loading-in': loading}")
           .loading-article
@@ -43,7 +44,7 @@ export default {
       axios.get(`https://apigo.holoread.news/api/v1/articles${this.last ? '?last=' + this.last : ''}`).then((result) => {
         this.posts = this.posts.concat(result.data.data)
         this.loading = false
-        if (result.data.data.length < 20) {
+        if (result.data.data.length < 1) {
           this.nomore = true
         } else {
           this.last = result.data.data.pop().updatedAt + 1
@@ -67,14 +68,19 @@ export default {
   line-height 1.5
   color rgba(0, 0, 0, .8)
   font-size 14px
-  padding-left 25px
+  padding-left 28px
   position relative
   .icon
     position absolute
-    top .3em
     left 0
-    width 16px
-    height 16px
+    text-align center
+    width 18px
+    img
+      width 100%
+    .date
+      font-size 10px
+      padding-top .3em
+      color rgba(0, 0, 0, .5)
   .title
     font-size 18px
     font-weight bold
@@ -84,8 +90,6 @@ export default {
     margin .5em 0
     transition all .4s
   .meta
-    .date
-      display inline-block
     .link
       float right
       color #0185F2

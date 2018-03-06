@@ -8,7 +8,7 @@
     a(href="/column/250")
       span(data-hover="极客出行") 极客出行
     a(href="/column/177")
-      span(data-hover="深度报道") 深度报道
+      span(data-hover="顶楼TopView") 顶楼TopView
     a(href="/column/170")
       span(data-hover="挖App") 挖App
     a(href="/column/251")

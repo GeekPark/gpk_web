@@ -18,6 +18,12 @@ export function fromNow (value) {
   return diff >= 1 ? time.format('YYYY/MM/DD') : time.locale('zh-cn').fromNow()
 }
 
+export function fromHours (value) {
+  if (!value) return ''
+  const time = Math.floor((Date.now() / 1000 - value) / 3600)
+  return Math.max(time, 1) + 'h'
+}
+
 export function getDay (value) {
   if (!value) return ''
   return moment.unix(value).format('MM月DD日');

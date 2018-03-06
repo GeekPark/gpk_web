@@ -9,13 +9,13 @@
     dd
       a(href="/column/250") 极客出行
     dd
+      a(href="/column/177") 顶楼TopView
+    dd
       a(href="/column/170") 挖App
     dd
       a(href="/column/251") 图赏
     dd
       a(href="/column/91") 极客指南
-    dd
-      a(href="/column/217") 极客制造
   dl
     dt 关于
     dd
