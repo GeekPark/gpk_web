@@ -62,7 +62,8 @@ export default {
   clear both
   overflow hidden
 .article-item
-  padding 25px 0
+  padding 0
+  margin-bottom 50px
   position relative
   line-height 1.5
   clear both
@@ -76,8 +77,8 @@ export default {
     display none
     overflow hidden
     box-sizing border-box
-  &:before
-    left -25px
+  // &:before
+  //   left -25px
   &:after
     right -25px
   &:hover
@@ -99,7 +100,7 @@ export default {
     color rgba(0,0,0,.5)
   .article-meta
     position absolute
-    bottom 25px
+    bottom 0px
     right 0
     left 0
     padding-left 37%
@@ -210,6 +211,7 @@ export default {
     font-weight bold
   @media $media
     padding 10px 0
+    margin 0
     // display flex
     &:hover
       background inherit
