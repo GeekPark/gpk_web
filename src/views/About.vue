@@ -205,7 +205,7 @@
             li
               a.btn.inverse(target="_blank" title="全球酷玩试用导购平台" href="http://www.jiguo.com/") 极果
             li
-              a.btn.inverse(target="_blank" title="品途商业评论" href="http://www.pintu360.com/") 品途
+              a.btn.inverse(target="_blank" title="品途商业评论" href="http://www.pintu360.com/" rel="nofollow") 品途
             li
               a.btn.inverse(target="_blank" title="i 黑马 创业者都在这儿" href="http://www.iheima.com/") i黑马
             li
@@ -227,7 +227,9 @@
             li
               a.btn.inverse(target="_blank" title="和讯科技" href="http://tech.hexun.com/") 和讯科技
             li
-              a.btn.inverse(target="_blank" title="链闻 ChainNews" href="https://chainnews.com/") 链闻 ChainNews
+              a.btn.inverse(target="_blank" title="链闻 ChainNews" href="https://chainnews.com/" rel="nofollow") 链闻 ChainNews
+            li
+              a.btn.inverse(target="_blank" title="微信小程序" href="https://mp.weixin.qq.com/cgi-bin/wx" rel="nofollow") 微信小程序
 
         //- 联系方式
         section.page.contact
