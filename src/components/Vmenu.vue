@@ -11,6 +11,8 @@
     dd
       a(href="/column/177") 顶楼TopView
     dd
+      a(href="/column/261") Intelligence Plus
+    dd
       a(href="/column/170") 挖App
     dd
       a(href="/column/251") 图赏

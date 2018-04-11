@@ -9,14 +9,14 @@
       span(data-hover="极客出行") 极客出行
     a(href="/column/177")
       span(data-hover="顶楼TopView") 顶楼TopView
+    a(href="/column/261")
+      span(data-hover="Intelligence Plus") Intelligence Plus
     a(href="/column/170")
       span(data-hover="挖App") 挖App
     a(href="/column/251")
       span(data-hover="图赏") 图赏
     a(href="/column/91")
       span(data-hover="极客指南") 极客指南
-    //- a(href="/column/217")
-    //-   span(data-hover="极客制造") 极客制造
 </template>
 
 <script>
