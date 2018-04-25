@@ -1,7 +1,19 @@
 <template lang="pug">
 #column
   subnav
-  .header-banner(:style="{'backgroundImage': column.banner_url ? `url(${column.banner_url})` : ''}")
+  .swiper-container.column-carousel(v-if="column.column_banner && column.column_banner.banners.length")
+    .swiper-wrapper
+      .item.swiper-slide(v-for="item, index in column.column_banner.banners" :key="`people_${index}`")
+        a.link(class="link" :href="`/news/${item.id}`" :target="$store.state.target")
+          .img-cover
+            img(:src="`${item.cover_url}?imageView2/1/w/1130/h/542/interlace/1/q/88/interlace/1/`")
+          .info-cover
+            h3.multiline-text-overflow
+              span {{item.title}}
+            p.multiline-text-overflow {{item.abstract}}
+    .swiper-pagination
+
+  .header-banner(v-else :style="{'backgroundImage': column.banner_url ? `url(${column.banner_url})` : ''}")
     h3 {{column.title}}
     .desc {{column.description}}
   .main-content
@@ -22,6 +34,8 @@ import Subnav from '../components/Vsubnav.vue'
 import Item from './posts/Item.vue'
 import Hotnews from './posts/Hotnews.vue'
 import api from 'store/api'
+require('swiper/dist/css/swiper.min.css')
+import Swiper from 'swiper/dist/js/swiper.js'
 
 let page = 1
 
@@ -48,7 +62,23 @@ export default {
       return this.$store.state.column.column
     }
   },
+  mounted () {
+    window.scroll(0, 0)
+    var mySwiper = new Swiper('.swiper-container', {
+      speed: 500,
 
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      loop: true,
+      breakpoints: {
+        767: {
+        }
+      }
+    })
+  },
   methods: {
     fetch () {
       this.loading = true
@@ -75,6 +105,70 @@ export default {
 #column
   .sub-nav
     margin-bottom 0
+.column-carousel
+  margin 0 auto
+  max-width 1130px
+  .swiper-pagination
+    width 100%
+    bottom 4%
+  .swiper-pagination-bullet
+    border-radius 0
+    background #000
+    width 18px
+    height 5px
+    margin 5px
+  .swiper-pagination-bullet-active
+    background #000
+  .item
+    position relative
+    .img-cover
+      width 100%
+      height 0
+      padding-bottom 48%
+      box-sizing border-box
+      overflow hidden
+      border 1px solid #efefef
+      position relative
+      img
+        position absolute
+        top 50%
+        left 50%
+        transform translate3d(-50%, -50%, 0)
+        height 100%
+        width auto
+        min-width 100%
+    .info-cover
+      position absolute
+      left 5%
+      bottom 12%
+      width 500px
+      max-width 85%
+    h3
+      font-size 20px
+      color #fff
+      line-height 2
+      margin 0
+      font-weight 400
+      span
+        background #000
+        padding .3em 10px
+        box-decoration-break clone
+    p
+      background rgba(0, 0, 0, .5)
+      color #fff
+      font-size 14px
+      line-height 1.5
+      padding 6px 10px
+      margin 10px 0 0 0
+  @media screen and (max-width: 767px)
+    .item
+      h3
+        font-size 14px
+        line-height 1.8
+      p
+        display none
+        font-size 12px
+        margin 5px 0 0 0
 .header-banner
   background url('http://imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
   background-size cover
