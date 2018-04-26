@@ -1,7 +1,7 @@
 <template lang="pug">
 #column
   subnav
-  .swiper-container.column-carousel(v-if="column.column_banner && column.column_banner.banners.length")
+  .swiper-container.column-carousel(v-if="column.column_banner && column.column_banner.template == 'template_two' && column.column_banner.banners.length")
     .swiper-wrapper
       .item.swiper-slide(v-for="item, index in column.column_banner.banners" :key="`people_${index}`")
         a.link(class="link" :href="`/news/${item.id}`" :target="$store.state.target")
@@ -66,7 +66,9 @@ export default {
     window.scroll(0, 0)
     var mySwiper = new Swiper('.swiper-container', {
       speed: 500,
-
+      autoplay: {
+        delay: 5000,
+      },
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -110,15 +112,17 @@ export default {
   max-width 1130px
   .swiper-pagination
     width 100%
-    bottom 4%
+    bottom 3%
   .swiper-pagination-bullet
     border-radius 0
-    background #000
-    width 18px
+    opacity .3
+    background #fff
+    width 25px
     height 5px
     margin 5px
   .swiper-pagination-bullet-active
-    background #000
+    background #fff
+    opacity 1
   .item
     position relative
     .img-cover
