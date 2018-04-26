@@ -4,9 +4,9 @@
   .swiper-container.column-carousel(v-if="column.column_banner && column.column_banner.template == 'template_two' && column.column_banner.banners.length")
     .swiper-wrapper
       .item.swiper-slide(v-for="item, index in column.column_banner.banners" :key="`people_${index}`")
-        a.link(class="link" :href="`/news/${item.id}`" :target="$store.state.target")
+        a(:href="`/news/${item.id}`" :target="$store.state.target")
           .img-cover
-            img(:src="`${item.cover_url}?imageView2/1/w/1130/h/542/interlace/1/q/88/interlace/1/`")
+            img(:src="`${item.cover_url}?imageView2/1/w/1130/h/400/interlace/1/q/88/interlace/1/`")
           .info-cover
             h3.multiline-text-overflow
               span {{item.title}}
@@ -110,6 +110,8 @@ export default {
 .column-carousel
   margin 0 auto
   max-width 1130px
+  .swiper-wrapper
+    margin-top 20px
   .swiper-pagination
     width 100%
     bottom 3%
@@ -119,7 +121,7 @@ export default {
     background #fff
     width 25px
     height 5px
-    margin 5px
+    margin 0 5px
   .swiper-pagination-bullet-active
     background #fff
     opacity 1
@@ -128,7 +130,7 @@ export default {
     .img-cover
       width 100%
       height 0
-      padding-bottom 48%
+      padding-bottom 35.4%
       box-sizing border-box
       overflow hidden
       border 1px solid #efefef
@@ -165,9 +167,15 @@ export default {
       padding 6px 10px
       margin 10px 0 0 0
   @media screen and (max-width: 767px)
+    .swiper-wrapper
+      margin-top 0px
+    .swiper-pagination
+      bottom -2px
     .item
+      .info-cover
+        bottom 5%
       h3
-        font-size 14px
+        font-size 13px
         line-height 1.8
       p
         display none
@@ -199,5 +207,4 @@ export default {
       text-indent 0
     .desc
       letter-spacing 0
-
 </style>
