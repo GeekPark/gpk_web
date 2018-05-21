@@ -38,7 +38,7 @@
         idlenews(v-once)
         topics(v-once)
         sponsor(position="medium_below", v-once)
-  //- vapp
+  vapp
 </template>
 
 <script>

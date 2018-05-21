@@ -1,7 +1,6 @@
 <template lang="pug">
-.OpenInAppButton(:class="{hidden: !show}")
-  a.open.linkedme(:href="url" data-track-category="app" data-track-label="App 内打开")
-  a.close(@click="show = false")
+a.OpenInAppButton.linkedme(:href="url" data-track-category="app" data-track-label="App 内打开")
+  | App 内打开
 </template>
 
 <script>
@@ -9,8 +8,7 @@ export default {
   name: 'vapp',
   data () {
     return {
-      url: 'http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark',
-      show: true
+      url: 'http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark'
     }
   },
   mounted() {
@@ -46,33 +44,20 @@ export default {
       position fixed
       top auto
       bottom 0
-      left 0
-      right 0
-      width 100%
+      left 50%
       z-index 100
       display block
-      background url("../assets/imgs/app_down.jpg") no-repeat center
-      background-size cover
+      width 105px
+      font-size 15px
+      font-weight 500
+      line-height 36px
+      color #fff
+      text-align center
+      background #0084ff
+      border-radius 18px
       // transform translate(-50%,200%)
+      box-shadow 0 2px 5px rgba(0,0,0,.25)
       transition transform .3s .3s
-      box-shadow 0 0 5px rgba(0,0,0,.25)
       border none
-      padding-bottom 13.87%
-      &.hidden
-        display none
-    .open
-      display block
-      position absolute
-      left 0
-      top 0
-      bottom 0
-      width 90.5%
-    .close
-      display block
-      position absolute
-      right 0
-      top 0
-      bottom 0
-      width 9.5%
-      padding-bottom 13.87%
+      transform translate(-50%,-25px)
 </style>

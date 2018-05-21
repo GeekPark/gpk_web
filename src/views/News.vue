@@ -49,7 +49,7 @@
       hotnews(v-once)
       template(v-if="show")
         nextnews(v-once)
-  //- vapp
+  vapp
 </template>
 
 <script>
