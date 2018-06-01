@@ -49,7 +49,7 @@
       hotnews(v-once)
       template(v-if="show")
         nextnews(v-once)
-  vapp
+  //- vapp
 </template>
 
 <script>
@@ -81,6 +81,7 @@ export default {
       description: this.news.abstract,
       keywords: this.news.tags.join(),
       pubDate: this.news.published_at,
+      upDate: this.news.updated_at,
       image: this.news.cover_url
     }
   },

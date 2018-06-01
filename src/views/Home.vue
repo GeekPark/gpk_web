@@ -2,7 +2,7 @@
 #index
   subnav
   .container
-    sponsor(position="top_banner", v-once)
+    sponsor(position="top_banner")
   .breaking-news(v-if="!isMobile" data-track-category="home.breaking-news" data-track-item=".item a")
     .container
       .item(v-for='item, index in homepage.slider.posts', :key='item.id')
@@ -38,7 +38,7 @@
         idlenews(v-once)
         topics(v-once)
         sponsor(position="medium_below", v-once)
-  vapp
+  //- vapp
 </template>
 
 <script>
