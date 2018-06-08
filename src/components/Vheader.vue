@@ -3,8 +3,12 @@
   header.header(class="hidden-xs")
     .container.relative
       .logo
-        a.active(href="/" data-track-category="site.logo")
-          img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
+        template(v-if="cpath !== '/'")
+          a.active(href="/" data-track-category="site.logo")
+            img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
+        template(v-else)
+          a#site-logo.active(href="/" data-track-category="site.logo")
+            img.logo-img(src="../assets/imgs/logo_birthday.png")
         //- = render 'shared/v2/doodle'
       nav.nav(data-track-category="nav.global" data-track-item="a")
         a.active(href="/") 资讯
@@ -81,6 +85,11 @@ export default {
       hideHeader: false,
       userMenu: false,
       messageMenu: false
+    }
+  },
+  computed: {
+    cpath: function () {
+      return this.$route.path
     }
   },
   methods: {
