@@ -6,12 +6,12 @@
   .news-list(data-track-category="related-news" data-track-item=".news-item")
     article.news-item(v-for='post, index in posts', :key='post.id')
       .img-cover-wrap
-        a(:href="`/news/${post.id}`", :target="$store.state.target")
+        a(:href="`/news/${post.id}`", :target="$store.state.target" data-event-action="view" data-event-category="related-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
           .news-cover
             img(v-lazy="post.cover_url" w=158 h=100)
       div
-        a.category-tag(:href="`/column/${post.column.id}`", :target="$store.state.target") {{post.column.title}}
-        a(:href="`/news/${post.id}`", :target="$store.state.target")
+        a.category-tag(:href="`/column/${post.column.id}`", :target="$store.state.target" data-event-action="view" data-event-category="related-list.column" :data-event-label="`${post.column.title} /column/${post.column.id}`") {{post.column.title}}
+        a(:href="`/news/${post.id}`", :target="$store.state.target" data-event-action="view" data-event-category="related-list.title" :data-event-label="`${post.title} /news/${post.id}`")
           p.multiline-text-overflow {{post.title}}
 </template>
 
