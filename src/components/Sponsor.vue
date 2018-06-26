@@ -74,7 +74,7 @@ export default {
   display block
   transform scale(1)
   &:hover
-    filter brightness(102%) contrast(115%)
+    // filter brightness(102%) contrast(115%)
     i.icon-close
       opacity 1
   img
@@ -110,6 +110,7 @@ export default {
         display inline
   &.ads-web_post
     padding-bottom 26.38%
+    margin-bottom 50px
   &.ads-top_banner
     margin-bottom 10px
   &.ads-medium_up,

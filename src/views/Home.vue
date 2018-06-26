@@ -2,6 +2,7 @@
 #index
   subnav
   .container
+    img(style="float: left; width: 0;" src="http://g.cn.miaozhen.com/x/k=2084474&p=7FdWg&dx=__IPDX__&rt=2&ns=__IP__&ni=__IESID__&v=__LOC__&xa=__ADPLATFORM__&tr=__REQUESTID__&o=")
     sponsor(position="top_banner")
   .breaking-news(v-if="!isMobile" data-track-category="home.breaking-news" data-track-item=".item a")
     .container
@@ -31,6 +32,7 @@
           a.load-more(@click="fetch", :class="{'loading-in': loading}")
             .loading-article
             span 加载更多
+        img(src="http://g.cn.miaozhen.com/x/k=2084474&p=7FdWi&dx=__IPDX__&rt=2&ns=__IP__&ni=__IESID__&v=__LOC__&xa=__ADPLATFORM__&tr=__REQUESTID__&o=")
       .article-sidebar
         sponsor(position="medium_up", v-once)
         newsflash
@@ -38,6 +40,7 @@
         idlenews(v-once)
         topics(v-once)
         sponsor(position="medium_below", v-once)
+        img(src="http://g.cn.miaozhen.com/x/k=2084474&p=7FdWj&dx=__IPDX__&rt=2&ns=__IP__&ni=__IESID__&v=__LOC__&xa=__ADPLATFORM__&tr=__REQUESTID__&o=")
   //- vapp
 </template>
 
@@ -114,6 +117,10 @@ export default {
     },
   },
   mounted () {
+    setTimeout(()=>{
+      ParadigmSDK.init("ce4c4b0b8dbd4db9a0289568d3fb44f7") //###SDK初始化
+      ParadigmSDK.renderAds('b495cb5919ab4500bef2d282fc2c70d4')
+    }, 500)
     // this.getAds()
     if (this.$device.isMobile()) {
       this.isMobile = true

@@ -12,7 +12,7 @@
             .article-time {{news.reading_time}}min read
           h1.topic-title {{news.title}}
           .user-info
-            a.author(v-for="author in news.authors.slice(0, 2)" :href="`/users/${author.id}`" data-track-category="article.author" :data-track-label="`${author.nickname} ${news.title}`")
+            a.author(v-for="author in (news.authors || []).slice(0, 2)" :href="`/users/${author.id}`" data-track-category="article.author" :data-track-label="`${author.nickname} ${news.title}`")
               img(v-lazy="author.avatar_url" w=40 h=40)
               span {{author.nickname}}
             span.release-date {{news.published_timestamp | formatDate}}
@@ -41,10 +41,12 @@
         //- a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
           | 打开极客公园App阅读更多内容
         comment(:postid="$route.params.id")
-        related(v-if="news.column && !promotion[news.column.id]", v-once)
+        //- related(v-if="news.column && !promotion[news.column.id]", v-once)
+        #b6226ec88940448285d1712b3ec072a9
         newest(v-once)
 
     aside.article-sidebar
+      img(src="http://g.cn.miaozhen.com/x/k=2084474&p=7FdWh&dx=__IPDX__&rt=2&ns=__IP__&ni=__IESID__&v=__LOC__&xa=__ADPLATFORM__&tr=__REQUESTID__&o=")
       sponsor(position="post", v-once)
       hotnews(v-once)
       template(v-if="show")
@@ -125,6 +127,11 @@ export default {
     },
   },
   mounted () {
+    setTimeout(()=>{
+      ParadigmSDK.init("ce4c4b0b8dbd4db9a0289568d3fb44f7") //###SDK初始化
+      ParadigmSDK.renderAds('b6226ec88940448285d1712b3ec072a9')
+    }, 500)
+
     let _this = this
     if (!this.news.published_timestamp) {
       this.show = false
@@ -234,6 +241,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
   margin 40px auto 0 auto
   color #353535
   min-height 60vh
+  #b6226ec88940448285d1712b3ec072a9
+    margin-top 40px
   .ad-if
     img
       width 100%
@@ -398,6 +407,8 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       transition all 0.3s
   @media screen and (max-width: 767px)
     margin 0
+    #b6226ec88940448285d1712b3ec072a9
+      display none
     .main-wrap
       width 100%
     .post-header
