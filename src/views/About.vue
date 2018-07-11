@@ -230,6 +230,8 @@
               a.btn.inverse(target="_blank" title="链闻 ChainNews" href="https://chainnews.com/" rel="nofollow") 链闻 ChainNews
             li
               a.btn.inverse(target="_blank" title="微信小程序" href="https://mp.weixin.qq.com/cgi-bin/wx" rel="nofollow") 微信小程序
+            li
+              a.btn.inverse(target="_blank" title="winⓔ云品牌管理" href="http://www.winewin.cn/" rel="nofollow") winⓔ云品牌管理
 
         //- 联系方式
         section.page.contact

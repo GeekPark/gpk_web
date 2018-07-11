@@ -40,6 +40,7 @@
           p(v-if="news.like_count > 0") {{news.like_count}}
         //- a.hidden-notxs.app-down(href="http://a.app.qq.com/o/simple.jsp?pkgname=net.geekpark.geekpark")
           | 打开极客公园App阅读更多内容
+        sponsor(position="post_under", v-once)
         comment(:postid="$route.params.id")
         //- related(v-if="news.column && !promotion[news.column.id]", v-once)
         #b6226ec88940448285d1712b3ec072a9
@@ -128,8 +129,9 @@ export default {
   },
   mounted () {
     setTimeout(()=>{
-      ParadigmSDK.init("ce4c4b0b8dbd4db9a0289568d3fb44f7") //###SDK初始化
+      ParadigmSDK.init("ce4c4b0b8dbd4db9a0289568d3fb44f7")
       ParadigmSDK.renderAds('b6226ec88940448285d1712b3ec072a9')
+      ParadigmSDK.trackDetailPageShow()
     }, 500)
 
     let _this = this

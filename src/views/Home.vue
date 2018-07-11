@@ -117,10 +117,6 @@ export default {
     },
   },
   mounted () {
-    setTimeout(()=>{
-      ParadigmSDK.init("ce4c4b0b8dbd4db9a0289568d3fb44f7") //###SDK初始化
-      ParadigmSDK.renderAds('b495cb5919ab4500bef2d282fc2c70d4')
-    }, 500)
     // this.getAds()
     if (this.$device.isMobile()) {
       this.isMobile = true
