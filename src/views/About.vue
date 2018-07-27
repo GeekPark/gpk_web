@@ -46,25 +46,25 @@
               p 极客公园从2010年开始举办各类线下活动，通过月度、年度活动聚集了一批具有创新精神的极客人群，为新锐创业团队和产品提供了舞台，并连续邀请到具有全球影响力的创新者为中国的极客人群进行分享，其中包括苹果联合创始人斯蒂夫·沃兹尼亚克（Steve Wozniak）、谷歌董事长埃里克·施密特（Eric Schmidt）、Tesla创始人埃隆·马斯克（Elon Musk）、百度CEO李彦宏、小米科技CEO雷军等。
               .event-item
                 a.cover(href="http://events.geekpark.net/activities?category_id=983263f6-596c-4599-94a1-67c3c0f1aaa9" target="_blank")
-                  img(src="https://ocpk3ohd2.qnssl.com/assets/v2/static_about/gif-b2b995ac60edf49c08b1854c8178811a.jpg")
+                  img(src="http://imgslim.geekpark.net/about/events-if.jpg")
                 .event-info
                   .event-title GIF极客公园创新大会
                   .event-desc 极客公园创新大会，又称GIF大会，是中国科技界一年一度的科技盛会，汇聚国际、国内顶尖的互联网大咖，涵盖科技、商业、人文的前沿展望，众多中国互联网优秀创新产品展示，是国内最有价值的互联网科技创新盛会之一。
               .event-item
                 a.cover(href="http://events.geekpark.net/activities?list=true&category_id=e820eda6-9a82-4b72-8317-5f69ad1547e5" target="_blank")
-                  img(src="https://ocpk3ohd2.qnssl.com/assets/v2/static_about/jidian-69022354c63e00e1c9b4a20dd0013edf.jpg")
+                  img(src="http://imgslim.geekpark.net/about/events-rebuild.jpg")
                 .event-info
                   .event-title 奇点创新者峰会
                   .event-desc 奇点是物理学上宇宙演化的起始点，从2014年夏天开始，极客公园汇聚互联网科技领域的开拓性力量，邀请跨越科技、资本、金融等领域的权威嘉宾。聚焦在科技发展的大潮下，科技与资本如何实现高效对接，以及未来科技与产业资本融合的下一个引爆点。
               .event-item
                 a.cover(href="http://events.geekpark.net/activities?list=true&category_id=f8d134d6-0c5e-4505-93c3-4c8e1c661934" target="_blank")
-                  img(src="https://ocpk3ohd2.qnssl.com/assets/v2/static_about/weilaitoutiao-2018a2c8ac666ba186077b247d921aed.jpg")
+                  img(src="http://imgslim.geekpark.net/about/events-headline.jpg")
                 .event-info
                   .event-title 未来头条
                   .event-desc 未来头条月度线下活动，每次盘点5款最值得关注、最有可能成为未来之星的创新产品。旨在发掘最值得关注的企业，汇聚最具潜力的、最 HOT 的新锐产品。出门问问、零度无人机、人人车等公司，在未来头条的舞台上登场后，纷纷获得产业的关注，快速成为最具潜力的创新公司。
               .event-item
                 a.cover(href="http://events.geekpark.net/activities?list=true&category_id=8535917e-3ca8-474a-aeac-5337089d66de" target="_blank")
-                  img(src="https://ocpk3ohd2.qnssl.com/assets/v2/static_about/gongkaike-40e5bf1e1a7d4266d2f08b06dccbf700.jpg")
+                  img(src="http://imgslim.geekpark.net/about/events-opencourse.jpg")
                 .event-info
                   .event-title 极客公开课
                   .event-desc 极客公开课是极客公园最具代表性的主题类活动，每月1-2期。活动主要邀请各领域具有代表性的创新产品，就时下最值得关注或探讨的话题进行分享与讨论，或是走近知名企业聆听一线负责人讲述品牌背后的故事。在极客公园精心策划下，“微信公开课Pro版”、“腾讯互娱游戏方法论”等精彩活动一一落地，给予创新者极大的启发，受到了业界的普遍关注。

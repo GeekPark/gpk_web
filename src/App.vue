@@ -128,7 +128,7 @@ a
     color: #444;
     border-color: #444;
   .loading-article
-    background-image: url(https://ocpk3ohd2.qnssl.com/assets/v2/icons/loading-e01b4adee8ec596f8bf3ebf0d980dde0.svg);
+    background-image: url(http://imgslim.geekpark.net/assets/imgs/icons/loading.svg);
     background-size: 100% 100%;
     width: 30px;
     height: 30px;

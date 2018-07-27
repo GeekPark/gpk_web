@@ -47,7 +47,6 @@
         newest(v-once)
 
     aside.article-sidebar
-      img(src="http://g.cn.miaozhen.com/x/k=2084474&p=7FdWh&dx=__IPDX__&rt=2&ns=__IP__&ni=__IESID__&v=__LOC__&xa=__ADPLATFORM__&tr=__REQUESTID__&o=")
       sponsor(position="post", v-once)
       hotnews(v-once)
       template(v-if="show")

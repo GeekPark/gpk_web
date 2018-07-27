@@ -112,7 +112,7 @@ export default {
     padding-bottom 26.38%
     margin-bottom 50px
   &.ads-post_under
-    padding-bottom 14%
+    padding-bottom 17.15%
     margin-bottom 30px
   &.ads-top_banner
     margin-bottom 10px

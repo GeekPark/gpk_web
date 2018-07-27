@@ -44,7 +44,7 @@ const config = merge(base, {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  config.output.publicPath = 'https://o185dmv7p.qnssl.com/dist/'
+  config.output.publicPath = 'http://imgslim.geekpark.net/dist/'
   // config.plugins.push(
   //   // auto generate service worker
   //   new SWPrecachePlugin({

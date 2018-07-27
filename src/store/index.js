@@ -12,9 +12,6 @@ export function createStore () {
       access_key: null,
       target: '',
       userInfo: null,
-      qiniu: (name) => {
-        return `'http://ovsnhdoi9.bkt.clouddn.com/image/newgeekpark/${name}`
-      },
       homepage: {
         homepage_posts_f: [],
         homepage_posts: []
