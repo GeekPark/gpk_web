@@ -87,7 +87,7 @@ export default {
     fetch () {
       this.loading = true
       page += 1
-      api.get(`http://main_test.geekpark.net/api/v2?page=${page}`).then((result) => {
+      api.get(`https://mainssl.geekpark.net/api/v2?page=${page}`).then((result) => {
         this.homepage_posts = this.homepage_posts.concat(result.data.homepage_posts)
         this.loading = false
         window.ga('send', 'event', {

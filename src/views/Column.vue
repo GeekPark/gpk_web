@@ -182,7 +182,7 @@ export default {
         font-size 12px
         margin 5px 0 0 0
 .header-banner
-  background url('http://imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
+  background url('//imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
   background-size cover
   color #fff
   text-align center

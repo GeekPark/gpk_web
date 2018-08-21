@@ -84,7 +84,7 @@ export default {
 <style lang="stylus" scoped>
 
 .header-banner
-  background url('http://imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
+  background url('//imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
   background-size cover
   color #fff
   text-align center
@@ -92,7 +92,7 @@ export default {
   height 180px
   for $num in (0..4)
     {'&.bg-' + $num}
-      background-image url('http://imgslim.geekpark.net/image/newgeekpark/author_bg_' + $num + '.jpg')
+      background-image url('//imgslim.geekpark.net/image/newgeekpark/author_bg_' + $num + '.jpg')
   h3
     margin 40px 0 40px
     font-size 50px

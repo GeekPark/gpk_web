@@ -4,17 +4,12 @@
     .article-list
       .flash-item(v-for="post in posts", :key="post.id")
         .icon
-          img(:src="post.icon")
+          img(:src="post.icon.replace('http://osxjx70im.bkt.clouddn.com', 'https://holoread-img.geekpark.net')")
           .date {{post.updatedAt | fromHours}}
         .title {{post.edited_title}}
         .summary {{post.summary}}
         .meta
           a.link(v-if="post.url" :href="`${post.url}`", :target="$store.state.target") 阅读原文
-      .tac(v-if="!nomore")
-        a.load-more(@click="fetch", :class="{'loading-in': loading}")
-          .loading-article
-          span 加载更多
-      .tac(v-else) 你已经全面了解过去24小时的科技圈
     .article-sidebar
       hotnews(v-once)
 </template>
@@ -28,27 +23,20 @@ export default {
   data () {
     return {
       loading: true,
-      nomore: false,
-      last: '',
       posts: []
     }
   },
   meta () {
     return {
-      title: "极客严选"
+      title: "全球快讯"
     }
   },
   methods: {
     fetch () {
       this.loading = true;
-      axios.get(`https://apigo.holoread.news/api/v1/articles${this.last ? '?last=' + this.last : ''}`).then((result) => {
-        this.posts = this.posts.concat(result.data.data)
+      axios.get(`https://digestapit.geeks.vc/v1/articles`).then((result) => {
+        this.posts = result.data.data.reverse()
         this.loading = false
-        if (result.data.data.length < 1) {
-          this.nomore = true
-        } else {
-          this.last = result.data.data.pop().updatedAt + 1
-        }
       }).catch((err) => {
         this.$message.error(err.toString())
       })

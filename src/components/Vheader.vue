@@ -4,10 +4,10 @@
     .container.relative
       .logo
         a.active(href="/" data-track-category="site.logo")
-          img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
+          img.logo-img(src="//imgslim.geekpark.net/image/newgeekpark/copyright.png")
       nav.nav(data-track-category="nav.global" data-track-item="a")
         a.active(href="/") 资讯
-        a(href="//events.geekpark.net" target="_blank") 活动
+        a(href="http://events.geekpark.net" target="_blank") 活动
         a(href="http://f.geekpark.net" target="_blank") 前沿社
       a#search-btn.search-btn(href="javascript:;" :class="showsearch ? 'is-open' : ''" @click="showsearch = !showsearch" data-action="search" data-track-category="site.search")
         i.iconfont.icon-search(v-if="!showsearch" key="search-icon")
@@ -50,7 +50,7 @@
       i.iconfont.icon-close(v-else)
     .logo
       a(href="/")
-        img.logo-img(src="http://imgslim.geekpark.net/image/newgeekpark/copyright.png")
+        img.logo-img(src="//imgslim.geekpark.net/image/newgeekpark/copyright.png")
     Vmenu(v-if="showmenu", :logout="logout", :login="login")
     a.m-button.search-btn.search-icon-anim(:class="showsearch ? 'opened' : ''", @click="showsearch = !showsearch")
       i.iconfont.icon-search(v-if="!showsearch")
@@ -119,7 +119,6 @@ export default {
       api.account.get(`api/v1/notifications/all?access_key=${access_key}`).then((result) => {
         this.message = result.data.filter(item => ['comment_post', 'comment'].indexOf(item.content_type) > -1 && item.parent_type !== 'question')
         this.num = this.message.filter(item => item.unread).length
-        console.log('getMessage', result.data)
       }).catch((err) => {
         // this.$message.error(err.toString())
       })

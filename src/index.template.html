@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="webkit" name="renderer" />
     <title>{{meta.title}}</title>
-    <link rel="canonical" href="http://www.geekpark.net{{url}}">
-    <link rel="miphtml" href="http://mip.geekpark.net{{url}}">
+    <link rel="canonical" href="//www.geekpark.net{{url}}">
+    <link rel="miphtml" href="//mip.geekpark.net{{url}}">
     <meta content="{{meta.description}}" name="description" />
     <meta content="{{meta.keywords}}" name="keywords" />
-    <meta content="http://www.geekpark.net{{url}}" property="og:url" />
+    <meta content="//www.geekpark.net{{url}}" property="og:url" />
     <meta content="{{meta.title}}" property="og:title" />
     <meta content="{{meta.description}}" name="og:description" />
     <meta content="{{meta.image}}" name="og:image" />
@@ -23,13 +23,12 @@
     <meta content="true" name="HandheldFriendly" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="极客公园" name="apple-mobile-web-app-title" />
-    <link href="http://imgslim.geekpark.net/geekpark-icon-196-03ac430f5643fc17aba3b3f5429a287d.png" rel="icon" sizes="196x196">
-    <link href="http://imgslim.geekpark.net/geekpark-icon-196-03ac430f5643fc17aba3b3f5429a287d.png" rel="apple-touch-icon-precomposed">
-    <link href="http://imgslim.geekpark.net/start-up-c7d226648443b7f5ce6bc5fd2109810c.jpg" rel="apple-touch-startup-image">
+    <link href="//imgslim.geekpark.net/geekpark-icon-196-03ac430f5643fc17aba3b3f5429a287d.png" rel="icon" sizes="196x196">
+    <link href="//imgslim.geekpark.net/geekpark-icon-196-03ac430f5643fc17aba3b3f5429a287d.png" rel="apple-touch-icon-precomposed">
+    <link href="//imgslim.geekpark.net/start-up-c7d226648443b7f5ce6bc5fd2109810c.jpg" rel="apple-touch-startup-image">
     <script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
-    <script src="//msite.baidu.com/sdk/c.js?appid=1536768227928825"></script>
-    <script async src='//www.google-analytics.com/analytics.js'></script>
-    <script async="async" src="http://imgslim.geekpark.net/autotrack-41efffe793b9098b5e4d45ad2c767b1e.js"></script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script async="async" src="//imgslim.geekpark.net/autotrack-41efffe793b9098b5e4d45ad2c767b1e.js"></script>
     <script>
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', 'UA-55162792-1', 'auto');
@@ -40,6 +39,16 @@
       });
       ga('send', 'pageview');
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+        "@id": "https://www.geekpark.net{{url}}",
+        "appid": "1536768227928825",
+        "title": "{{meta.title}}",
+        "images": ["{{meta.image}}"],
+        "pubDate": "{{meta.pubDate}}"
+      }
+    </script>
     <style>
       .multiline-text-overflow {
         -webkit-box-orient: vertical;
@@ -49,33 +58,9 @@
   <script charset="utf-8" id="ParadigmSDK" src="https://nbrecsys.4paradigm.com/sdk/js/ParadigmSDK_v2.js" data="215" defSI="455"></script>
   <body>
     <!--vue-ssr-outlet-->
-    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://static.lkme.cc/linkedme.min.js"></script>
-    <!-- <script>
-      (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else{
-          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-      })();
-    </script> -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://zhanzhang.baidu.com/contexts/cambrian.jsonld",
-        "@id": "http://www.geekpark.net{{url}}",
-        "title": "{{meta.title}}",
-        "description": "{{meta.description}}",
-        "images": ["{{meta.image}}"],
-        "pubDate": "{{meta.pubDate}}",
-        "upDate": "{{meta.upDate}}",
-        "isOriginal": 1
-      }
-    </script>
+    <script src="https://imgslim.geekpark.net/dist/js/hotkeys.js"></script>
   </body>
 </html>

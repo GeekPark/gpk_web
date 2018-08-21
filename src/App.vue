@@ -128,7 +128,7 @@ a
     color: #444;
     border-color: #444;
   .loading-article
-    background-image: url(http://imgslim.geekpark.net/assets/imgs/icons/loading.svg);
+    background-image: url(//imgslim.geekpark.net/assets/imgs/icons/loading.svg);
     background-size: 100% 100%;
     width: 30px;
     height: 30px;

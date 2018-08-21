@@ -33,7 +33,7 @@
   dl
     dt 项目
     dd
-      a(href="//events.geekpark.net" target="_blank") 活动
+      a(href="http://events.geekpark.net" target="_blank") 活动
     dd
       a(href="http://f.geekpark.net" target="_blank") 前沿社
   .users

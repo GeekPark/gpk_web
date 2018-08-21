@@ -16,7 +16,10 @@
               img(v-lazy="author.avatar_url" w=40 h=40)
               span {{author.nickname}}
             span.release-date {{news.published_timestamp | formatDate}}
-            a.edit(v-if="userInfo && userInfo.roles && userInfo.roles.indexOf('admin') > -1", :href="`http://admin.geekpark.net/posts/new?id=${news.id}`") 编辑
+            template(v-if="userInfo && userInfo.roles && userInfo.roles.indexOf('admin') > -1")
+              a.edit(:href="`http://admin.geekpark.net/posts/new?id=${news.id}`") 编辑
+              a.edit(:href="`http://main_test.geekpark.net/api/v1/posts/${news.id}/duokan_style`" target="_blank") 导出电子书用HTML
+
         #article-body
           .topic-cover(v-if="news.post_type !== 'video'")
             img#topic-cover(:src="news.cover_url")
@@ -189,7 +192,7 @@ export default {
     if (this.news.post_type === 'video') {
       const el = document.getElementById('play-room');
       let videoScript = document.createElement('script');
-      videoScript.src = `//union.bokecc.com/player?vid=${this.news.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
+      videoScript.src = `https://p.bokecc.com/player?vid=${this.news.extra.video_id}&siteid=99F117B348066991&autoStart=true&playerid=0A25BF740EA51439&playertype=1&width=100%&height=100%`;
       videoScript.type ='text/javascript';
       el.innerHTML = '';
       el.appendChild(videoScript);
@@ -369,6 +372,7 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
       background-size auto 1em
     iframe
       width 100%
+      height 440px
     .gp_media_video
       position relative
       width 100%

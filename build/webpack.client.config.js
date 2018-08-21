@@ -44,7 +44,7 @@ const config = merge(base, {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  config.output.publicPath = 'http://imgslim.geekpark.net/dist/'
+  // config.output.publicPath = '//imgslim.geekpark.net/'
   // config.plugins.push(
   //   // auto generate service worker
   //   new SWPrecachePlugin({

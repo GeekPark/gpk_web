@@ -41,15 +41,19 @@ export default {
       this.loading = true;
       this.page += 1;
       api.get(`posts/by-tag/${this.$route.params.tag}?page=${this.page}`).then((result) => {
-        this.total_count = result.data.meta.total_count
-        this.posts = this.posts.concat(result.data.posts)
-        this.loading = false
-        window.ga('send', 'event', {
-          eventCategory: 'Tag',
-          eventAction: 'loadmore',
-          eventLabel: '加载更多',
-        });
-        if (result.data.meta.total_pages <= this.page) this.nomore = true
+        if (result.data.meta.total_count < 1) {
+          location.href = '/404.html'
+        } else {
+          this.total_count = result.data.meta.total_count
+          this.posts = this.posts.concat(result.data.posts)
+          this.loading = false
+          window.ga('send', 'event', {
+            eventCategory: 'Tag',
+            eventAction: 'loadmore',
+            eventLabel: '加载更多',
+          });
+          if (result.data.meta.total_pages <= this.page) this.nomore = true
+        }
       }).catch((err) => {
         this.$message.error(err.toString())
       })
@@ -67,7 +71,7 @@ export default {
 <style lang="stylus" scoped>
 
 .header-banner
-  background url('http://imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
+  background url('//imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
   background-size cover
   color #fff
   text-align center

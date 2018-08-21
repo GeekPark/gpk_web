@@ -229,7 +229,7 @@ $colorBlue = #1da8f2
     min-height: 170px
     max-height: 400px
     @media screen and (min-width: $breakPoint)
-      background: #fff url('http://imgslim.geekpark.net/image/newgeekpark/need_report_bg.png') center center no-repeat;
+      background: #fff url('//imgslim.geekpark.net/image/newgeekpark/need_report_bg.png') center center no-repeat;
       background-size: cover;
   .report-container
     position: relative

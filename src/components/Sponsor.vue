@@ -11,8 +11,8 @@
 </template>
 
 <script>
-// require('swiper/dist/css/swiper.min.css');
-// import Swiper from 'swiper';
+require('swiper/dist/css/swiper.min.css')
+import Swiper from 'swiper/dist/js/swiper.js'
 import api from 'store/api'
 
 export default {
@@ -24,19 +24,23 @@ export default {
       ads: []
     }
   },
-  // watch: {
-  //   'ads': function(val, oldVal) {
-  //     if (val[this.position] && val[this.position].length > 1) {
-  //       setTimeout(()=>{
-  //         let se = `.ads-container.${this.position}`
-  //         new Swiper(se, {
-  //           // effect: 'fade',
-  //           autoplay: 5000,
-  //         })
-  //       }, 500);
-  //     }
-  //   }
-  // },
+  watch: {
+    'ads': function(val, oldVal) {
+      if (val && val.length > 1) {
+        setTimeout(()=>{
+          var mySwiper = new Swiper(`.ads-container.${this.position}`, {
+            // effect: 'fade',
+            autoplay: {
+              delay: 3000,
+              stopOnLastSlide: false,
+              disableOnInteraction: true
+            },
+            loop: true
+          })
+        }, 500)
+      }
+    }
+  },
   methods: {
     fetch () {
       api.get(`ads`).then((result) => {

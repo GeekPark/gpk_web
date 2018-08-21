@@ -1,10 +1,10 @@
 <template lang="pug">
 .news-flash
-  h3 极客严选
+  h3 全球快讯
   ul(data-track-category="news-flash" data-track-item="li")
     li.news-item(v-for="post in posts" :key="post.id" :class="{'active': post.display}")
       .icon
-        img(:src="post.icon")
+        img(:src="post.icon.replace('http://osxjx70im.bkt.clouddn.com', 'https://holoread-img.geekpark.net')")
         .time {{post.updatedAt | fromHours}}
       .title(@click='unwind(post)') {{post.edited_title}}
       .summary {{post.summary}}
@@ -27,8 +27,8 @@ export default {
   methods: {
     fetch () {
       this.loading = true;
-      axios.get(`https://apigo.holoread.news/api/v1/articles`).then((result) => {
-        this.posts = result.data.data.slice(0, 5).map(el => {
+      axios.get(`https://digestapit.geeks.vc/v1/articles`).then((result) => {
+        this.posts = result.data.data.reverse().slice(0, 5).map(el => {
           el.display = false
           return el
         })
@@ -77,6 +77,7 @@ export default {
     padding-left 28px
     clear both
     line-height 1.5
+    min-height 3em
     color rgba(0, 0, 0, .8)
     font-size 12px
     position relative

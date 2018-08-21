@@ -1,8 +1,9 @@
 <template lang="pug">
 #topics
   .header-banner(:style="{backgroundImage: 'url(' + topic.banner_url + ')'}")
-    h3 # {{topic.title}} #
-    .desc 共{{topic.post_count}}篇文章
+    template(v-if="showtitle")
+      h3 # {{topic.title}} #
+      .desc 共{{topic.post_count}}篇文章
   .main-content
     .container
       .article-list
@@ -27,6 +28,7 @@ export default {
       page: 0,
       loading: true,
       nomore: false,
+      showtitle: true,
       topic: {},
       posts: []
     }
@@ -42,6 +44,9 @@ export default {
       this.page += 1
       api.get(`topics/${this.$route.params.id}?page=${this.page}`).then((result) => {
         let data = result.data.topic
+        if (data.id == 277) {
+          this.showtitle = false
+        }
         this.topic = data
         this.posts = this.posts.concat(data.posts)
         document.title = data.title + ' | 极客公园'
@@ -62,7 +67,7 @@ export default {
 
 <style lang="stylus" scoped>
 .header-banner
-  background url('http://imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
+  background url('//imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
   background-size cover
   color #fff
   text-align center

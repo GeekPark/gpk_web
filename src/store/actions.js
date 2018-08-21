@@ -69,7 +69,11 @@ export default {
   FETCH_TAG: ({ commit, state }, { page }) => {
     return fetchTag(page)
       .then(data => {
-        commit('SET_TAG', { data })
+        if (data.posts.length < 1) {
+          return Promise.reject({ code: 404 })
+        } else {
+          commit('SET_TAG', { data })
+        }
       })
   },
 
