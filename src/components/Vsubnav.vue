@@ -19,6 +19,8 @@
       span(data-hover="极客指南") 极客指南
     a(href="/topic/277")
       span(data-hover="ATEC") ATEC
+    a(href="/topic/279")
+      span(data-hover="云栖大会") 云栖大会
 </template>
 
 <script>

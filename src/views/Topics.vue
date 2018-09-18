@@ -44,7 +44,7 @@ export default {
       this.page += 1
       api.get(`topics/${this.$route.params.id}?page=${this.page}`).then((result) => {
         let data = result.data.topic
-        if (data.id == 277) {
+        if (data.id == 277 || data.id == 279) {
           this.showtitle = false
         }
         this.topic = data

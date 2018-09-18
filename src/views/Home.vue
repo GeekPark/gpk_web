@@ -10,7 +10,7 @@
           a(@click="saveClick(item)" class="link" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
             img(:srcset="`${item.cover_url}?imageView2/1/w/1120/h/800/interlace/1/q/88/interlace/1/ 2x`", class="img-cover loaded", :src="`${item.cover_url}?imageView2/1/w/560/h/400/interlace/1/q/88/interlace/1/`")
             .info-cover
-              h3.multiline-text-overflow
+              h3.multiline-text-overflow(v-if="item.title")
                 span {{item.title}}
               p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
   el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="always" indicator-position="none" data-track-category="home.breaking-news" data-track-item=".item a")
