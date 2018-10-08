@@ -4,7 +4,7 @@
     .article-list
       .flash-item(v-for="post in posts", :key="post.id")
         .icon
-          img(:src="post.icon.replace('http://osxjx70im.bkt.clouddn.com', 'https://holoread-img.geekpark.net')")
+          img(:src="post.icon" @error="imgError")
           .date {{post.updatedAt | fromHours}}
         .title {{post.edited_title}}
         .summary {{post.summary}}
@@ -40,6 +40,12 @@ export default {
       }).catch((err) => {
         this.$message.error(err.toString())
       })
+    },
+    imgError (event) {
+      let defaultIcon = "https://holoread-img.geekpark.net/app/icon/icon.png"
+      if (event.target.src !== defaultIcon) {
+        event.target.src = defaultIcon
+      }
     }
   },
 

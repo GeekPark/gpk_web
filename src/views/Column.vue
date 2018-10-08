@@ -6,7 +6,7 @@
       .item.swiper-slide(v-for="item, index in column.column_banner.banners" :key="`people_${index}`")
         a(:href="`/news/${item.id}`" :target="$store.state.target")
           .img-cover
-            img(:src="`${item.cover_url}?imageView2/1/w/1130/h/400/interlace/1/q/88/interlace/1/`")
+            img(:src="`${item.cover_url}?imageView2/1/w/1130/h/400/interlace/1/`")
           .info-cover
             h3.multiline-text-overflow
               span {{item.title}}
