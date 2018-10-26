@@ -2,12 +2,12 @@
 .sponsor(v-if="adShow && ads.length", :class="'ads-' + position")
   .ads-container.swiper-container(:class="position")
     .swiper-wrapper
-      .swiper-slide(v-for="item in ads")
+      .swiper-slide(v-for="item, ad_ind in ads", :key="`ad_${position}_${ad_ind}`")
         a(@click="saveClick(item.ad.id)" :href="item.ad.link" target="_blank" data-track-category="ad" :data-track-label="`${position} ${item.ad.title} ${item.ad.link}`")
           img(:src="item.ad.cover_url")
+        i.iconfont.icon-close(@click="closeAd(item.ad.id)" title="不再显示" data-track-category="ad.close" :data-track-label="`${position}`")
+          span 不再显示
   //- i.icon-ad 广告
-  i.iconfont.icon-close(@click="closeAd" title="不再显示" data-track-category="ad.close" :data-track-label="`${position}`")
-    span 不再显示
 </template>
 
 <script>
@@ -28,7 +28,7 @@ export default {
     'ads': function(val, oldVal) {
       if (val && val.length > 1) {
         setTimeout(()=>{
-          var mySwiper = new Swiper(`.ads-container.${this.position}`, {
+          var adSwiper = new Swiper(`.ads-container.${this.position}`, {
             // effect: 'fade',
             autoplay: {
               delay: 3000,
@@ -37,6 +37,14 @@ export default {
             },
             loop: true
           })
+
+          $(".swiper-container").mouseenter(function() {
+            adSwiper.autoplay.stop();
+          });
+
+          $(".swiper-container").mouseleave(function() {
+            adSwiper.autoplay.start();
+          });
         }, 500)
       }
     }
@@ -54,9 +62,9 @@ export default {
       api.get(`ads/${id}/click`)
       return true
     },
-    closeAd: function () {
+    closeAd: function (id) {
       this.adShow = false
-      localStorage.setItem(`ad_${this.ads[0].ad.id}`, "1")
+      localStorage.setItem(`ad_${id}`, "1")
     }
   },
   beforeMount () {
@@ -81,6 +89,8 @@ export default {
     // filter brightness(102%) contrast(115%)
     i.icon-close
       opacity 1
+  .swiper-slide
+    position relative
   img
     width 100%
   i
@@ -93,8 +103,6 @@ export default {
     transition all $trans-dura
     transform-origin right top
     z-index 8
-    &::after
-      vertical-align top
   i.icon-ad
     bottom 0
     padding 0 .5em
