@@ -3,11 +3,11 @@ article.article-item(:class="{'tushang': (columnId || post.column.id) === 251, '
   template(v-if="(columnId || post.column.id) === 251")
     a.img-cover-wrap(:href="`/news/${post.id}`" :target="$store.state.target" data-event-action="view" data-event-category="article-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
       .img-cover
-        img(v-lazy="post.cover_url" w=285 h=214)
+        img(v-lazy="post.cover_url" w=285 h=287)
     a(:href="`/news/${post.id}`", :target="$store.state.target" data-event-action="view" data-event-category="home.article-list.cover" :data-event-label="`${post.title} /news/${post.id}`")
       .ts-item(v-for="(img, index) in post.img_list.slice(0, 2)")
         .img-cover
-          img(v-lazy="img" w=255 h=129)
+          img(v-lazy="img" w=255 h=130)
         .img-count(v-if="index == 1") {{post.img_list.length}}张图片
 
     .article-info

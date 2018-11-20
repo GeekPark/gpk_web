@@ -31,7 +31,7 @@ Vue.use(VueLazyload, {
       const w = listener.el.getAttribute("w") || 0
       const h = listener.el.getAttribute("h") || 0
       listener.el.setAttribute('srcset', `${listener.src}?imageView2/1/w/${w * 2}/h/${h * 2}${f}/ignore-error/1/ 2x`)
-      listener.src += `?imageView2/2/w/${w}/h/${h}${f}/ignore-error/1`
+      listener.src += `?imageView2/1/w/${w}/h/${h}${f}/ignore-error/1`
     }
   }
 })
