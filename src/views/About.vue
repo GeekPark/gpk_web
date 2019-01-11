@@ -260,6 +260,8 @@
               a.btn.inverse(target="_blank" title="微信小程序" href="https://mp.weixin.qq.com/cgi-bin/wx" rel="nofollow") 微信小程序
             li
               a.btn.inverse(target="_blank" title="winⓔ云品牌管理" href="http://www.winewin.cn/" rel="nofollow") winⓔ云品牌管理
+            li
+              a.btn.inverse(target="_blank" title="创业家" href="http://www.chuangyejia.com/" rel="nofollow") 创业家
 
         //- 联系方式
         section.page.contact
