@@ -1,7 +1,7 @@
 <template lang="pug">
 #topics
   .header-banner(:style="{backgroundImage: 'url(' + topic.banner_url + ')'}")
-    template(v-if="showtitle")
+    template(v-if="!topic.title_visible")
       h3 # {{topic.title}} #
       .desc 共{{topic.post_count}}篇文章
   .main-content
@@ -28,7 +28,6 @@ export default {
       page: 0,
       loading: true,
       nomore: false,
-      showtitle: true,
       topic: {},
       posts: []
     }
@@ -44,9 +43,6 @@ export default {
       this.page += 1
       api.get(`topics/${this.$route.params.id}?page=${this.page}`).then((result) => {
         let data = result.data.topic
-        if (data.id > 274) {
-          this.showtitle = false
-        }
         this.topic = data
         this.posts = this.posts.concat(data.posts)
         document.title = data.title + ' | 极客公园'
