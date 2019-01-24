@@ -262,6 +262,8 @@
               a.btn.inverse(target="_blank" title="winⓔ云品牌管理" href="http://www.winewin.cn/" rel="nofollow") winⓔ云品牌管理
             li
               a.btn.inverse(target="_blank" title="创业家" href="http://www.chuangyejia.com/" rel="nofollow") 创业家
+            li
+              a.btn.inverse(target="_blank" title="ONES" href="https://ones.ai/" rel="nofollow") ONES
 
         //- 联系方式
         section.page.contact
