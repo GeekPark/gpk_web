@@ -40,7 +40,7 @@ export default {
     fetch () {
       this.loading = true;
       this.page += 1;
-      api.get(`posts/by-tag/${this.$route.params.tag}?page=${this.page}`).then((result) => {
+      api.get(`posts/by-tag/${encodeURIComponent(this.$route.params.tag)}?page=${this.page}`).then((result) => {
         if (result.data.meta.total_count < 1) {
           location.href = '/404.html'
         } else {

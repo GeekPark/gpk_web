@@ -11,7 +11,7 @@
         #result-wrap.results
           article.article-items(v-for="post in posts")
             .article-info
-              a(v-bind:href="`/news/${post.id}`")
+              a(v-bind:href="`/news/${post.id}`" target="_blank")
                 h3.multiline-text-overflow(v-html="highlights(post.title, keyword)")
               p.multiline-text-overflow(v-html="highlights(post.abstract, keyword)")
           span(v-if="isOver") 没有更多内容了~

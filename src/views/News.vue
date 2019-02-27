@@ -33,7 +33,7 @@
           a(href="http://if.geekpark.net/hot" target="_blank")
             img(src='../assets/imgs/ad-if-news.jpg')
         section.tags(data-track-category="article.tag" data-track-item="a")
-          a.article-tag(v-for="tag in news.tags" :href="`/tags/${tag}`") {{tag}}
+          a.article-tag(v-for="tag in news.tags" :href="`/tags/${encodeURIComponent(tag)}`") {{tag}}
         .share-wrap(data-track-category="article.share" data-track-item=".js-share-btn")
           share(:title="news.title")
       template(v-if="show")
