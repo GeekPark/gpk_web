@@ -129,7 +129,7 @@ export default {
       if (this.$device.isMobile()) {
         totalPage = 999999
       } else {
-        totalPage = 3
+        totalPage = 2
       }
       if (scrollTop + window.innerHeight >= document.querySelector(".article-list").clientHeight &&
           !this.loading && page < totalPage) {

@@ -63,8 +63,8 @@ export default {
 
 <style lang="stylus" scoped>
 .header-banner
-  background url('//imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
-  background-size cover
+  background #666 url('//imgslim.geekpark.net/image/newgeekpark/column_bg.jpg') center center no-repeat
+  background-size auto 100%
   color #fff
   text-align center
   padding 20px 0
