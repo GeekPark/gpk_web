@@ -15,8 +15,8 @@ footer.page-footer#footer(v-once)
           span(style="color: #DCD900") 关注我们：
           a.share-btn.weibo(href="//weibo.com/geekpark" target="_blank" data-track-label="weibo")
             .iconfont.icon-weibo
-          a.share-btn.twitter(href="//twitter.com/geekparknet" target="_blank" data-track-label="twitter")
-            .iconfont.icon-twitter
+          a.share-btn.zhihu(href="https://www.zhihu.com/org/geekpark-16" target="_blank" data-track-label="zhihu")
+            .iconfont.icon-zhihu
           a.share-btn.wechat.relative(href="javascript:;" data-track-label="wechat")
             .iconfont.icon-wechat
             .wechat-qr.triangle-down
@@ -149,6 +149,8 @@ export default {
     background-color #00D10D
   .share-btn.weibo:hover
     background-color #DF2029
+  .share-btn.zhihu:hover
+    background-color #0F88EB
   .share-btn.twitter:hover
     background-color #049FF6
   .share-btn.rss:hover
