@@ -22,7 +22,7 @@
 
         #article-body
           .topic-cover(v-if="news.post_type !== 'video'")
-            img#topic-cover(:src="news.cover_url")
+            img#topic-cover(:src="news.cover_url" v-if="news.cover_url")
             .tips
               i.iconfont.icon-quotes
               span 摘要
@@ -388,12 +388,15 @@ $bezier = cubic-bezier(0.175, 0.885, 0.32, 1.275)
     p
       margin 15px 0
       color #333
-      img + i
-        color rgba(0, 0, 0, .6)
-        font-size 14px
-        font-style normal
-        display block
-        text-align center
+    img + i,
+    figcaption
+      color rgba(0, 0, 0, .6)
+      font-size 14px
+      font-style normal
+      display inline-block
+      text-align center
+      padding 0.2em 0.5em
+      // border-bottom 1px solid #ddd
     a, a:visited
       color #333
       text-decoration none

@@ -3,18 +3,31 @@
   .search-wrapper(:class="isLoading ? 'loading' : ''")
     .wrap
       .input-wrap
-        input(v-model="keyword" id="search-input" placeholder="搜索文章")
+        input(v-model="keyword" id="search-input" placeholder="搜索")
+      .search-type
+        input(type="radio" id="search-post" value='' v-model="searchType")
+        label(for="search-post") 文章
+        input(type="radio" id="search-authors" value='true' v-model="searchType")
+        label(for="search-authors") 作者
       .result-wrap
         .info
-          span(v-if="count > 0") 共找到 {{count}} 篇文章
-          span(v-else-if="count === 0 && keyword.length !== 0 && !isLoading") 抱歉，没有找到 {{keyword}} 相关的文章
+          //- span(v-if="count > 0") 共找到 {{count}} 篇文章
+          span(v-if="posts.length < 1 && authors.length < 1 && keyword.length !== 0 && !isLoading") 抱歉，没有找到 {{keyword}} 相关的结果
         #result-wrap.results
-          article.article-items(v-for="post in posts")
-            .article-info
-              a(v-bind:href="`/news/${post.id}`" target="_blank")
-                h3.multiline-text-overflow(v-html="highlights(post.title, keyword)")
-              p.multiline-text-overflow(v-html="highlights(post.abstract, keyword)")
-          span(v-if="isOver") 没有更多内容了~
+          template(v-if="!searchType")
+            article.article-items(v-for="post in posts")
+              .article-info
+                a(v-bind:href="`/news/${post.id}`" target="_blank")
+                  h3.multiline-text-overflow(v-html="post.title.join('...')")
+                p.multiline-text-overflow(v-html="post.abstract.join('...')")
+                p.multiline-text-overflow(v-if="post.content_rendered" v-html="post.content_rendered.join('...')")
+            span(v-if="isOver") 没有更多内容了~
+          template(v-else)
+            article.author-items(v-for="author in authors")
+              a(v-bind:href="`/users/${author.id}`" target="_blank")
+                .img-box
+                  img(:src="author.avatar_url" w=96 h=96)
+                | {{author.nickname}}
 </template>
 
 <script>
@@ -27,6 +40,8 @@ export default {
       keyword: '',
       isLoading: false,
       posts: [],
+      authors: [],
+      searchType: '',
       count: 0,
       isOver: false,
     }
@@ -48,13 +63,27 @@ export default {
   watch: {
     keyword: function(val, oldVal){
       this.changeHandler()
+    },
+    searchType: function(val, oldVal){
+      this.posts = []
+      this.authors = []
+      this.changeHandler()
     }
   },
   methods: {
+    getAuthor() {
+      this.isLoading = true
+      api.account.get(`/api/v1/authors?nickname=${this.keyword}`).then((result) => {
+        this.authors = result.data
+        this.isLoading = false
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
     loadMore() {
       if (this.isOver) return
       this.isLoading = true
-      api.get(`posts?query=${this.keyword}&page=${page}`).then((result) => {
+      api.get(`posts/es_search?query=${this.keyword}&page=${page}`).then((result) => {
         this.count = result.data.meta.total_count
         this.posts = page === 1 ? result.data.posts : this.posts.concat(result.data.posts)
         this.isOver = this.posts.length && ++page > result.data.meta.total_pages
@@ -65,13 +94,17 @@ export default {
     },
     changeHandler() {
       page = 1 // reset page
+      this.isOver = false
       if (this.keyword.length === 0) {
         this.posts = []
-        this.isOver = false
+        this.authors = []
         this.count = 0
       } else {
-        this.isOver = false
-        this.loadMore()
+        if (this.searchType) {
+          this.getAuthor()
+        } else {
+          this.loadMore()
+        }
       }
     },
     highlights(value, keyword) {
@@ -116,24 +149,28 @@ body.modal-open
     position: absolute
     margin-left: auto
     margin-right: auto
-    margin-top: 60px
+    margin-top: 40px
     width: 80vw
     height: 70vh
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
     max-width: 800px
-  input
-    border 0
-    outline none
-    width 100%
-    line-height 1.5
-    font-size 3.5rem
-    color $color-blue
-    background transparent
   .input-wrap
     position relative
     border-bottom 2px solid #e8e8e8
+    input
+      border 0
+      outline none
+      width 100%
+      line-height 1.5
+      font-size 3.5rem
+      color $color-blue
+      background transparent
+  .search-type
+    padding 10px 5px
+    label
+      margin-right 1em
   &.loading
     .input-wrap
       border-color $color-blue
@@ -154,8 +191,6 @@ body.modal-open
     .info
       font-size 1.4rem
     .results
-      margin-top 10px
-      // 100px = .input-wrap + .info
       height calc(100% - 100px)
       overflow-y auto
       -webkit-overflow-scrolling touch
@@ -168,6 +203,22 @@ body.modal-open
     .article-items
       margin 30px 0
       line-height 1.8
+
+    .author-items
+      margin 1em 3em 1em 0
+      display inline-block
+      font-size 16px
+      .img-box
+        width 48px
+        height 48px
+        border-radius 50%
+        overflow hidden
+        display inline-block
+        margin-right 0.6em
+        vertical-align middle
+        img
+          width 100%
+          vertical-align top
   .item-title
     font-size 1.8rem
     color #444
