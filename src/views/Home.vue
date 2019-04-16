@@ -5,17 +5,25 @@
     sponsor(position="top_banner")
   .breaking-news(v-if="!isMobile" data-track-category="home.breaking-news" data-track-item=".item a")
     .container
-      .item(v-for='item, index in homepage.slider.posts', :key='item.id')
+      .item
         .responsive-imgs
-          a(@click="saveClick(item)" class="link" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
+          a.link(href="/topic/287" target="_blank")
+            img(class="img-cover loaded", src="https://imgslim.geekpark.net/uploads/image/file/3e/53/3e5338b5d8e43b014f92206b936f0a60.jpg")
+      .item(v-for='item, index in homepage.slider.posts.slice(0,4)', :key='item.id')
+        .responsive-imgs
+          a.link(@click="saveClick(item)" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
             img(:srcset="`${item.cover_url}?imageView2/1/w/1120/h/800/interlace/1/ 2x`", class="img-cover loaded", :src="`${item.cover_url}?imageView2/1/w/560/h/400/interlace/1/`")
             .info-cover
               h3.multiline-text-overflow(v-if="item.title")
                 span {{item.title}}
-              p.multiline-text-overflow(v-if="index == 0") {{item.abstract}}
+              p.multiline-text-overflow(v-if="index == -1") {{item.abstract}}
   el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="always" indicator-position="none" data-track-category="home.breaking-news" data-track-item=".item a")
-    el-carousel-item(v-for="item, index in homepage.slider.posts" :key="item.id")
-      a.link(@click="saveClick(item)" class="link" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
+    el-carousel-item
+      a.link(href="/topic/287")
+        .img-cover
+          img(src="https://imgslim.geekpark.net/uploads/image/file/0d/4f/0d4f243a6635d1f6adb34936366d59b6.jpg")
+    el-carousel-item(v-for="item, index in homepage.slider.posts.slice(0,4)" :key="item.id")
+      a.link(@click="saveClick(item)" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
         .img-cover
           img(:srcset="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/375/h/180/interlace/1/`")
         .info-cover
@@ -25,6 +33,7 @@
     .container
       .article-list
         item(v-for="item in homepage_posts_f", :key="item.post.id", :post="item.post")
+        // topics(v-once)
         sponsor(position="web_post", v-once)
         item(v-for="item in homepage_posts", :key="item.post.id", :post="item.post")
         .tac
@@ -67,9 +76,7 @@ export default {
     }
   },
   meta () {
-    return {
-      title: "极客公园-只为商业新变量"
-    }
+    return {}
   },
   asyncData ({ store, route }) {
     return store.dispatch('FETCH_HOME', { page })
