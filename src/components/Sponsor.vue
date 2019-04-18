@@ -4,6 +4,7 @@
     .swiper-wrapper
       .swiper-slide(v-for="item, ad_ind in ads", :key="`ad_${position}_${ad_ind}`")
         a(@click="saveClick(item.ad.id)" :href="item.ad.link" target="_blank" data-track-category="ad" :data-track-label="`${position} ${item.ad.title} ${item.ad.link}`")
+          img.exposure_link(v-if="item.ad.exposure_link", :src="item.ad.exposure_link")
           img(:src="item.ad.cover_url")
         i.iconfont.icon-close(@click="closeAd(item.ad.id)" title="不再显示" data-track-category="ad.close" :data-track-label="`${position}`")
           span 不再显示
@@ -91,8 +92,15 @@ export default {
       opacity 1
   .swiper-slide
     position relative
+  .exposure_link
+    position absolute
+    width 1px
+    height 1px
+    left 0
+    top 0
   img
     width 100%
+    position relative
   i
     position absolute
     right 0
