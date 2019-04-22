@@ -33,7 +33,7 @@
     .container
       .article-list
         item(v-for="item in homepage_posts_f", :key="item.post.id", :post="item.post")
-        // topics(v-once)
+        recommend(v-once)
         sponsor(position="web_post", v-once)
         item(v-for="item in homepage_posts", :key="item.post.id", :post="item.post")
         .tac
@@ -58,13 +58,14 @@ import Item from './posts/Item.vue'
 import Newsflash from './posts/Newsflash.vue'
 import Hotnews from './posts/Hotnews.vue'
 import Idlenews from './posts/Idlenews.vue'
+import Recommend from './posts/Recommend.vue'
 import Topics from './posts/Topics.vue'
 import api from 'store/api'
 // import Swiper from 'swiper'
 
 let page = 1
 export default {
-  components: { Subnav, Vapp, Sponsor, Item, Newsflash, Idlenews, Hotnews, Topics },
+  components: { Subnav, Vapp, Sponsor, Item, Newsflash, Idlenews, Hotnews, Topics, Recommend },
   data () {
     return {
       page: page,
