@@ -8,7 +8,7 @@
       .item
         .responsive-imgs
           a.link(href="/topic/291" target="_blank")
-            img(class="img-cover loaded", src="https://imgslim.geekpark.net/uploads/image/file/5a/ef/5aefd7f59bd986ef954b1adb062d89e7.png")
+            img(class="img-cover loaded", src="https://imgslim.geekpark.net/uploads/image/file/85/17/8517bfff3429554695d2e8cba867691d.jpg")
       .item(v-for='item, index in homepage.slider.posts.slice(0,4)', :key='item.id')
         .responsive-imgs
           a.link(@click="saveClick(item)" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
@@ -21,7 +21,7 @@
     el-carousel-item
       a.link(href="/topic/291")
         .img-cover
-          img(src="https://imgslim.geekpark.net/uploads/image/file/f4/78/f47863c80bb25906297abdeaf0099e6f.jpg")
+          img(src="https://imgslim.geekpark.net/uploads/image/file/b3/c7/b3c73f930e102690873e8d91c2ffef6c.jpg")
     el-carousel-item(v-for="item, index in homepage.slider.posts.slice(0,4)" :key="item.id")
       a.link(@click="saveClick(item)" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
         .img-cover
