@@ -5,11 +5,7 @@
     sponsor(position="top_banner")
   .breaking-news(v-if="!isMobile" data-track-category="home.breaking-news" data-track-item=".item a")
     .container
-      .item
-        .responsive-imgs
-          a.link(href="/topic/292" target="_blank")
-            img(class="img-cover loaded", src="https://imgslim.geekpark.net/uploads/image/file/0c/b3/0cb32f685d70d5ffd21c9268b75f7343.jpg")
-      .item(v-for='item, index in homepage.slider.posts.slice(0,4)', :key='item.id')
+      .item(v-for='item, index in homepage.slider.posts.slice(0,5)', :key='item.id')
         .responsive-imgs
           a.link(@click="saveClick(item)" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
             img.exposure_link(v-if="item.exposure_link", :src="item.exposure_link")
@@ -17,13 +13,9 @@
             .info-cover
               h3.multiline-text-overflow(v-if="item.title")
                 span {{item.title}}
-              p.multiline-text-overflow(v-if="index == -1") {{item.abstract}}
+              p.multiline-text-overflow(v-if="index === 0") {{item.abstract}}
   el-carousel#breakding-news-slider(v-else height="180px" :interval="5000" arrow="always" indicator-position="none" data-track-category="home.breaking-news" data-track-item=".item a")
-    el-carousel-item
-      a.link(href="/topic/292")
-        .img-cover
-          img(src="https://imgslim.geekpark.net/uploads/image/file/4a/e8/4ae8f05b6df1b636338573746bcd378d.jpg")
-    el-carousel-item(v-for="item, index in homepage.slider.posts.slice(0,4)" :key="item.id")
+    el-carousel-item(v-for="item, index in homepage.slider.posts.slice(0,5)" :key="item.id")
       a.link(@click="saveClick(item)" :href="item.link || `/news/${item.id}`" :target="$store.state.target" :data-track-title="item.title")
         .img-cover
           img(:srcset="`${item.cover_url}?imageView2/1/w/750/h/360/interlace/1/ 2x`" :src="`${item.cover_url}?imageView2/1/w/375/h/180/interlace/1/`")
@@ -87,8 +79,8 @@ export default {
     homepage () {
       this.homepage_posts_f = this.$store.state.homepage.homepage_posts.slice(0, 3)
       this.homepage_posts = this.$store.state.homepage.homepage_posts.slice(3)
-      if (this.$store.state.ads.post_left) this.$store.state.homepage.slider.posts[2] = this.$store.state.ads.post_left[0].ad
-      if (this.$store.state.ads.post_right) this.$store.state.homepage.slider.posts[3] = this.$store.state.ads.post_right[0].ad
+      if (this.$store.state.ads.post_left) this.$store.state.homepage.slider.posts[3] = this.$store.state.ads.post_left[0].ad
+      if (this.$store.state.ads.post_right) this.$store.state.homepage.slider.posts[4] = this.$store.state.ads.post_right[0].ad
       return this.$store.state.homepage
     }
   },
