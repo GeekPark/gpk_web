@@ -264,6 +264,10 @@
               a.btn.inverse(target="_blank" title="创业家" href="http://www.chuangyejia.com/" rel="nofollow") 创业家
             li
               a.btn.inverse(target="_blank" title="ONES" href="https://ones.ai/" rel="nofollow") ONES
+            li
+              a.btn.inverse(target="_blank" title="猎云网" href="https://www.lieyunwang.com" rel="nofollow") 猎云网
+            li
+              a.btn.inverse(target="_blank" title="投中网" href="https://www.chinaventure.com.cn" rel="nofollow") 投中网
 
         //- 联系方式
         section.page.contact
