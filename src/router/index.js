@@ -36,14 +36,14 @@ export function createRouter () {
         name: 'column',
         component: Column
       },
-      { path: '/breakingnews',
-        name: 'breakingnews',
-        component: Newsflash
-      },
-      { path: '/breakingnews/:id',
-        name: 'detail',
-        component: Detail
-      },
+      // { path: '/breakingnews',
+      //   name: 'breakingnews',
+      //   component: Newsflash
+      // },
+      // { path: '/breakingnews/:id',
+      //   name: 'detail',
+      //   component: Detail
+      // },
       { path: '/topic/:id',
         name: 'topics',
         component: Topics

@@ -35,7 +35,7 @@
             span 加载更多
       .article-sidebar
         sponsor(position="medium_up", v-once)
-        newsflash
+        //- newsflash
         hotnews(v-once)
         idlenews(v-once)
         topics(v-once)
