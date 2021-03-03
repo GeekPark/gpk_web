@@ -27,7 +27,7 @@
     "medium-zoom": "^0.1.7",
     "moment": "^2.18.1",
     "node-fetch": "^1.7.3",
-    "pug": "^2.0.0-rc.4",
+    "pug": "^3.0.1",
     "qrious": "^4.0.2",
     "redis": "^2.8.0",
     "route-cache": "^0.4.3",
