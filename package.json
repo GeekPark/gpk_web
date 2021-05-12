@@ -31,7 +31,7 @@
     "qrious": "^4.0.2",
     "redis": "^2.8.0",
     "route-cache": "^0.4.3",
-    "swiper": "^4.2.2",
+    "swiper": "^6.5.1",
     "vue": "^2.5.2",
     "vue-lazyload": "^1.1.4",
     "vue-router": "^2.8.1",
