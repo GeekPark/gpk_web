@@ -25,7 +25,7 @@
     "express": "^4.15.4",
     "lru-cache": "^4.1.1",
     "medium-zoom": "^0.1.7",
-    "moment": "^2.18.1",
+    "moment": "^2.29.4",
     "node-fetch": "^1.7.3",
     "pug": "^2.0.0-rc.4",
     "qrious": "^4.0.2",
